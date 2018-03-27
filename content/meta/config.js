@@ -1,31 +1,31 @@
 const colors = require("../../src/styles/colors");
 
 module.exports = {
-  homeTitle: "Personal blog",
-  siteTitle: "PersonalBlog - a blog starter for GatsbyJS",
-  shortSiteTitle: "PersonalBlog GatsbyJS Starter",
-  siteDescription: "PersonalBlog is a GatsbyJS starter.",
-  siteUrl: "https://gatsby-starter-personal-blog.greglobinski.com",
+  homeTitle: "XSolve tech-blog",
+  siteTitle: "XSolve tech-blog",
+  shortSiteTitle: "XSolve tech-blog",
+  siteDescription: "XSolve developers blog.",
+  siteUrl: "https://xsolve-tech.xspreview.pl",
   pathPrefix: "",
   siteImage: "preview.jpg",
   siteLanguage: "en",
   // author
-  authorName: "greg lobinski",
-  authorTwitterAccount: "greglobinski",
+  authorName: "XSolve",
+  authorTwitterAccount: "",
   // info
-  infoTitle: "greg lobinski",
-  infoTitleNote: "personal blog",
+  infoTitle: "XS Tech-Blog",
+  infoTitleNote: "XSolve tech-blog",
   // manifest.json
-  manifestName: "PersonalBlog - a blog starter for GatsbyJS",
-  manifestShortName: "PersonalBlog", // max 12 characters
+  manifestName: "XSolve - tech-blog",
+  manifestShortName: "XS-TechBlog", // max 12 characters
   manifestStartUrl: "/",
   manifestBackgroundColor: colors.bg,
   manifestThemeColor: colors.bg,
   manifestDisplay: "standalone",
   // social
   authorSocialLinks: [
-    { name: "github", url: "https://github.com/greglobinski" },
-    { name: "twitter", url: "https://twitter.com/greglobinski" },
-    { name: "facebook", url: "http://facebook.com/greglobinski" }
+    { name: "github", url: "https://github.com/xsolve-pl" },
+    { name: "twitter", url: "" },
+    { name: "facebook", url: "https://www.facebook.com/XSolve/" }
   ]
 };
