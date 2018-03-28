@@ -28,23 +28,12 @@ const InfoMenu = props => {
 
   return (
     <nav className={classes.infoMenu}>
-      {pages.map((page, i) => {
-        const { fields, frontmatter } = page.node;
-        return (
-          <Link
-            key={fields.slug}
-            to={fields.slug}
-            onClick={linkOnClick}
-            className={classes.link}
-            data-shape="closed"
-          >
-            {frontmatter.menuTitle ? frontmatter.menuTitle : frontmatter.title}
-          </Link>
-        );
-      })}
-      <Link to="/contact/" onClick={linkOnClick} className={classes.link} data-shape="closed">
-        Contact
-      </Link>
+        <Link to="/how-to-contribute/" onClick={linkOnClick} className={classes.link} data-shape="closed">
+            How to contribute
+        </Link>
+        <Link to="/" onClick={linkOnClick} className={classes.link} data-shape="closed">
+            Articles
+        </Link>
     </nav>
   );
 };

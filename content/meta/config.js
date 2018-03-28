@@ -1,22 +1,22 @@
 const colors = require("../../src/styles/colors");
 
 module.exports = {
-  homeTitle: "XSolve tech-blog",
+  homeTitle: "Tech-blog",
   siteTitle: "XSolve tech-blog",
   shortSiteTitle: "XSolve tech-blog",
   siteDescription: "XSolve developers blog.",
-  siteUrl: "https://xsolve-tech.xspreview.pl",
+  siteUrl: "https://tech.xsolve.software/",
   pathPrefix: "",
   siteImage: "preview.jpg",
   siteLanguage: "en",
   // author
   authorName: "XSolve",
-  authorTwitterAccount: "",
+  authorTwitterAccount: "XSolve",
   // info
-  infoTitle: "XS Tech-Blog",
-  infoTitleNote: "XSolve tech-blog",
+  infoTitle: "Tech-blog",
+  infoTitleNote: "by XSolve",
   // manifest.json
-  manifestName: "XSolve - tech-blog",
+  manifestName: "XSolve tech-blog",
   manifestShortName: "XS-TechBlog", // max 12 characters
   manifestStartUrl: "/",
   manifestBackgroundColor: colors.bg,
@@ -25,7 +25,7 @@ module.exports = {
   // social
   authorSocialLinks: [
     { name: "github", url: "https://github.com/xsolve-pl" },
-    { name: "twitter", url: "" },
+    { name: "twitter", url: "https://twitter.com/xsolve" },
     { name: "facebook", url: "https://www.facebook.com/XSolve/" }
   ]
 };
