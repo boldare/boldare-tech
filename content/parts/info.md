@@ -2,4 +2,4 @@
 title: info
 ---
 
-<b>Open source</b> development issues.<br>Tips & Tricks from devs for devs. Feel free to contribute.
+Open source development issues.<br>Tips & Tricks from devs for devs. Feel free to contribute.
