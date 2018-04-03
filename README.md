@@ -22,9 +22,9 @@ XSolve-tech/
 ```
 
 1. Create a new folder for the post and name it in pattern as above 📂
-2. Write an article in markdown syntax and save it as index.md ✍️
+2. Write an article in markdown syntax and save it as `index.md` ✍️
 3. Put an image (post avatar) to the created folder 🖼
-4. Add the required tags in a very top of the article 👆:
+4. Add the following required tags in the very top of the article 👆
 
 ```
 ---
