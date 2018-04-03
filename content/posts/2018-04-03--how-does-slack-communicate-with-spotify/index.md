@@ -32,11 +32,11 @@ we're in a normal browser here, so let's launch developer tools!
 After you play Carly Rae Jepsen's _Run Away With Me_, you can notice a couple of entries
 in the network log! Hooray!
 
-![Interesting items in the network log]("connections.png")
+![Interesting items in the network log](./connections.png)
 
 What's the `127.0.0.1:4381` host? Let's take a closer look at one of the requests :)
 
-![More details on the request]("single_request.png")
+![More details on the request](./single_request.png)
 
 As you may have noticed, this request is received by the local Spotify webserver.
 More precisely:
