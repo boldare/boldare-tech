@@ -84,9 +84,11 @@ export default {
      * Style for `` inline code blocks
      */
     "code": {
-      backgroundColor: "rgba(248, 248, 248, .8)",
+      backgroundColor: "rgba(235, 235, 235, .9)",
       borderRadius: ".3em",
-      padding: ".45em .75em"
+      padding: ".25em .45em",
+      wordBreak: "break-word",
+      whiteSpace: "pre-wrap"
     },
 
     /**
