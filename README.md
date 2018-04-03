@@ -1,32 +1,38 @@
-# PersonalBlog starter for Gatsby
+# XSolve-tech blog 📰
 
-[DEMO website](https://gatsby-starter-personal-blog.greglobinski.com/)
+👉 [Go to #xsolve-tech blog](https://tech.xsolve.software/)
 
-More details soon. For now a couple of annotations.
+## About #xsolve-tech
+Open source development issues.
+Tips & Tricks from devs for devs. Feel free to contribute.
 
-The starter is ready to play with. You should to know at least two things.
+## How to contribute
 
-### Packages in beta
+The articles structure:
 
-It uses two packages in beta stage: [gatsby-plugin-algolia](https://github.com/algolia/gatsby-plugin-algolia) and [material-ui-next](https://material-ui-next.com/)
-
-### External services
-
-The starter uses external services for some functions: contact form, comments, searching, analytics. To use them you have to secure some access data. No worries, all services are free or have generous free tiers big enough for a personal blog.
-
-The starter needs an `.env` file like this in the root folder
 
 ```
-GOOGLE_ANALYTICS_ID=...
-ALGOLIA_APP_ID=...
-ALGOLIA_SEARCH_ONLY_API_KEY=...
-ALGOLIA_ADMIN_API_KEY=...
-ALGOLIA_INDEX_NAME=...
-FB_APP_ID=...
+XSolve-tech/
+
+└── content/
+    └── posts/
+        └── YYYY-MM-DD--the-post-title
+            ├─── index.md
+            └─── photo.jpg
 ```
 
-The contact form does not need any settings it should work out of the box if you deploy the website to [Netlify](https://www.netlify.com/)
+1. Create a new folder for the post and name it in pattern as above 📂
+2. Write an article in markdown syntax and save it as `index.md` ✍️
+3. Put an image (post avatar) to the created folder 🖼
+4. Add the following required tags in the very top of the article 👆
 
-### An educational project
+```
+---
+title: Post title
+subTitle: Post subtitle
+category: "category"
+cover: image-name.jpg
+---
+```
 
-This is an educational project. I'm going to write a series of articles describing what, how and why I did. I'm aiming at helping beginners to understand how the code works. So stay tuned. To be in touch follow me at [@greglobinski](https://twitter.com/greglobinski)
+5. Create a pull request to master branch to collaborate on new articles 🙌 
