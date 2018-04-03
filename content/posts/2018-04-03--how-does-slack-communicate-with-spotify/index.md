@@ -25,7 +25,7 @@ That's not what I was looking for!
 Another fellow suggested that it might be useful to play around with Spotify's [play button](https://developer.spotify.com/technologies/widgets/spotify-play-button/),
 which could potentially work similarly as Slack's widget (they indeed look similar).
 
-I've found a demo button [here])https://beta.developer.spotify.com/documentation/widgets/generate/play-button/)
+I've found a demo button [here](https://beta.developer.spotify.com/documentation/widgets/generate/play-button/)
 and verified that it is also able to control the running desktop application! Hey,
 we're in a normal browser here, so let's launch developer tools!
 
