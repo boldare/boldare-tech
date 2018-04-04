@@ -22,8 +22,8 @@ XSolve-tech/
             └─── photo.jpg
 ```
 
-1. Clone [xsolve-pl/xsolve-tech](https://github.com/xsolve-pl/xsolve-tech)
-repository or add/edit a file [directly on GitHub](https://github.com/xsolve-pl/xsolve-tech/new/master/content/posts)
+1. Clone this repository or add/edit a file
+[directly on GitHub](https://github.com/xsolve-pl/xsolve-tech/new/master/content/posts)
 2. Create a new folder for the post and name it using pattern shown above 📂
 3. Write an article in [Markdown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
 syntax and save it as `index.md`, English language is preferred ✍️
