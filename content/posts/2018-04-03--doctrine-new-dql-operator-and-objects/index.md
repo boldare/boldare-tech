@@ -9,13 +9,13 @@ cover: doctrine.png
 
 Sometimes we need to pull data from the database that doesn't translate to an entity.
 For example, we want to obtain an entity and `SUM()` of one of its fields in one query.
-To do that, the most objective-oriented solution is passing the data to a Data Transfer Object.
+Or three different `SUM()`s for statistics. To do that, the most objective-oriented solution
+is passing the data to a Data Transfer Object.
 
 ## Does NEW keyword help?
 
 The `NEW` keyword, available since Doctrine 2.4, unfortunately currently
-allows only scalar values passed to DTO's constructor.
-Example:
+allows only scalar values passed to DTO's constructor. Example:
 
 ```php
 <?php
