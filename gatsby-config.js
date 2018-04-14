@@ -15,6 +15,7 @@ const query = `{
         frontmatter {
           title
           subTitle
+          postAuthor
         }
       }
     }

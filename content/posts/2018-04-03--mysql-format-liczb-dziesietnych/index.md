@@ -3,6 +3,7 @@ title: MySQL
 subTitle: Problem z formatowaniem liczb
 category: "mysql"
 cover: mysql.png
+postAuthor: Łukasz Mitusiński
 ---
 
 Męczyłem się dość długo z zapytaniem do bazy w MySQL gdzie trzymamy sobie ceny (np 10$ to 1000 - przyp. centów - ponieważ mogą być ceny typu $10.50).
