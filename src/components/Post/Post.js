@@ -26,7 +26,7 @@ const Post = props => {
 
 Post.propTypes = {
   post: PropTypes.object.isRequired,
-  author2: PropTypes.object.isRequired,
+  postauthor: PropTypes.object.isRequired,
   slug: PropTypes.string.isRequired
 };
 
