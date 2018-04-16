@@ -1,15 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Main from "../components/Main/";
-import { connect } from "react-redux";
-require("core-js/fn/array/find");
-require("prismjs/themes/prism-okaidia.css");
-
-import { setNavigatorPosition, setNavigatorShape } from "../state/store";
-import { moveNavigatorAside } from "../utils/shared";
+import {connect} from "react-redux";
+import {setNavigatorPosition, setNavigatorShape} from "../state/store";
+import {moveNavigatorAside} from "../utils/shared";
 import Post from "../components/Post/";
 import Footer from "../components/Footer/";
 import Seo from "../components/Seo";
+
+require("core-js/fn/array/find");
+require("prismjs/themes/prism-okaidia.css");
 
 class PostTemplate extends React.Component {
   moveNavigatorAside = moveNavigatorAside.bind(this);
@@ -69,6 +69,7 @@ export const postQuery = graphql`
       frontmatter {
         title
         subTitle
+        postAuthor
         cover {
           childImageSharp {
             resize(width: 300) {

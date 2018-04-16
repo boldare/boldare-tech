@@ -3,6 +3,7 @@ title: Travis
 subTitle: Problematyczny Python i Node
 category: "travis"
 cover: photo-1490474418585-ba9bad8fd0ea-cover.jpg
+postAuthor: Krzysztof Miemiec
 ---
 
 Projekt z language: node_js, ale wymagał też aws-cli (do odświeżania CloudFronta). Buildy sypały się losowo, bo dostępny był tylko “najświeższy” Python dla Ubuntu Trusty, czyli 2.7.6, któremu najwyraźniej brakowało jakichś rzeczy związanych z SSL.

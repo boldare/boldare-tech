@@ -3,6 +3,7 @@ title: Is MySQL's auto_increment really monotonic?
 subTitle: Why you shouldn't rely on auto_increment feature in some cases.
 cover: mysql.png
 category: "mysql"
+postAuthor: Maciek Papież
 ---
 
 TL;DR: If a race condition between two MySQL transactions appears, the row
