@@ -3,6 +3,7 @@ title: Async/await in express routing
 subTitle: How to do it?
 category: "Express"
 cover: express.png
+postAuthor: Dawid Rożenek
 ---
 
 ## Issue
