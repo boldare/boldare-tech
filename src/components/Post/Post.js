@@ -11,12 +11,13 @@ const Post = props => {
   const frontmatter = (post || {}).frontmatter;
   const title = ((post || {}).frontmatter || {}).title;
   const subTitle = ((post || {}).frontmatter || {}).subTitle;
+  const postauthor = ((post || {}).frontmatter || {}).postAuthor;
   const date = ((post || {}).fields || {}).prefix;
   const html = (post || {}).html;
 
   return (
     <Article>
-      <PostHeader title={title} subTitle={subTitle} date={date} />
+      <PostHeader title={title} subTitle={subTitle} date={date} postauthor={postauthor} />
       <Content html={html} />
       <PostFooter author={author} post={post} slug={slug} />
     </Article>
@@ -25,7 +26,7 @@ const Post = props => {
 
 Post.propTypes = {
   post: PropTypes.object.isRequired,
-  author: PropTypes.object.isRequired,
+  postauthor: PropTypes.object.isRequired,
   slug: PropTypes.string.isRequired
 };
 

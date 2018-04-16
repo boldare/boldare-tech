@@ -3,6 +3,7 @@ title: GIT
 subTitle: Przywrócenie usuniętego brancha
 category: "git"
 cover: xsolve.jpg
+postAuthor: Łukasz Mitusiński
 ---
 
 Jak niechcący usuniemy brancha, ze zmianami z całego dnia:

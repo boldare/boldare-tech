@@ -36,6 +36,7 @@ title: Post title - describe the solution concisely, but informatively
 subTitle: Post subtitle
 category: "category"
 cover: post-avatar.jpg
+postAuthor: Your Name
 ---
 ```
 

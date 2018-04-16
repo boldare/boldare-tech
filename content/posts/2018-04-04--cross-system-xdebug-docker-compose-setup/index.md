@@ -3,6 +3,7 @@ title: Cross-system XDebug Docker setup
 subTitle: Docker Compose example
 category: "docker"
 cover: docker.png
+postAuthor: Przemek Pawlas
 ---
 
 ## Issue
