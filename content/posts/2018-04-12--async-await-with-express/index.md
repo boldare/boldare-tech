@@ -60,5 +60,5 @@ If any of `await` statements returns us a rejected promise, then it will go into
 
 ## What are the advantages?
 
-1. Of course, this is syntatic sugar. We can write asynchronous code which looks like synchronous.
+1. Of course, this is syntactic sugar. We can write asynchronous code which looks like synchronous.
 2. In our asyncMiddleware, we can handle all errors from our routes callbacks async functions and move them to some error middleware with `next`.
