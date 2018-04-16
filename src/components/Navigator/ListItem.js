@@ -165,7 +165,7 @@ class ListItem extends React.Component {
           <div className={classes.listItemText}>
             <h1>{post.node.frontmatter.title}</h1>
             {post.node.frontmatter.subTitle && <h2>{post.node.frontmatter.subTitle}</h2>}
-            <h3>{post.node.frontmatter.postAuthor}</h3>
+            {post.node.frontmatter.postAuthor && <h3>{post.node.frontmatter.postAuthor}</h3>}
           </div>
         </Link>
       </li>
