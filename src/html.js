@@ -22,6 +22,7 @@ module.exports = class HTML extends React.Component {
           <meta charSet="utf-8" />
           <meta httpEquiv="x-ua-compatible" content="ie=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <meta name="google-site-verification" content="uuR2oHP9vAD7YFf5EWvHMYgH_6D3ZeB5D5ku_oThbYM" />
           {this.props.headComponents}
           {css}
           <meta name="apple-mobile-web-app-capable" content="yes" />
