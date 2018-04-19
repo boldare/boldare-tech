@@ -609,10 +609,10 @@ export default createStore(reducer, middleware);
 Now our state structure changed
 
 State before:
-![Redux logger](./redux-state-before.png)
+![Redux logger](./redux_state_before.png)
 
 State after:
-![Redux logger](./redux-state-after.png)
+![Redux logger](./redux_state_after.png)
 
 Our simple state changed
 That's why we need to modify a `counter reducer` and `<Counter />` component a little bit.
@@ -864,3 +864,7 @@ This is it!
 We have a data fetching handled with Redux and redux-thunk.
 
 ![Redux data fetching](./redux_data_fetching.png)
+
+Code here:
+
+https://bitbucket.org/michalrozenek/redux-tutorial/src/aaa5e6bf7548ea50fb6448100216b6a2840f10b8/src?at=lesson-07
