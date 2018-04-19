@@ -377,6 +377,7 @@ const mapStateToProps = state => {
 export default connect(mapStateToProps)(Counter);
 
 ```
+After that we have counter state available in `this.props.counter`
 
 Now we want to be able to use a `dispatch` method from `store` inside a Counter component, so we need to use `mapDispatchToProps`, and pass it as a second argument to `connect` method.
 
@@ -400,7 +401,7 @@ const mapDispatchToProps = dispatch => {
 export default connect(mapStateToProps, mapDispatchToProps)(Counter);
 ```
 
-Thole Counter component looks like this
+Whole Counter component looks like this
 
 ```js
 import React, { Component } from 'react';
@@ -465,7 +466,7 @@ const middleware = applyMiddleware(createLogger());
 export default createStore(counterReducer, middleware);
 ```
 As you can see above, our `createStore` method need a reducer.
-We could copy a reducer to new `reducer.js` file.
+We could copy a reducer from main `index.js` to new `store/reducer.js` file.
 
 ```js
 const initialState = {
@@ -492,11 +493,11 @@ const counterReducer = (state = initialState, action) => {
 export default counterReducer;
 ```
 
-We moved a `store` and `reducer` to the `store` folder and `Counter` component to the `Counter.js` file.
+We moved a `store` and `reducer` into the `store` folder and `Counter` component into the `Counter.js` file.
 
 Now we want to import a `Provider` and wrap a <Counter /> into it.
 Provider makes the Redux store available to the connect() calls in the component hierarchy below.
-We passed a store as an argument for a Provider.
+We need to pass a store as an argument for a Provider.
 
 After changes our main index.js should looks like this:
 
@@ -522,3 +523,336 @@ ReactDOM.render(<App />, document.getElementById('root'));
 
 Congratulations! We finished this chapter!
 All files available here: https://bitbucket.org/michalrozenek/redux-tutorial/src/573143833d2671f342cb400a47daa2b18a816fb5/src?at=lesson-04
+
+## Multiple reducers - combineReducers method
+
+To allow us using multiple reducers we have available `combineReducers` method from `redux` library.
+In the next chapter we want to fetch some data, and now we will create a data reducer for it.
+At moment it will be a simple reducer without any http request - we will do it later.
+
+We want to crate a `reducers` folder inside of a `store`, then change `reducer.js` file to `reducers/counter.js`.
+Now we can create a simple `reducers.data.js`
+
+```js
+const initialState = {
+  featching: false,
+  featched: false,
+  articles: {},
+  error: ''
+}
+
+const dataReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case 'DATA_FETCHING':
+      return {
+        ...state,
+        featching: true
+      };
+    case 'DATA_FETCHED':
+      return {
+        ...state,
+        featching: false,
+        featched: true,
+        articles: action.payload,
+        error: ''
+      };
+    case 'DATA_ERROR':
+      return {
+        ...state,
+        featching: false,
+        fetched: false,
+        error: action.payload
+      }
+    default:
+      return state;
+  }
+}
+
+export default dataReducer;
+```
+
+Next step is a combining those reducers.
+I prepared `reducers/index.js` file includes `combineReducers` method.
+
+```js
+/// Import combineReducers method and all reducers to combine
+import { combineReducers } from 'redux';
+import counterReducer from './counter';
+import dataReducer from './data';
+
+// Use combineReducers method
+const reducer = combineReducers({
+  counter: counterReducer,
+  data: dataReducer
+});
+
+export default reducer;
+```
+Last step we need to do is naming change in `store/index.js` file
+
+```js
+import reducer from './reducers'
+```
+
+```js
+export default createStore(reducer, middleware);
+```
+
+Now our state structure changed
+
+State before:
+![Redux logger](./redux-state-before.png)
+
+State after:
+![Redux logger](./redux-state-after.png)
+
+Our simple state changed
+That's why we need to modify a `reducer` and `<Counter />` component a little bit.
+
+In `reducers/counter.js` file change counter to result for better naming:
+
+```js
+const initialState = {
+  result: 0
+}
+```
+
+```js
+return {
+  ...state,
+  result: state.result + 1
+};
+```
+
+In `Counter.js` we have a `this.props.counter` as an object now, so if we want to render `result` value, we need to modify our code to:
+
+```js
+  <h1>{`Result: ${this.props.counter.result}`}</h1>
+```
+
+## Fetching data and redux-thunk middleware
+
+To dispatch an asynchronous actions you will need a redux-thunk, which
+basicaly is a function that wraps an expression to delay its evaluation.
+
+```
+npm install --save redux-thunk
+```
+
+Go to `store/index.js`
+
+and import redux-thunk
+
+```js
+import thunk from 'redux-thunk';
+```
+
+then modify the middleware
+
+```js
+const middleware = applyMiddleware(createLogger(), thunk);
+```
+
+Ok! Thunk middleware is implemented.
+
+For fetching data I chose an axios - Promise based HTTP client for the browser and node.js
+
+```
+npm install --save axios
+```
+
+In this chapter I want to:
+
+- Move `types` to separated file
+- Create an `actions` to separated file
+- Update `reducers/data.js`
+
+Open `store` directory and create `types/index.js` file
+I prepared 3 constatns for using in reducer and actions.
+
+```js
+export const DATA_FETCHING = 'DATA_FETCHING';
+export const DATA_FETCHED = 'DATA_FETCHED';
+export const DATA_ERROR = 'DATA_ERROR';
+```
+
+Now we can update `reducers/data.js` by puting variables instead of strings.
+
+```js
+import { DATA_FETCHING, DATA_FETCHED, DATA_ERROR } from '../types';
+```
+
+```
+case DATA_FETCHING
+```
+
+instead of
+
+```
+case 'DATA_FETCHING'
+```
+
+### How to prepare an action for data fetching
+
+Create an action directory and dataAction.js `action/dataAction.js`
+Import Axios and types we want to use.
+
+```js
+  import axios from 'axios';
+  import { DATA_FETCHING, DATA_FETCHED, DATA_ERROR } from '../types'
+```
+
+Then we can create first action.
+During fetching data we want to modify some UI elements, that's why we want to know when an application started fetching data.
+
+```js
+export const fetchData = () => {
+  return dispatch => {
+    dispatch({
+      type: DATA_FETCHING,
+    })
+  }
+};
+```
+
+We just updated an application state.
+Now we could add some data fetching code inside `fetchData` action.
+
+```js
+return axios.get('https://jsonplaceholder.typicode.com/posts') // Example API here
+  .then((res) => {
+    if (res.status === 200) {
+      // Here is fetching success. We can pass a res.data as a payload value
+      dispatch({
+        type: DATA_FETCHED,
+        payload: res.data
+      })
+    }
+  })
+  .catch((error) => {
+    // If we catch some error, we could dispatch an error
+    dispatch({
+      type: DATA_ERROR,
+      payload: error.response.data
+    })
+  })
+```
+
+Whole `dataAction.js` looks like this
+
+```js
+import axios from 'axios';
+import { DATA_FETCHING, DATA_FETCHED, DATA_ERROR } from '../types'
+
+export const fetchData = () => {
+  return dispatch => {
+    dispatch({
+      type: DATA_FETCHING,
+    })
+
+    return axios.get('https://jsonplaceholder.typicode.com/posts')
+    .then((res) => {
+      if (res.status === 200) {
+        dispatch({
+          type: DATA_FETCHED,
+          payload: res.data
+        })
+      }
+    })
+    .catch((error) => {
+      dispatch({
+        type: DATA_ERROR,
+        payload: error.response.data
+      })
+    })
+  }
+};
+```
+
+Remember that above action is updating a `state.data`.
+Your data reducer is responsible for state output.
+
+We have a ready to use actions. Now we can implement it in some Component.
+There are many posibilities to do it.
+
+You can fire fetchData action in `componentDidMount` lifecycle method, or maybe by `onClick` method.
+
+For this article I prepared a simple `<Data />` component.
+
+```js
+import React, { Component } from 'react';
+
+class Data extends Component {
+
+  render() {
+    // Create articles constants for fetched articles data using ES6 destructuring
+    const { articles } = this.props.data;
+
+    return (
+      <div>
+        { /* Fetching data action invokes by clicking a button */ }
+        <button onClick={() => this.props.fetchData()}>
+          Fetch data
+        </button>
+        <ul>
+        {
+          // Map method on fetched articles
+          Object.keys(articles).map((item) => {
+            return (
+              // Render li elements
+              <li key={articles[item].id}>
+                {articles[item].title}
+              </li>
+            )
+          })
+        }
+        </ul>
+      </div>
+    )
+  }
+}
+```
+
+Then I imported `connect` and `fetchData` action.
+
+```js
+import { connect } from 'react-redux';
+import { fetchData } from './store/actions/dataAction';
+```
+
+Finally I passed state and dispatch actions to props, and connected it with our store.
+
+```js
+const mapStateToProps = state => {
+  return {
+    data: state.data,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchData: () => {
+      dispatch(fetchData())
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Data);
+```
+
+Last thing to do is a render `<Data />` component.
+Go to main `index.js` file, import `Data` component and put in into `render()` method.
+
+```js
+<Provider store={store}>
+  <div>
+    <Counter />
+    <Data />
+  </div>
+</Provider>
+```
+
+This is it!
+We have a data fetching chandled with Redux and redux-thunk.
+
+![Redux logger](./redux-data-fetching.png)
