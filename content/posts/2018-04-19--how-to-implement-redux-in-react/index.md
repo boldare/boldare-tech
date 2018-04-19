@@ -614,8 +614,7 @@ State before:
 State after:
 ![Redux logger](./redux_state_after.png)
 
-Our simple state changed
-That's why we need to modify a `counter reducer` and `<Counter />` component a little bit.
+Our simple state changed, so we need to modify a `counter reducer` and `<Counter />` component a little bit.
 
 In `reducers/counter.js` file change `counter` to `result` for better naming:
 
