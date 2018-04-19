@@ -1,6 +1,6 @@
 ---
 title: How to implement Redux in React
-subTitle: How to do it?
+subTitle: What is Redux and how we can combine it with our application?
 category: "Redux"
 cover: redux.png
 postAuthor: Michał Rożenek
@@ -855,4 +855,4 @@ Go to main `index.js` file, import `Data` component and put in into `render()` m
 This is it!
 We have a data fetching chandled with Redux and redux-thunk.
 
-![Redux logger](./redux-data-fetching.png)
+![Redux data fetching](./redux_data_fetching.png)
