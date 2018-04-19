@@ -279,3 +279,246 @@ rootRender();
 
 Now you can modify your application state from UI.
 Whole code is here https://bitbucket.org/michalrozenek/redux-tutorial/src/4cf6bd490fe5c3f75e6d3fb0d3f0639e369b6d16/src/index.js?at=lesson-02&fileviewer=file-view-default
+
+## Redux middleware and logger
+
+Redux allow you to use a `middlewares`.
+In this chapter we want to use a `logger` middleware.
+Below in this tutorial we will also use a `redux-thunk` middleware to chandle async functions.
+
+First of all we need to install our logger
+
+```js
+npm i redux-logger --save-dev
+```
+
+Now we need to import an `applyMiddleware` method
+
+```js
+import { createStore, applyMiddleware } from 'redux';
+```
+
+When applyMiddleware method is available, we can create a middleware
+
+```js
+const middleware = applyMiddleware(createLogger());
+```
+
+The last step we need to do to enjoy a logger is adding it as a second argument into `createStore` function.
+
+```js
+const store = createStore(reducer, middleware);
+```
+
+Done !
+Your logger should looks like this
+
+![Redux logger](./redux-logger.png)
+
+Whole chapter code is here https://bitbucket.org/michalrozenek/redux-tutorial/src/f30faa2b6b883520c7e62646cf1857ff2ca13c7f/src/index.js?at=lesson-03&fileviewer=file-view-default
+
+## Dividing Redux Store to separated files, Connect() method and a Provider.
+
+In this chapter we are going to clean up our application.
+We want to:
+- move the Counter to the separated component
+- move reducer and store to the separated files
+- Use a Provider from `react-redux` to pass the store down to the components inside Provider.
+- Use the `connect` method from `react-redux` to connect the Counter component with a store.
+
+First of all we want to install dependencies
+
+```
+npm i react-redux --save-dev
+```
+
+Now we want to create a Counter component.
+
+```js
+import React, { Component } from 'react';
+
+class Counter extends Component {
+
+  render() {
+    return (
+      <div>
+        <button onClick={() => this.props.increase()}>
+          +
+        </button>
+  
+        <button onClick={() => this.props.decrease()}>
+        -
+        </button>
+        <h1>{`Result: ${this.props.counter}`}</h1>
+      </div>
+    )
+  }
+}
+
+export default Counter;
+
+```
+
+To allow `Counter` component connect to store, we need to import `connect` method
+
+```js
+import { connect } from 'react-redux';
+```
+
+To give us possibility to read a state, we need to pass state to props, and use `connect` method.
+
+```js
+const mapStateToProps = state => {
+  return {
+    counter: state.counter,
+  }
+}
+
+export default connect(mapStateToProps)(Counter);
+
+```
+
+Now we want to be able to use a `dispatch` method from `store` inside a Counter component, so we need to use `mapDispatchToProps`, and pass it as a second argument to `connect` method.
+
+```js
+const mapDispatchToProps = dispatch => {
+  return {
+    increase: () => {
+      dispatch({
+        type: 'INCREASE'
+      })
+    },
+
+    decrease: () => {
+      dispatch({
+        type: 'DECREASE'
+      })
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Counter);
+```
+
+Thole Counter component looks like this
+
+```js
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+class Counter extends Component {
+
+  render() {
+    return (
+      <div>
+        <button onClick={() => this.props.increase()}>
+          +
+        </button>
+  
+        <button onClick={() => this.props.decrease()}>
+        -
+        </button>
+        <h1>{`Result: ${this.props.counter}`}</h1>
+      </div>
+    )
+  }
+}
+
+const mapStateToProps = state => {
+  return {
+    counter: state.counter,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    increase: () => {
+      dispatch({
+        type: 'INCREASE'
+      })
+    },
+
+    decrease: () => {
+      dispatch({
+        type: 'DECREASE'
+      })
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Counter);
+```
+
+Ok, great!
+We have a Counter component ready to use.
+Now we need to create a `store` and `reducer` by copying from main index.js file.
+
+We could create a `store` folder and `index.js` file inside of it.
+
+```js
+import { createStore, applyMiddleware } from 'redux';
+import { createLogger } from 'redux-logger';
+import counterReducer from './reducer'
+
+const middleware = applyMiddleware(createLogger());
+
+export default createStore(counterReducer, middleware);
+```
+As you can see above, our `createStore` method need a reducer.
+We could copy a reducer to new `reducer.js` file.
+
+```js
+const initialState = {
+  counter: 0
+}
+
+const counterReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case 'INCREASE':
+      return {
+        ...state,
+        counter: state.counter + 1
+      };
+    case 'DECREASE':
+      return {
+        ...state,
+        counter: state.counter - 1
+      };
+    default:
+      return state;
+  }
+}
+
+export default counterReducer;
+```
+
+We moved a `store` and `reducer` to the `store` folder and `Counter` component to the `Counter.js` file.
+
+Now we want to import a `Provider` and wrap a <Counter /> into it.
+Provider makes the Redux store available to the connect() calls in the component hierarchy below.
+We passed a store as an argument for a Provider.
+
+After changes our main index.js should looks like this:
+
+```js
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import store from './store';
+import Counter from './Counter';
+
+class App extends Component {
+  render() {
+    return (
+      <Provider store={store}>
+        <Counter />
+      </Provider>
+    )
+  }
+}
+
+ReactDOM.render(<App />, document.getElementById('root'));
+```
+
+Congratulations! We finished this chapter!
+All files available here: https://bitbucket.org/michalrozenek/redux-tutorial/src/573143833d2671f342cb400a47daa2b18a816fb5/src?at=lesson-04
