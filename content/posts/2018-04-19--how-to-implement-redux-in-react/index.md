@@ -533,12 +533,12 @@ All files available here: https://bitbucket.org/michalrozenek/redux-tutorial/src
 
 ## Multiple reducers - combineReducers method
 
-To allow us using multiple reducers we have available `combineReducers` method from `redux` library.
+To combine reducers, we could use `combineReducers` method from `redux` library.
 In the next chapter we want to fetch some data, and now we will create a data reducer for it.
 At moment it will be a simple reducer without any http request - we will do it later.
 
-We want to crate a `reducers` folder inside of a `store`, then change `reducer.js` file to `reducers/counter.js`.
-Now we can create a simple `reducers.data.js`
+We want to crate a `reducers` folder inside of a `store`, then move and rename `reducer.js` file to `reducers/counter.js`.
+Now we can create a second reducer - `reducers/data.js`
 
 ```js
 const initialState = {
@@ -593,9 +593,10 @@ const reducer = combineReducers({
   data: dataReducer
 });
 
+// Export combined reducers
 export default reducer;
 ```
-Last step we need to do is naming change in `store/index.js` file
+Last step we need to do is naming changes in `store/index.js` file
 
 ```js
 import reducer from './reducers'
@@ -614,9 +615,9 @@ State after:
 ![Redux logger](./redux-state-after.png)
 
 Our simple state changed
-That's why we need to modify a `reducer` and `<Counter />` component a little bit.
+That's why we need to modify a `counter reducer` and `<Counter />` component a little bit.
 
-In `reducers/counter.js` file change counter to result for better naming:
+In `reducers/counter.js` file change `counter` to `result` for better naming:
 
 ```js
 const initialState = {
@@ -639,7 +640,7 @@ In `Counter.js` we have a `this.props.counter` as an object now, so if we want t
 
 ## Fetching data and redux-thunk middleware
 
-To dispatch an asynchronous actions you will need a redux-thunk, which
+To `dispatch` an `asynchronous actions` you will need a `redux-thunk`, which
 basicaly is a function that wraps an expression to delay its evaluation.
 
 ```
@@ -662,7 +663,7 @@ const middleware = applyMiddleware(createLogger(), thunk);
 
 Ok! Thunk middleware is implemented.
 
-For fetching data I chose an axios - Promise based HTTP client for the browser and node.js
+For fetching data I chose an `axios` - Promise based HTTP client for the browser and node.js
 
 ```
 npm install --save axios
@@ -702,14 +703,14 @@ case 'DATA_FETCHING'
 ### How to prepare an action for data fetching
 
 Create an action directory and dataAction.js `action/dataAction.js`
-Import Axios and types we want to use.
+Import axios and types we want to use.
 
 ```js
   import axios from 'axios';
   import { DATA_FETCHING, DATA_FETCHED, DATA_ERROR } from '../types'
 ```
 
-Then we can create first action.
+Then we can create first `action`.
 During fetching data we want to modify some UI elements, that's why we want to know when an application started fetching data.
 
 ```js
@@ -776,13 +777,13 @@ export const fetchData = () => {
 };
 ```
 
-Remember that above action is updating a `state.data`.
-Your data reducer is responsible for state output.
+Invoke above action will update a `state.data`.
+Your data reducer is responsible for state.data output.
 
 We have a ready to use actions. Now we can implement it in some Component.
 There are many posibilities to do it.
 
-You can fire fetchData action in `componentDidMount` lifecycle method, or maybe by `onClick` method.
+You can invoke fetchData action in `componentDidMount` lifecycle method, or maybe by `onClick` method.
 
 For this article I prepared a simple `<Data />` component.
 
@@ -802,7 +803,7 @@ class Data extends Component {
           Fetch data
         </button>
         <ul>
-        {
+        { articles &&
           // Map method on fetched articles
           Object.keys(articles).map((item) => {
             return (
