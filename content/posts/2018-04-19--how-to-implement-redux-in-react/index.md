@@ -25,7 +25,8 @@ Action minimum requirement is a `TYPE` property. Actions could receive some argu
 ## Reducer
 
 The state mutations in your app need to be pure functions.
-Reducer receive initial state, previos state and action, then state don't modify the previous state, just return a new object.
+Reducer receive initial state, previos state and action.
+Reducer don't modify the previous state, just return a new object.
 
 ## Store
 
@@ -33,8 +34,11 @@ Reducer receive initial state, previos state and action, then state don't modify
 During creating a store, you need to provide a `reducer` as a parameter to let the store know what and how you want to update.
 
 ### Store methods:
+
 `getState` - return current state
+
 `dispatch` - let you dispatch actions
+
 `subscribe` - let you subscribe on store changes and register a callback
 
 Store shouldn't be mutated!
@@ -46,14 +50,14 @@ To avoild an Object mutations, you can use those methods:
 return {
   ...state,
   counter: state.counter + 1
-};
+}
 ```
 
 - Object assign:
 
 ```js
 return Object.assign({}, state, {
-	counter: state.counter++
+  counter: state.counter + 1
 }
 ```
 
@@ -79,12 +83,12 @@ Now we want to install Redux
 ## Redux installation
 
 ```
-npm i react-redux redux --save-dev.
+npm i react-redux redux --save.
 ```
 
 Redux is installed, so we can try to create our Redux store.
 Please open react app folder in your IDE, go to `src`.
-For this course I removed unnecessary files.
+For this article I removed unnecessary files.
 You can also remove all from `src` besides index.js.
 
 ## Create our first Redux Store
@@ -96,7 +100,7 @@ First of all, we need to import `createStore` method
 import { createStore } from 'redux';
 ```
 
-To create a store, you need to call `createStore` method, passing reducer as an argument
+To create a store, you need to call `createStore` method, and pass a reducer as an argument
 
 ```js
 const store = createStore(reducer);
@@ -107,6 +111,7 @@ In this case it is a simple counter reducer
 
 ```js
 const reducer = (state = initialState, action) => {
+  // Reducer changes state depends on action.type we are dispatching
   switch (action.type) {
     case 'INCREASE':
       return {
@@ -134,7 +139,7 @@ const initialState = {
 ```
 
 Ok, we have almost all.
-No we want to dispatch an action to change our application state
+Now we want to dispatch an action to change our application state
 
 ```js
 store.dispatch({
@@ -159,8 +164,8 @@ store.subscribe(() => {
 })
 ```
 
-Great! Now we have a working redux store.
-All index.js file should looks like this
+Great! Now we have a working redux store. Check a console in your browser to see a state changes.
+Whole `index.js` file should looks like this
 
 ```js
 import React, { Component } from 'react';
@@ -219,7 +224,7 @@ ReactDOM.render(<App />, document.getElementById('root'));
 
 ## Modify the store from UI
 
-To achieve store modification from the UI, we need to prepare a buttons in `App` component
+To achieve store modification from the UI, we could prepare a buttons in `App` component
 
 ```js
 class App extends Component {
@@ -241,7 +246,7 @@ class App extends Component {
 }
 ```
 
-In out app component we are using increase and decrease functions. Let's prepare those functions.
+In our `<App />` component we are using `increase` and `decrease` functions. Let's prepare those functions.
 
 ```js
 const increase = () => {
@@ -257,12 +262,12 @@ const decrease = () => {
 }
 ```
 
-Functions above are dispatching an actions.
+Functions above are dispatching actions.
 
 Last thing we need to do is a re-render an `<App />` component when state changed.
-In this case we can use `subscribe` method on `store` object, then as a callback use
+In this case we can use `subscribe` method on `store` object, then as a callback we can use
 ```
-ReactDOM.render
+ReactDOM.render() method
 ```
 
 ```js
@@ -282,9 +287,9 @@ Whole code is here https://bitbucket.org/michalrozenek/redux-tutorial/src/4cf6bd
 
 ## Redux middleware and logger
 
-Redux allow you to use a `middlewares`.
+Redux allows you to use `middlewares`.
 In this chapter we want to use a `logger` middleware.
-Below in this tutorial we will also use a `redux-thunk` middleware to chandle async functions.
+Below in this tutorial we will also use a `redux-thunk` middleware to handle async functions.
 
 First of all we need to install our logger
 
@@ -296,9 +301,10 @@ Now we need to import an `applyMiddleware` method
 
 ```js
 import { createStore, applyMiddleware } from 'redux';
+import { createLogger } from 'redux-logger';
 ```
 
-When applyMiddleware method is available, we can create a middleware
+When `applyMiddleware` method is available, we can create a middleware
 
 ```js
 const middleware = applyMiddleware(createLogger());
@@ -323,13 +329,13 @@ In this chapter we are going to clean up our application.
 We want to:
 - move the Counter to the separated component
 - move reducer and store to the separated files
-- Use a Provider from `react-redux` to pass the store down to the components inside Provider.
-- Use the `connect` method from `react-redux` to connect the Counter component with a store.
+- Use a Provider from `react-redux` to pass the store down into the components inside of Provider.
+- Use the `connect()` method from `react-redux` to connect the `<Counter />` component with a store.
 
 First of all we want to install dependencies
 
 ```
-npm i react-redux --save-dev
+npm i react-redux --save
 ```
 
 Now we want to create a Counter component.
@@ -365,7 +371,7 @@ To allow `Counter` component connect to store, we need to import `connect` metho
 import { connect } from 'react-redux';
 ```
 
-To give us possibility to read a state, we need to pass state to props, and use `connect` method.
+To give us possibility to read a state, we need to pass the redux state to props (`mapStateToProps`), and use `connect()` method.
 
 ```js
 const mapStateToProps = state => {
@@ -379,7 +385,7 @@ export default connect(mapStateToProps)(Counter);
 ```
 After that we have counter state available in `this.props.counter`
 
-Now we want to be able to use a `dispatch` method from `store` inside a Counter component, so we need to use `mapDispatchToProps`, and pass it as a second argument to `connect` method.
+Now we want to be able to use a `dispatch` method from `store` inside a `<Counter />` component, so we need to use `mapDispatchToProps`, and pass it as a second argument to `connect()` method.
 
 ```js
 const mapDispatchToProps = dispatch => {
@@ -401,7 +407,7 @@ const mapDispatchToProps = dispatch => {
 export default connect(mapStateToProps, mapDispatchToProps)(Counter);
 ```
 
-Whole Counter component looks like this
+Whole `<Counter />` component looks like this
 
 ```js
 import React, { Component } from 'react';
@@ -452,7 +458,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(Counter);
 
 Ok, great!
 We have a Counter component ready to use.
-Now we need to create a `store` and `reducer` by copying from main index.js file.
+Now we need to create a `store` and `reducer` by copying from main `index.js` file.
 
 We could create a `store` folder and `index.js` file inside of it.
 
@@ -465,6 +471,7 @@ const middleware = applyMiddleware(createLogger());
 
 export default createStore(counterReducer, middleware);
 ```
+
 As you can see above, our `createStore` method need a reducer.
 We could copy a reducer from main `index.js` to new `store/reducer.js` file.
 
@@ -496,10 +503,10 @@ export default counterReducer;
 We moved a `store` and `reducer` into the `store` folder and `Counter` component into the `Counter.js` file.
 
 Now we want to import a `Provider` and wrap a <Counter /> into it.
-Provider makes the Redux store available to the connect() calls in the component hierarchy below.
+`Provider` makes the `Redux store` available to the `connect()` calls in the component hierarchy below.
 We need to pass a store as an argument for a Provider.
 
-After changes our main index.js should looks like this:
+After changes, our main `index.js` should looks like this:
 
 ```js
 import React, { Component } from 'react';
@@ -853,6 +860,6 @@ Go to main `index.js` file, import `Data` component and put in into `render()` m
 ```
 
 This is it!
-We have a data fetching chandled with Redux and redux-thunk.
+We have a data fetching handled with Redux and redux-thunk.
 
 ![Redux data fetching](./redux_data_fetching.png)
