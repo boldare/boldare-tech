@@ -251,6 +251,8 @@ class App extends Component {
 ReactDOM.render(<App />, document.getElementById('root'));
 ```
 
+[Chapter code here](https://bitbucket.org/michalrozenek/redux-tutorial/src/9c69705bf901b0779a55957dd8b3ed3e856e5453/src/?at=lesson-01)
+
 ## Chapter 2 - Modify the store from UI
 
 To modify the `store` from the `UI`, we will add some buttons in the `App component`.
@@ -312,7 +314,7 @@ rootRender();
 ```
 
 Now you can modify your application state from the `UI`.
-The whole code is [here](https://bitbucket.org/michalrozenek/redux-tutorial/src/4cf6bd490fe5c3f75e6d3fb0d3f0639e369b6d16/src/index.js?at=lesson-02&fileviewer=file-view-default)
+Chapter code is [here](https://bitbucket.org/michalrozenek/redux-tutorial/src/4cf6bd490fe5c3f75e6d3fb0d3f0639e369b6d16/src?at=lesson-02)
 
 ## Chapter 3 - Redux middleware and logger
 
@@ -350,7 +352,8 @@ Your logger should look like this
 
 ![Redux logger](./redux-logger.png)
 
-The whole chapter code is [here](https://bitbucket.org/michalrozenek/redux-tutorial/src/f30faa2b6b883520c7e62646cf1857ff2ca13c7f/src/index.js?at=lesson-03&fileviewer=file-view-default)
+Chapter code is [here](https://bitbucket.org/michalrozenek/redux-tutorial/src/f30faa2b6b883520c7e62646cf1857ff2ca13c7f/src?at=lesson-03)
+
 
 ## Chapter 4 - Dividing Redux Store to separate files, Connect(), Provider.
 
@@ -557,7 +560,7 @@ ReactDOM.render(<App />, document.getElementById('root'));
 ```
 
 Congratulations! We finished this chapter!
-All files available [here](https://bitbucket.org/michalrozenek/redux-tutorial/src/573143833d2671f342cb400a47daa2b18a816fb5/src?at=lesson-04)
+Chapter code is [here](https://bitbucket.org/michalrozenek/redux-tutorial/src/573143833d2671f342cb400a47daa2b18a816fb5/src?at=lesson-04)
 
 ## Chapter 5 - Multiple reducers using combineReducers method
 
@@ -664,6 +667,8 @@ In `Counter.js` we have `this.props.counter` as an object now, so if we want to 
 ```js
   <h1>{`Result: ${this.props.counter.result}`}</h1>
 ```
+
+Chapter code is [here](https://bitbucket.org/michalrozenek/redux-tutorial/src/ee7af501f898a8dd8cba05b9372b79b093ee3c15/src?at=lesson-05)
 
 ## Chapter 6 - Fetching data with Redux, redux-thunk middleware, and Axios
 
