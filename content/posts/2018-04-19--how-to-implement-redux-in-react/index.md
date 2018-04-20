@@ -9,29 +9,53 @@ postAuthor: Michał Rożenek
 # What is Redux?
 
 Everything you change in your application, included data and UI changes is contained in an object called `state`, so
-basicaly Redux is a store which contains application state.
+basicaly Redux is a store contains an application state and few really interesting methods.
 
 ## State 
 
-`State` is read only.
-When you want to modify the state,
-you need to `dispatch` an `action`.
+`State` is read only object contains information about your application.
+When you want to modify the state, you need to `dispatch` an `action`.
 
 ## Action
 
 `Action` is a plain javascript object, described in the simple way, includes an informations about changes in the application.
-Action minimum requirement is a `TYPE` property. Actions could receive some arguments. Actions in redux have to be pure!
+You can send action to the `store` using `store.dispatch()` method.
+Action minimum requirement is a `type` property. Example below:
+
+```js
+{
+  type: 'INCREASE',
+  payload: action.payload
+}
+```
+
+## Action creators
+
+`Action creators` are functions which basically returns an action object. Example below:
+
+```js
+function increase() {
+  return {
+    type: 'INCREASE',
+  }
+}
+```
 
 ## Reducer
 
-The state mutations in your app need to be pure functions.
-Reducer receive initial state, previos state and action.
-Reducer don't modify the previous state, just return a new object.
+`Reducer` specify how the application `state` changes in regards to `dispatched action`.
+Reducer receive `initial state`, `previos state` and `action`, then return a new `state` object in depends on `action.type`.
+
+Reducer should be `immutable`, so it **don't modify** the previous state, just return a **new state object**.
 
 ## Store
 
-`Store` has a current application `state` object and let you `dispatch actions`.
+`Store` has a current application `state` object, and has a few useful methods, for example `dispatch` to let you `dispatch actions`.
 During creating a store, you need to provide a `reducer` as a parameter to let the store know what and how you want to update.
+
+```js
+const store = createStore(reducer);
+```
 
 ### Store methods:
 
@@ -41,11 +65,16 @@ During creating a store, you need to provide a `reducer` as a parameter to let t
 
 `subscribe` - let you subscribe on store changes and register a callback
 
+### Important tips !
+
 Store shouldn't be mutated!
+
 You should always return a new object.
+
 To avoild an Object mutations, you can use those methods:
 
 - spread operator:
+
 ```js
 return {
   ...state,
@@ -67,7 +96,7 @@ return Object.assign({}, state, {
 
 For this article I used `createReactApp` starter.
 
-If you want to use it, please go to https://github.com/facebook/create-react-app,
+If you want to use it, please go to [Crate React App](https://github.com/facebook/create-react-app),
 then following `createReactApp` manual, you should be able to use those commands:
 
 ```
@@ -80,7 +109,7 @@ Congratulations! Your React application is running.
 
 Now we want to install Redux
 
-## Redux installation
+## Chapter 1 - Redux installation
 
 ```
 npm i react-redux redux --save.
@@ -91,7 +120,7 @@ Please open react app folder in your IDE, go to `src`.
 For this article I removed unnecessary files.
 You can also remove all from `src` besides index.js.
 
-## Create our first Redux Store
+### Create our first Redux Store
 
 Go to ```index.js```
 First of all, we need to import `createStore` method
@@ -153,7 +182,7 @@ store.dispatch({
 })
 ```
 
-I dispatched 3 actions with two different TYPES. As I wrote above, TYPE is required in redux action.
+I dispatched 3 actions with two different types. As I wrote above, TYPE is required in redux action.
 
 Last step we want to do is watch our changes.
 To do it, we need to use subscribe method.
@@ -222,7 +251,7 @@ class App extends Component {
 ReactDOM.render(<App />, document.getElementById('root'));
 ```
 
-## Modify the store from UI
+## Chapter 2 - Modify the store from UI
 
 To achieve store modification from the UI, we could prepare a buttons in `App` component
 
@@ -283,9 +312,9 @@ rootRender();
 ```
 
 Now you can modify your application state from UI.
-Whole code is here https://bitbucket.org/michalrozenek/redux-tutorial/src/4cf6bd490fe5c3f75e6d3fb0d3f0639e369b6d16/src/index.js?at=lesson-02&fileviewer=file-view-default
+Whole code is [here](https://bitbucket.org/michalrozenek/redux-tutorial/src/4cf6bd490fe5c3f75e6d3fb0d3f0639e369b6d16/src/index.js?at=lesson-02&fileviewer=file-view-default)
 
-## Redux middleware and logger
+## Chapter 3 - Redux middleware and logger
 
 Redux allows you to use `middlewares`.
 In this chapter we want to use a `logger` middleware.
@@ -321,9 +350,9 @@ Your logger should looks like this
 
 ![Redux logger](./redux-logger.png)
 
-Whole chapter code is here https://bitbucket.org/michalrozenek/redux-tutorial/src/f30faa2b6b883520c7e62646cf1857ff2ca13c7f/src/index.js?at=lesson-03&fileviewer=file-view-default
+Whole chapter code is [here](https://bitbucket.org/michalrozenek/redux-tutorial/src/f30faa2b6b883520c7e62646cf1857ff2ca13c7f/src/index.js?at=lesson-03&fileviewer=file-view-default)
 
-## Dividing Redux Store to separated files, Connect() method and a Provider.
+## Chapter 4 -Dividing Redux Store to separated files, Connect() method and a Provider.
 
 In this chapter we are going to clean up our application.
 We want to:
@@ -456,8 +485,7 @@ const mapDispatchToProps = dispatch => {
 export default connect(mapStateToProps, mapDispatchToProps)(Counter);
 ```
 
-Ok, great!
-We have a Counter component ready to use.
+Ok, great! We have a Counter component ready to use.
 Now we need to create a `store` and `reducer` by copying from main `index.js` file.
 
 We could create a `store` folder and `index.js` file inside of it.
@@ -529,9 +557,9 @@ ReactDOM.render(<App />, document.getElementById('root'));
 ```
 
 Congratulations! We finished this chapter!
-All files available here: https://bitbucket.org/michalrozenek/redux-tutorial/src/573143833d2671f342cb400a47daa2b18a816fb5/src?at=lesson-04
+All files available [here](https://bitbucket.org/michalrozenek/redux-tutorial/src/573143833d2671f342cb400a47daa2b18a816fb5/src?at=lesson-04)
 
-## Multiple reducers - combineReducers method
+## Chapter 5 - Multiple reducers with using combineReducers method
 
 To combine reducers, we could use `combineReducers` method from `redux` library.
 In the next chapter we want to fetch some data, and now we will create a data reducer for it.
@@ -637,7 +665,7 @@ In `Counter.js` we have a `this.props.counter` as an object now, so if we want t
   <h1>{`Result: ${this.props.counter.result}`}</h1>
 ```
 
-## Fetching data and redux-thunk middleware
+## Chapter 6 - Fetching data with Redux, redux-thunk middleware and Axios
 
 To `dispatch` an `asynchronous actions` you will need a `redux-thunk`, which
 basicaly is a function that wraps an expression to delay its evaluation.
@@ -674,7 +702,9 @@ In this chapter I want to:
 - Create an `actions` to separated file
 - Update `reducers/data.js`
 
-Open `store` directory and create `types/index.js` file
+When your applications grows up, the good practice is storage types in separated file as a constants.
+To do this operation please open `store` directory and create `types/index.js` file.
+
 I prepared 3 constatns for using in reducer and actions.
 
 ```js
@@ -864,6 +894,4 @@ We have a data fetching handled with Redux and redux-thunk.
 
 ![Redux data fetching](./redux_data_fetching.png)
 
-Code here:
-
-https://bitbucket.org/michalrozenek/redux-tutorial/src/aaa5e6bf7548ea50fb6448100216b6a2840f10b8/src?at=lesson-07
+Code [here](https://bitbucket.org/michalrozenek/redux-tutorial/src/aaa5e6bf7548ea50fb6448100216b6a2840f10b8/src?at=lesson-07)
