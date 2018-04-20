@@ -46,7 +46,7 @@ function increase() {
 `Reducer` specifies how the application `state` changes in regard to a `dispatched action`.
 Reducer receives `initial state`, `previous state` and `action`, then returns a new `state` object depending on `action.type`.
 
-Reducer should be `immutable`, so it **doesn't modify** the previous state, just returns a **new state object**.
+Store should be `immutable`, so the reducer **doesn't modify** the previous state, just returns a **new state object**.
 
 ## Store
 
@@ -67,11 +67,10 @@ const store = createStore(reducer);
 
 ### Important tips !
 
-Store shouldn't be mutated!
+- Store shouldn't be mutated!
+- You should always return a new object.
 
-You should always return a new object.
-
-To avoid object mutations, you can use those methods:
+### To avoid object mutations, you can use those methods:
 
 - spread operator:
 
