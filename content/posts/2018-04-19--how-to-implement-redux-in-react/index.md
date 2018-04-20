@@ -16,7 +16,7 @@ postAuthor: Michał Rożenek
 - [Chapter 5 - Multiple reducers using combineReducers method](#chapter-5)
 - [Chapter 6 - Fetching data with Redux, redux-thunk middleware, and Axios](#chapter-6)
 
-# <a name="definitions"></a>Chapter 1 - What is Redux?
+# <a name="definitions"></a>What is Redux?
 
 Everything you change in your application, including data and UI changes is contained in an object called `state`, so
 basically Redux is a store that contains the application state and a few interesting methods.
@@ -127,7 +127,7 @@ Please open the react app folder in your IDE, go to `src`.
 For this article I removed all unnecessary files.
 You can also remove everything from `src` besides index.js.
 
-# <a name="chapter-1">Chapter 1 - Create our first Redux Store
+# <a name="chapter-1"></a>Chapter 1 - Create our first Redux Store
 
 Go to ```index.js```
 First of all, we need to import the `createStore` method
