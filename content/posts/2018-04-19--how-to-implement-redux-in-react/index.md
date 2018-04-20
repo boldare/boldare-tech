@@ -6,7 +6,17 @@ cover: redux.png
 postAuthor: Michał Rożenek
 ---
 
-# What is Redux?
+- [What is Redux](#definitions)
+- [React installation](#react-installation)
+- [Redux installation](#redux-installation)
+- [Chapter 1 - Create our first Redux Store](#chapter-1)
+- [Chapter 2 - Modify the store from UI](#chapter-2)
+- [Chapter 3 - Redux middleware and logger](#chapter-3)
+- [Chapter 4 - Dividing Redux Store to separate files, Connect(), Provider](#chapter-4)
+- [Chapter 5 - Multiple reducers using combineReducers method](#chapter-5)
+- [Chapter 6 - Fetching data with Redux, redux-thunk middleware, and Axios](#chapter-6)
+
+# <a name="definitions"></a>Chapter 1 - What is Redux?
 
 Everything you change in your application, including data and UI changes is contained in an object called `state`, so
 basically Redux is a store that contains the application state and a few interesting methods.
@@ -31,7 +41,7 @@ Action's minimum requirement is a `type` property. Example below:
 
 ## Action creators
 
-`Action creators` are functions which basically return an action object. Example below:
+`Action creators` are functions which basically return or dispatch an action object. Example below:
 
 ```js
 function increase() {
@@ -89,9 +99,7 @@ return Object.assign({}, state, {
 }
 ```
 
-# Let's do it in practice!
-
-## React installation
+# <a name="react-installation"></a>React installation
 
 For this article I used `createReactApp` starter.
 
@@ -106,9 +114,9 @@ npm start
 
 Congratulations! Your React application is running.
 
-Now we want to install Redux
+Now we want to install Redux.
 
-## Chapter 1 - Redux installation
+# <a name="redux-installation"></a>Redux installation
 
 ```
 npm i react-redux redux --save.
@@ -119,7 +127,7 @@ Please open the react app folder in your IDE, go to `src`.
 For this article I removed all unnecessary files.
 You can also remove everything from `src` besides index.js.
 
-### Create our first Redux Store
+# <a name="chapter-1">Chapter 1 - Create our first Redux Store
 
 Go to ```index.js```
 First of all, we need to import the `createStore` method
@@ -252,7 +260,7 @@ ReactDOM.render(<App />, document.getElementById('root'));
 
 [Chapter code here](https://bitbucket.org/michalrozenek/redux-tutorial/src/9c69705bf901b0779a55957dd8b3ed3e856e5453/src/?at=lesson-01)
 
-## Chapter 2 - Modify the store from UI
+# <a name="chapter-2"></a>Chapter 2 - Modify the store from UI
 
 To modify the `store` from the `UI`, we will add some buttons in the `App component`.
 
@@ -315,7 +323,7 @@ rootRender();
 Now you can modify your application state from the `UI`.
 Chapter code is [here](https://bitbucket.org/michalrozenek/redux-tutorial/src/4cf6bd490fe5c3f75e6d3fb0d3f0639e369b6d16/src?at=lesson-02)
 
-## Chapter 3 - Redux middleware and logger
+# <a name="chapter-3"></a>Chapter 3 - Redux middleware and logger
 
 Redux allows you to use `middlewares`.
 In this chapter we want to use a `logger` middleware.
@@ -354,7 +362,7 @@ Your logger should look like this
 Chapter code is [here](https://bitbucket.org/michalrozenek/redux-tutorial/src/f30faa2b6b883520c7e62646cf1857ff2ca13c7f/src?at=lesson-03)
 
 
-## Chapter 4 - Dividing Redux Store to separate files, Connect(), Provider.
+# <a name="chapter-4"></a>Chapter 4 - Dividing Redux Store to separate files, Connect(), Provider
 
 In this chapter we are going to clean up our application.
 We want to:
@@ -561,7 +569,7 @@ ReactDOM.render(<App />, document.getElementById('root'));
 Congratulations! We finished this chapter!
 Chapter code is [here](https://bitbucket.org/michalrozenek/redux-tutorial/src/573143833d2671f342cb400a47daa2b18a816fb5/src?at=lesson-04)
 
-## Chapter 5 - Multiple reducers using combineReducers method
+# <a name="chapter-5"></a>Chapter 5 - Multiple reducers using combineReducers method
 
 To combine reducers, we can use `combineReducers` method from `redux` library.
 In the next chapter we want to fetch some data, and now we will create a data reducer for this purpose.
@@ -669,7 +677,7 @@ In `Counter.js` we have `this.props.counter` as an object now, so if we want to 
 
 Chapter code is [here](https://bitbucket.org/michalrozenek/redux-tutorial/src/ee7af501f898a8dd8cba05b9372b79b093ee3c15/src?at=lesson-05)
 
-## Chapter 6 - Fetching data with Redux, redux-thunk middleware, and Axios
+# <a name="chapter-6"></a>Chapter 6 - Fetching data with Redux, redux-thunk middleware, and Axios
 
 To `dispatch asynchronous actions` you will need `redux-thunk`, which
 basically is a function that wraps an expression to delay its evaluation.
@@ -701,7 +709,7 @@ npm install --save axios
 In this chapter I want to:
 
 - Move `types` to separate file
-- Move `actions` to separate file
+- Move `actions` to separate file and prepare `actions creators`
 - Update `reducers/data.js`
 
 When your applications grows, the good practice is to store types in separate file as a constants.
@@ -731,7 +739,7 @@ instead of
 case 'DATA_FETCHING'
 ```
 
-### How to prepare an action for data fetching
+## How to prepare action creators for data fetching
 
 Create an action directory and dataAction.js `action/dataAction.js`
 Import axios and types we want to use.
@@ -741,7 +749,7 @@ Import axios and types we want to use.
   import { DATA_FETCHING, DATA_FETCHED, DATA_ERROR } from '../types'
 ```
 
-Then we can create the first `action`.
+Then we can create the first `action creator`. As I wrote above, `action creator` is a function which returns or dispatch an action object.
 While `fetching` the data we want to modify some UI elements, therefore we want to know when the application started the operation.
 
 ```js
@@ -755,7 +763,7 @@ export const fetchData = () => {
 ```
 
 We've just updated the application state.
-Now we can add some data fetching code inside the `fetchData` action.
+Now we can add some data fetching code inside the `fetchData` action creator.
 
 ```js
 return axios.get('https://jsonplaceholder.typicode.com/posts') // Example API here
@@ -808,13 +816,13 @@ export const fetchData = () => {
 };
 ```
 
-Invoking the action above will update the `state.data`.
+Invoking the action creator above will update the `state.data`.
 Your data reducer is responsible for state.data output.
 
-We are ready to use actions. Now we can implement them in a Component.
+We are ready to use action creator. Now we can implement them in a Component.
 There are many ways to do it.
 
-You can invoke the fetchData action in the `componentDidMount` lifecycle method, or maybe in the `onClick` method.
+You can invoke the fetchData action creator in the `componentDidMount` lifecycle method, or maybe in the `onClick` method.
 
 For this article I prepared a simple `<Data />` component.
 
@@ -852,7 +860,7 @@ class Data extends Component {
 }
 ```
 
-Then I imported `connect` and `fetchData` action.
+Then I imported `connect` and `fetchData` action creator.
 
 ```js
 import { connect } from 'react-redux';
