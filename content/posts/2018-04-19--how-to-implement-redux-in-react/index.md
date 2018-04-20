@@ -8,19 +8,19 @@ postAuthor: Michał Rożenek
 
 # What is Redux?
 
-Everything you change in your application, included data and UI changes is contained in an object called `state`, so
-basicaly Redux is a store contains an application state and few really interesting methods.
+Everything you change in your application, including data and UI changes is contained in an object called `state`, so
+basically Redux is a store that contains the application state and a few interesting methods.
 
 ## State 
 
-`State` is read only object contains information about your application.
+`State` is a read-only object contains information about your application.
 When you want to modify the state, you need to `dispatch` an `action`.
 
 ## Action
 
-`Action` is a plain javascript object, described in the simple way, includes an informations about changes in the application.
-You can send action to the `store` using `store.dispatch()` method.
-Action minimum requirement is a `type` property. Example below:
+Put simply, `action` is a plain JavaScript object including information about changes in the application.
+You can send an action to the `store` using `store.dispatch()` method.
+Action's minimum requirement is a `type` property. Example below:
 
 ```js
 {
@@ -31,7 +31,7 @@ Action minimum requirement is a `type` property. Example below:
 
 ## Action creators
 
-`Action creators` are functions which basically returns an action object. Example below:
+`Action creators` are functions which basically return an action object. Example below:
 
 ```js
 function increase() {
@@ -43,15 +43,15 @@ function increase() {
 
 ## Reducer
 
-`Reducer` specify how the application `state` changes in regards to `dispatched action`.
-Reducer receive `initial state`, `previos state` and `action`, then return a new `state` object in depends on `action.type`.
+`Reducer` specifies how the application `state` changes in regard to a `dispatched action`.
+Reducer receives `initial state`, `previous state` and `action`, then returns a new `state` object depending on `action.type`.
 
-Reducer should be `immutable`, so it **don't modify** the previous state, just return a **new state object**.
+Reducer should be `immutable`, so it **doesn't modify** the previous state, just returns a **new state object**.
 
 ## Store
 
-`Store` has a current application `state` object, and has a few useful methods, for example `dispatch` to let you `dispatch actions`.
-During creating a store, you need to provide a `reducer` as a parameter to let the store know what and how you want to update.
+`Store` holds the current application `state` object, and has a few useful methods, for example `dispatch` allowing you to `dispatch actions`.
+When creating a `store`, you need to provide a `reducer` as a parameter to let the store know what you want to update and how.
 
 ```js
 const store = createStore(reducer);
@@ -59,11 +59,11 @@ const store = createStore(reducer);
 
 ### Store methods:
 
-`getState` - return current state
+`getState` - returns current state
 
-`dispatch` - let you dispatch actions
+`dispatch` - lets you dispatch actions
 
-`subscribe` - let you subscribe on store changes and register a callback
+`subscribe` - lets you subscribe on store changes and register a callback
 
 ### Important tips !
 
@@ -71,7 +71,7 @@ Store shouldn't be mutated!
 
 You should always return a new object.
 
-To avoild an Object mutations, you can use those methods:
+To avoid object mutations, you can use those methods:
 
 - spread operator:
 
@@ -82,7 +82,7 @@ return {
 }
 ```
 
-- Object assign:
+- Object.assign method:
 
 ```js
 return Object.assign({}, state, {
@@ -97,7 +97,7 @@ return Object.assign({}, state, {
 For this article I used `createReactApp` starter.
 
 If you want to use it, please go to [Crate React App](https://github.com/facebook/create-react-app),
-then following `createReactApp` manual, you should be able to use those commands:
+then following the `createReactApp` manual, you should be able to use these commands:
 
 ```
 npx create-react-app my-app
@@ -115,15 +115,15 @@ Now we want to install Redux
 npm i react-redux redux --save.
 ```
 
-Redux is installed, so we can try to create our Redux store.
-Please open react app folder in your IDE, go to `src`.
-For this article I removed unnecessary files.
-You can also remove all from `src` besides index.js.
+Redux is installed, so now we can try to create our Redux store.
+Please open the react app folder in your IDE, go to `src`.
+For this article I removed all unnecessary files.
+You can also remove everything from `src` besides index.js.
 
 ### Create our first Redux Store
 
 Go to ```index.js```
-First of all, we need to import `createStore` method
+First of all, we need to import the `createStore` method
 
 ```js
 import { createStore } from 'redux';
@@ -140,7 +140,7 @@ In this case it is a simple counter reducer
 
 ```js
 const reducer = (state = initialState, action) => {
-  // Reducer changes state depends on action.type we are dispatching
+  // Reducer changes state depending on the action.type we are dispatching
   switch (action.type) {
     case 'INCREASE':
       return {
@@ -159,7 +159,7 @@ const reducer = (state = initialState, action) => {
 ```
 
 As you can see, our reducer is using `initialState`.
-We can define it
+We can define it like this:
 
 ```js
 const initialState = {
@@ -167,7 +167,7 @@ const initialState = {
 }
 ```
 
-Ok, we have almost all.
+Ok, that's almost it.
 Now we want to dispatch an action to change our application state
 
 ```js
@@ -182,10 +182,10 @@ store.dispatch({
 })
 ```
 
-I dispatched 3 actions with two different types. As I wrote above, TYPE is required in redux action.
+I dispatched 3 actions with 2 different types. As I wrote above, TYPE is required in redux action.
 
-Last step we want to do is watch our changes.
-To do it, we need to use subscribe method.
+As a last step, we want to watch our changes.
+To do it, we need to use the subscribe method.
 
 ```js
 store.subscribe(() => {
@@ -253,7 +253,7 @@ ReactDOM.render(<App />, document.getElementById('root'));
 
 ## Chapter 2 - Modify the store from UI
 
-To achieve store modification from the UI, we could prepare a buttons in `App` component
+To modify the `store` from the `UI`, we will add some buttons in the `App component`.
 
 ```js
 class App extends Component {
@@ -293,8 +293,8 @@ const decrease = () => {
 
 Functions above are dispatching actions.
 
-Last thing we need to do is a re-render an `<App />` component when state changed.
-In this case we can use `subscribe` method on `store` object, then as a callback we can use
+The last thing we need to do is a re-render an `<App />` component when state changes.
+In this case we can use the `subscribe` method on `store` object, then as a callback we can use
 ```
 ReactDOM.render() method
 ```
@@ -311,14 +311,14 @@ store.subscribe(() => {
 rootRender();
 ```
 
-Now you can modify your application state from UI.
-Whole code is [here](https://bitbucket.org/michalrozenek/redux-tutorial/src/4cf6bd490fe5c3f75e6d3fb0d3f0639e369b6d16/src/index.js?at=lesson-02&fileviewer=file-view-default)
+Now you can modify your application state from the `UI`.
+The whole code is [here](https://bitbucket.org/michalrozenek/redux-tutorial/src/4cf6bd490fe5c3f75e6d3fb0d3f0639e369b6d16/src/index.js?at=lesson-02&fileviewer=file-view-default)
 
 ## Chapter 3 - Redux middleware and logger
 
 Redux allows you to use `middlewares`.
 In this chapter we want to use a `logger` middleware.
-Below in this tutorial we will also use a `redux-thunk` middleware to handle async functions.
+Later in this article we will also use a `redux-thunk` middleware to handle async functions.
 
 First of all we need to install our logger
 
@@ -326,42 +326,42 @@ First of all we need to install our logger
 npm i redux-logger --save-dev
 ```
 
-Now we need to import an `applyMiddleware` method
+Now we need to import the `applyMiddleware` method
 
 ```js
 import { createStore, applyMiddleware } from 'redux';
 import { createLogger } from 'redux-logger';
 ```
 
-When `applyMiddleware` method is available, we can create a middleware
+When the `applyMiddleware` method is available, we can create middleware
 
 ```js
 const middleware = applyMiddleware(createLogger());
 ```
 
-The last step we need to do to enjoy a logger is adding it as a second argument into `createStore` function.
+The last step we need to do to be able to enjoy a logger is adding it as a second argument of the `createStore` function.
 
 ```js
 const store = createStore(reducer, middleware);
 ```
 
-Done !
-Your logger should looks like this
+Done!
+Your logger should look like this
 
 ![Redux logger](./redux-logger.png)
 
-Whole chapter code is [here](https://bitbucket.org/michalrozenek/redux-tutorial/src/f30faa2b6b883520c7e62646cf1857ff2ca13c7f/src/index.js?at=lesson-03&fileviewer=file-view-default)
+The whole chapter code is [here](https://bitbucket.org/michalrozenek/redux-tutorial/src/f30faa2b6b883520c7e62646cf1857ff2ca13c7f/src/index.js?at=lesson-03&fileviewer=file-view-default)
 
-## Chapter 4 -Dividing Redux Store to separated files, Connect() method and a Provider.
+## Chapter 4 - Dividing Redux Store to separate files, Connect(), Provider.
 
 In this chapter we are going to clean up our application.
 We want to:
-- move the Counter to the separated component
-- move reducer and store to the separated files
-- Use a Provider from `react-redux` to pass the store down into the components inside of Provider.
+- move the Counter to the separate component
+- move the reducer and the store to the separate files
+- Use a Provider from `react-redux` to pass the store down into the components inside the Provider.
 - Use the `connect()` method from `react-redux` to connect the `<Counter />` component with a store.
 
-First of all we want to install dependencies
+First of all we want to install the dependencies
 
 ```
 npm i react-redux --save
@@ -394,13 +394,13 @@ export default Counter;
 
 ```
 
-To allow `Counter` component connect to store, we need to import `connect` method
+To allow the `Counter` component connect to the store, we need to import the `connect` method
 
 ```js
 import { connect } from 'react-redux';
 ```
 
-To give us possibility to read a state, we need to pass the redux state to props (`mapStateToProps`), and use `connect()` method.
+To allow us to read the state, we need to pass the redux state to the props (`mapStateToProps`), and use the `connect()` method.
 
 ```js
 const mapStateToProps = state => {
@@ -412,9 +412,9 @@ const mapStateToProps = state => {
 export default connect(mapStateToProps)(Counter);
 
 ```
-After that we have counter state available in `this.props.counter`
+After that we have the counter state available in `this.props.counter`
 
-Now we want to be able to use a `dispatch` method from `store` inside a `<Counter />` component, so we need to use `mapDispatchToProps`, and pass it as a second argument to `connect()` method.
+Now we want to be able to use a `dispatch` method from `store` inside a `<Counter />` component, so we need to use `mapDispatchToProps`, and pass it as a second argument to the `connect()` method.
 
 ```js
 const mapDispatchToProps = dispatch => {
@@ -436,7 +436,7 @@ const mapDispatchToProps = dispatch => {
 export default connect(mapStateToProps, mapDispatchToProps)(Counter);
 ```
 
-Whole `<Counter />` component looks like this
+The whole `<Counter />` component looks like this
 
 ```js
 import React, { Component } from 'react';
@@ -486,9 +486,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(Counter);
 ```
 
 Ok, great! We have a Counter component ready to use.
-Now we need to create a `store` and `reducer` by copying from main `index.js` file.
+Now we need to create a `store` and `reducer` by copying them from the main `index.js` file.
 
-We could create a `store` folder and `index.js` file inside of it.
+We can create a `store` folder and `index.js` file inside it.
 
 ```js
 import { createStore, applyMiddleware } from 'redux';
@@ -500,8 +500,8 @@ const middleware = applyMiddleware(createLogger());
 export default createStore(counterReducer, middleware);
 ```
 
-As you can see above, our `createStore` method need a reducer.
-We could copy a reducer from main `index.js` to new `store/reducer.js` file.
+As you can see above, our `createStore` method needs a reducer.
+We can copy the reducer from main `index.js` to the `store/reducer.js` file.
 
 ```js
 const initialState = {
@@ -528,13 +528,13 @@ const counterReducer = (state = initialState, action) => {
 export default counterReducer;
 ```
 
-We moved a `store` and `reducer` into the `store` folder and `Counter` component into the `Counter.js` file.
+We moved the `store` and the `reducer` into the `store` folder and `Counter` component into the `Counter.js` file.
 
-Now we want to import a `Provider` and wrap a <Counter /> into it.
+Now we want to import the `Provider` and put a Counter inside it
 `Provider` makes the `Redux store` available to the `connect()` calls in the component hierarchy below.
 We need to pass a store as an argument for a Provider.
 
-After changes, our main `index.js` should looks like this:
+After the changes, our main `index.js` should look like this:
 
 ```js
 import React, { Component } from 'react';
@@ -559,11 +559,11 @@ ReactDOM.render(<App />, document.getElementById('root'));
 Congratulations! We finished this chapter!
 All files available [here](https://bitbucket.org/michalrozenek/redux-tutorial/src/573143833d2671f342cb400a47daa2b18a816fb5/src?at=lesson-04)
 
-## Chapter 5 - Multiple reducers with using combineReducers method
+## Chapter 5 - Multiple reducers using combineReducers method
 
-To combine reducers, we could use `combineReducers` method from `redux` library.
-In the next chapter we want to fetch some data, and now we will create a data reducer for it.
-At moment it will be a simple reducer without any http request - we will do it later.
+To combine reducers, we can use `combineReducers` method from `redux` library.
+In the next chapter we want to fetch some data, and now we will create a data reducer for this purpose.
+At the moment it will be a simple reducer without any http request - we will do it later.
 
 We want to crate a `reducers` folder inside of a `store`, then move and rename `reducer.js` file to `reducers/counter.js`.
 Now we can create a second reducer - `reducers/data.js`
