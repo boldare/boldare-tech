@@ -1,6 +1,6 @@
 ---
-title: GIT
-subTitle: Przywrócenie usuniętego brancha
+title: Git - Przywrócenie usuniętego brancha
+subTitle: Git - Przywrócenie usuniętego brancha
 category: "git"
 cover: xsolve.jpg
 postAuthor: Łukasz Mitusiński

@@ -1,5 +1,5 @@
 ---
-title: Doctrine NEW DQL operator and objects
+title: PHP - Doctrine NEW DQL operator and objects
 subTitle: Can we combine them?
 category: "Doctrine"
 cover: doctrine.png
