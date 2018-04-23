@@ -2,7 +2,7 @@
 title: How does Slack talk to Spotify?
 subTitle: A couple of findings from a curious developer
 category: "curious"
-cover: logos.jpg
+cover: spotify_slack.png
 postAuthor: Łukasz Mitusiński
 ---
 
