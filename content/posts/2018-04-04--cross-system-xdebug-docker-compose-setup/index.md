@@ -1,5 +1,5 @@
 ---
-title: PHP - Cross-system XDebug Docker setup
+title: Cross-system XDebug Docker setup
 subTitle: Docker Compose example
 category: "docker"
 cover: docker.png
