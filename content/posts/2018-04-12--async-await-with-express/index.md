@@ -1,5 +1,5 @@
 ---
-title: Async/await in express routing
+title: Async/await in Express routing
 subTitle: How to do it?
 category: "Express"
 cover: express.png

@@ -1,8 +1,8 @@
 ---
-title: Travis
+title: Travis - Problematyczny Python i Node
 subTitle: Problematyczny Python i Node
 category: "travis"
-cover: photo-1490474418585-ba9bad8fd0ea-cover.jpg
+cover: travis.png
 postAuthor: Krzysztof Miemiec
 ---
 

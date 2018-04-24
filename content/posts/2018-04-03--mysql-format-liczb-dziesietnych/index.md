@@ -1,5 +1,5 @@
 ---
-title: MySQL
+title: Problem z formatowaniem liczb
 subTitle: Problem z formatowaniem liczb
 category: "mysql"
 cover: mysql.png
