@@ -2,7 +2,7 @@
 title: Async/await in express routing
 subTitle: How to do it?
 category: "Express"
-tags: ["Javascript", "Express", "async", "await"]
+tags: ["Javascript", "ES7", "Express", "async", "await"]
 cover: express.png
 postAuthor: Dawid Rożenek
 ---
