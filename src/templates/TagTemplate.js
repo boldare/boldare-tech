@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import injectSheet from "react-jss";
 
+const _ = require("lodash");
+
 import Main from "../components/Main";
 import PageHeader from "../components/Page/PageHeader";
 import Seo from "../components/Seo";
@@ -28,7 +30,10 @@ class TagTemplate extends React.Component {
           <Link to="/tags">Most popular tags</Link>
         </div>
         <Navigator posts={data.posts.edges} navigatorPosition={"is-list"} />
-        <Seo data={{ title: `Posts with tag ${tag}` }} facebook={data.site.siteMetadata.facebook} />
+        <Seo
+          data={{ title: `Posts with tag ${tag}`, slug: `tags/${_.kebabCase(tag)}` }}
+          facebook={data.site.siteMetadata.facebook}
+        />
       </Main>
     );
   }

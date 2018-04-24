@@ -7,11 +7,11 @@ module.exports = {
   siteDescription: "XSolve developers blog.",
   siteUrl: "https://tech.xsolve.software/",
   pathPrefix: "",
-  siteImage: "preview.jpg",
+  siteImage: "avatar.jpg",
   siteLanguage: "en",
   // author
   authorName: "XSolve",
-  authorTwitterAccount: "XSolve",
+  authorTwitterAccount: "@xsolve_tech",
   // info
   infoTitle: "Tech-blog",
   infoTitleNote: "by XSolve",
@@ -25,7 +25,7 @@ module.exports = {
   // social
   authorSocialLinks: [
     { name: "github", url: "https://github.com/xsolve-pl" },
-    { name: "twitter", url: "https://twitter.com/xsolve" },
+    { name: "twitter", url: "https://twitter.com/xsolve_tech" },
     { name: "facebook", url: "https://www.facebook.com/XSolve/" }
   ]
 };
