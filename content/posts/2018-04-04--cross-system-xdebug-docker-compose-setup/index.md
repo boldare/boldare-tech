@@ -2,6 +2,7 @@
 title: Cross-system XDebug Docker setup
 subTitle: Docker Compose example
 category: "docker"
+tags: ["bash", "PHP", "XDebug", "XDEBUG_CONFIG", "Docker", "Docker Compose", "$OSTYPE", ".env"]
 cover: docker.png
 postAuthor: Przemek Pawlas
 ---

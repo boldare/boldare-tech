@@ -2,6 +2,7 @@
 title: Git not detecting renames
 subTitle: Quick workarounds
 category: "git"
+tags: ["Git", "Git renamed", "git status", "git commit"]
 cover: git.png
 postAuthor: Przemek Pawlas
 ---

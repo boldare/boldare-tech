@@ -31,6 +31,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
   return new Promise((resolve, reject) => {
     const postTemplate = path.resolve("./src/templates/PostTemplate.js");
     const pageTemplate = path.resolve("./src/templates/PageTemplate.js");
+    const tagTemplate = path.resolve("./src/templates/TagTemplate.js");
     resolve(
       graphql(
         `
@@ -43,6 +44,9 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
                     slug
                     prefix
                   }
+                  frontmatter {
+                    tags
+                  }
                 }
               }
             }
@@ -54,16 +58,34 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
           reject(result.errors);
         }
 
+        let tags = [];
+
         // Create posts and pages.
         _.each(result.data.allMarkdownRemark.edges, edge => {
           const slug = edge.node.fields.slug;
           const isPost = /posts/.test(edge.node.id);
+
+          if (_.get(edge, "node.frontmatter.tags")) {
+            tags = tags.concat(edge.node.frontmatter.tags);
+          }
 
           createPage({
             path: slug,
             component: isPost ? postTemplate : pageTemplate,
             context: {
               slug: slug
+            }
+          });
+        });
+
+        tags = _.uniq(tags);
+
+        _.forEach(tags, tag => {
+          createPage({
+            path: `/tags/${_.kebabCase(tag)}/`,
+            component: tagTemplate,
+            context: {
+              tag
             }
           });
         });
@@ -75,35 +97,35 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
 exports.modifyWebpackConfig = ({ config, stage }) => {
   switch (stage) {
     case "build-javascript":
-      {
-        let components = store.getState().pages.map(page => page.componentChunkName);
-        components = _.uniq(components);
-        config.plugin("CommonsChunkPlugin", webpack.optimize.CommonsChunkPlugin, [
-          {
-            name: `commons`,
-            chunks: [`app`, ...components],
-            minChunks: (module, count) => {
-              const vendorModuleList = []; // [`material-ui`, `lodash`];
-              const isFramework = _.some(
-                vendorModuleList.map(vendor => {
-                  const regex = new RegExp(`[\\\\/]node_modules[\\\\/]${vendor}[\\\\/].*`, `i`);
-                  return regex.test(module.resource);
-                })
-              );
-              return isFramework || count > 1;
-            }
+    {
+      let components = store.getState().pages.map(page => page.componentChunkName);
+      components = _.uniq(components);
+      config.plugin("CommonsChunkPlugin", webpack.optimize.CommonsChunkPlugin, [
+        {
+          name: `commons`,
+          chunks: [`app`, ...components],
+          minChunks: (module, count) => {
+            const vendorModuleList = []; // [`material-ui`, `lodash`];
+            const isFramework = _.some(
+              vendorModuleList.map(vendor => {
+                const regex = new RegExp(`[\\\\/]node_modules[\\\\/]${vendor}[\\\\/].*`, `i`);
+                return regex.test(module.resource);
+              })
+            );
+            return isFramework || count > 1;
           }
-        ]);
-        // config.plugin("BundleAnalyzerPlugin", BundleAnalyzerPlugin, [
-        //   {
-        //     analyzerMode: "static",
-        //     reportFilename: "./report/treemap.html",
-        //     openAnalyzer: true,
-        //     logLevel: "error",
-        //     defaultSizes: "gzip"
-        //   }
-        // ]);
-      }
+        }
+      ]);
+      // config.plugin("BundleAnalyzerPlugin", BundleAnalyzerPlugin, [
+      //   {
+      //     analyzerMode: "static",
+      //     reportFilename: "./report/treemap.html",
+      //     openAnalyzer: true,
+      //     logLevel: "error",
+      //     defaultSizes: "gzip"
+      //   }
+      // ]);
+    }
       break;
   }
   return config;
