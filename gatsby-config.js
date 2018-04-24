@@ -171,7 +171,6 @@ module.exports = {
                 title
                 description
                 siteUrl
-                site_url: siteUrl
               }
             }
           }
@@ -182,6 +181,8 @@ module.exports = {
               return allMarkdownRemark.edges.map(edge => {
                 return Object.assign({}, edge.node.frontmatter, {
                   description: edge.node.excerpt,
+                  author: edge.node.frontmatter.postAuthor,
+                  categories: edge.node.frontmatter.tags,
                   url: site.siteMetadata.siteUrl + edge.node.fields.slug,
                   guid: site.siteMetadata.siteUrl + edge.node.fields.slug,
                   custom_elements: [{ "content:encoded": edge.node.html }]
@@ -192,7 +193,6 @@ module.exports = {
               {
                 allMarkdownRemark(
                   limit: 1000,
-                  sort: { order: DESC, fields: [fields___prefix] },
                   filter: { id: { regex: "//posts//" } }
                 ) {
                   edges {
@@ -201,10 +201,12 @@ module.exports = {
                       html
                       fields { 
                         slug
-                        prefix 
                       }
                       frontmatter {
                         title
+                        subTitle
+                        postAuthor
+                        tags
                       }
                     }
                   }

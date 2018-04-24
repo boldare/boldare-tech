@@ -21,7 +21,7 @@ const TagsPage = props => {
           <TagList tags={_.orderBy(data.tags.group, "totalCount", "desc")} />
         </Content>
       </Article>
-      <Seo data={ { title: "Tags" } } facebook={data.site.siteMetadata.facebook} />
+      <Seo data={{ title: "Tags", slug: "tags" }} facebook={data.site.siteMetadata.facebook} />
     </Main>
   )
 };
