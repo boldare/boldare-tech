@@ -77,12 +77,10 @@ const styles = theme => ({
       margin: 0,
       fontSize: `${theme.navigator.sizes.postsListItemH1Font}em`,
       [`@media (min-width: ${theme.mediaQueryTresholds.M}px)`]: {
-        fontSize: `${theme.navigator.sizes.postsListItemH1Font *
-          theme.navigator.sizes.fontIncraseForM}em`
+        fontSize: `${theme.navigator.sizes.postsListItemH1Font * theme.navigator.sizes.fontIncraseForM}em`
       },
       [`@media (min-width: ${theme.mediaQueryTresholds.L}px)`]: {
-        fontSize: `${theme.navigator.sizes.postsListItemH1Font *
-          theme.navigator.sizes.fontIncraseForL}em`,
+        fontSize: `${theme.navigator.sizes.postsListItemH1Font * theme.navigator.sizes.fontIncraseForL}em`,
         ".moving-featured &, .is-aside &": {
           fontSize: "1em",
           fontWeight: 400
@@ -95,15 +93,25 @@ const styles = theme => ({
       fontSize: `${theme.navigator.sizes.postsListItemH2Font}em`,
       margin: ".3em 0 0 0",
       [`@media (min-width: ${theme.mediaQueryTresholds.M}px)`]: {
-        fontSize: `${theme.navigator.sizes.postsListItemH2Font *
-          theme.navigator.sizes.fontIncraseForM}em`
+        fontSize: `${theme.navigator.sizes.postsListItemH2Font * theme.navigator.sizes.fontIncraseForM}em`
       },
       [`@media (min-width: ${theme.mediaQueryTresholds.L}px)`]: {
-        fontSize: `${theme.navigator.sizes.postsListItemH2Font *
-          theme.navigator.sizes.fontIncraseForL}em`,
+        fontSize: `${theme.navigator.sizes.postsListItemH2Font * theme.navigator.sizes.fontIncraseForL}em`,
         ".moving-featured &, .is-aside &": {
           display: "none"
         }
+      }
+    },
+    "& h3": {
+      [`@media (min-width: ${theme.mediaQueryTresholds.M}px)`]: {
+        fontSize: `${theme.navigator.sizes.postsListItemH3Font * theme.navigator.sizes.fontIncraseForM}em`
+      },
+      [`@media (min-width: ${theme.mediaQueryTresholds.L}px)`]: {
+        fontSize: `${theme.navigator.sizes.postsListItemH3Font * theme.navigator.sizes.fontIncraseForL}em`
+      },
+      ".moving-featured &, .is-aside &": {
+        fontSize: `${theme.navigator.sizes.postsListItemH3Font}em`,
+        margin: theme.navigator.sizes.postsListItemH3Margin
       }
     },
     [`@media (min-width: ${theme.mediaQueryTresholds.L}px)`]: {

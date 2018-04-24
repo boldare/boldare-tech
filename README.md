@@ -33,9 +33,10 @@ syntax and save it as `index.md`, English language is preferred ✍️
 ```
 ---
 title: Post title - describe the solution concisely, but informatively
-subTitle: Post subtitle
+subTitle: Post subtitle - optional additional description
 category: "category"
-cover: post-avatar.jpg
+tags: ["technology", "keyword", "some key variable"]
+cover: post-avatar.jpg - technology icon is preferred
 postAuthor: Your Name
 ---
 ```

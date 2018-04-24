@@ -16,6 +16,7 @@ const query = `{
           title
           subTitle
           postAuthor
+          tags
         }
       }
     }

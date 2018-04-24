@@ -2,8 +2,9 @@
 title: How does Slack talk to Spotify?
 subTitle: A couple of findings from a curious developer
 category: "curious"
+tags: ["Slack", "Spotify", "HTTP", "port 4381"]
 cover: logos.jpg
-postAuthor: Łukasz Mitusiński
+postAuthor: Maciej Papież
 ---
 
 # How it all started
