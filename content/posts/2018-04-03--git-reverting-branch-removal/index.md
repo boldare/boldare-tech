@@ -2,7 +2,7 @@
 title: Reverting branch removal in Git
 category: "git"
 tags: ["Git", "git reflog"]
-cover: xsolve.jpg
+cover: git.png
 postAuthor: Łukasz Mitusiński
 ---
 
