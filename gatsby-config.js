@@ -217,7 +217,10 @@ module.exports = {
       }
     },
     {
-      resolve: `gatsby-plugin-sitemap`
+      resolve: `gatsby-plugin-sitemap`,
+      options: {
+        exclude: ["/contact"]
+      }
     },
     {
       resolve: "gatsby-plugin-svgr",

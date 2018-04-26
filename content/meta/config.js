@@ -5,7 +5,7 @@ module.exports = {
   siteTitle: "XSolve tech-blog",
   shortSiteTitle: "XSolve tech-blog",
   siteDescription: "XSolve developers blog.",
-  siteUrl: "https://tech.xsolve.software/",
+  siteUrl: "https://tech.xsolve.software",
   pathPrefix: "",
   siteImage: "avatar.jpg",
   siteLanguage: "en",
