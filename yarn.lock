@@ -2885,7 +2885,11 @@ core-js@^1.0.0, core-js@^1.2.6:
   version "1.2.7"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-1.2.7.tgz#652294c14651db28fa93bd2d5ff2983a4f08c636"
 
-core-js@^2.4.0, core-js@^2.5.0:
+core-js@^2.4.0:
+  version "2.5.5"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.5.5.tgz#b14dde936c640c0579a6b50cabcc132dd6127e3b"
+
+core-js@^2.5.0:
   version "2.5.3"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.5.3.tgz#8acc38345824f16d8365b7c9b4259168e8ed603e"
 
@@ -4879,10 +4883,11 @@ gatsby-plugin-sharp@^1.6.27, gatsby-plugin-sharp@^1.6.39:
     svgo "^0.7.2"
 
 gatsby-plugin-sitemap@^1.2.13:
-  version "1.2.14"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-sitemap/-/gatsby-plugin-sitemap-1.2.14.tgz#8543700a79573b43ab3f223aca71c6e5e1af0ffb"
+  version "1.2.23"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-sitemap/-/gatsby-plugin-sitemap-1.2.23.tgz#81b726f749a21f799559812baa1ad0fddb04e66b"
   dependencies:
     babel-runtime "^6.26.0"
+    minimatch "^3.0.4"
     sitemap "^1.12.0"
 
 gatsby-plugin-svgr@^0.2.1:
@@ -12131,7 +12136,11 @@ underscore.string@^3.3.4:
     sprintf-js "^1.0.3"
     util-deprecate "^1.0.2"
 
-underscore@^1.7.0, underscore@^1.8.3:
+underscore@^1.7.0:
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.9.0.tgz#31dbb314cfcc88f169cd3692d9149d81a00a73e4"
+
+underscore@^1.8.3:
   version "1.8.3"
   resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.8.3.tgz#4f3fb53b106e6097fcf9cb4109f2a5e9bdfa5022"
 
