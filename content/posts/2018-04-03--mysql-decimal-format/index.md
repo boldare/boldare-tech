@@ -4,7 +4,7 @@ subTitle: Without FORMAT() usage
 category: "mysql"
 tags: ["PHP", "MySQL", "Doctrine", "DQL", "decimal"]
 cover: mysql.png
-postAuthor: Łukasz Mitusiński
+postAuthor: Kamil Ścisłowski
 ---
 
 I've bothered myself with writing a MySQL database query to a table with prices
