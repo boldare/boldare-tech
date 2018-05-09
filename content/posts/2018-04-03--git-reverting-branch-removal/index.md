@@ -3,7 +3,7 @@ title: Reverting branch removal in Git
 category: "git"
 tags: ["Git", "git reflog"]
 cover: git.png
-postAuthor: Łukasz Mitusiński
+postAuthor: Mateusz Rosiek
 ---
 
 If we remove a branch with changes from the whole day coincidentally, we can use:
