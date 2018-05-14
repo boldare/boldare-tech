@@ -5,16 +5,16 @@ import config from "../../../content/meta/config";
 
 const Seo = props => {
   const { data, facebook } = props;
-  const postTitle = ((data || {}).frontmatter || (data || {})).title;
-  const postDescription = ((data || {}).frontmatter || (data || {})).subTitle;
-  const postCover = ((data || {}).frontmatter || (data || {})).cover;
-  const postSlug = ((data || {}).frontmatter || (data || {})).slug;
+  const providedTitle = ((data || {}).frontmatter || (data || {})).title;
+  const providedDescription = ((data || {}).frontmatter || (data || {})).subTitle;
+  const providedCover = ((data || {}).frontmatter || (data || {})).cover;
+  const providedSlug = ((data || {}).fields || (data || {})).slug;
 
   const siteUrl = config.siteUrl + config.pathPrefix;
-  const title = postTitle ? `${postTitle} - ${config.shortSiteTitle}` : config.siteTitle;
-  const description = postDescription ? postDescription : config.siteDescription;
-  const imageSrc = siteUrl + (postCover ? postCover.childImageSharp.resize.src : config.siteImage);
-  const url = siteUrl + (postSlug ? postSlug : "");
+  const title = providedTitle ? `${providedTitle} - ${config.shortSiteTitle}` : config.siteTitle;
+  const description = providedDescription ? providedDescription : `${providedTitle} - ${config.siteDescription}`;
+  const imageSrc = siteUrl + (providedCover ? providedCover.childImageSharp.resize.src : config.siteImage);
+  const url = siteUrl + (providedSlug ? providedSlug : "");
   const twitterAccount = config.authorTwitterAccount ? config.authorTwitterAccount : "";
 
   return (
@@ -45,7 +45,7 @@ const Seo = props => {
 };
 
 Seo.propTypes = {
-  data: PropTypes.object.isRequired,
+  data: PropTypes.object,
   facebook: PropTypes.object.isRequired
 };
 

@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const _ = require("lodash");
+const path = require('path');
 
 import Main from "../components/Main";
 import Article from "../components/Main/Article";
@@ -21,7 +22,10 @@ const TagsPage = props => {
           <TagList tags={_.orderBy(data.tags.group, "totalCount", "desc")} />
         </Content>
       </Article>
-      <Seo data={{ title: "Tags", slug: "tags" }} facebook={data.site.siteMetadata.facebook} />
+      <Seo
+        data={{ title: "Most popular tags", slug: `/${path.basename(__filename, ".js")}` }}
+        facebook={data.site.siteMetadata.facebook}
+      />
     </Main>
   )
 };
