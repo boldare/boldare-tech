@@ -26,7 +26,10 @@ class PageTemplate extends React.Component {
       <Main>
         <Page page={data.page} />
         <Footer footnote={data.footnote} />
-        <Seo data={data.post} facebook={facebook} />
+        <Seo
+          data={{ title: data.page.frontmatter.title, slug: data.page.fields.slug }}
+          facebook={facebook}
+        />
       </Main>
     );
   }
@@ -59,6 +62,9 @@ export const pageQuery = graphql`
     page: markdownRemark(fields: { slug: { eq: $slug } }) {
       id
       html
+      fields {
+        slug
+      }
       frontmatter {
         title
       }

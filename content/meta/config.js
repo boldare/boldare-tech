@@ -7,7 +7,7 @@ module.exports = {
   siteDescription: "XSolve developers blog.",
   siteUrl: "https://tech.xsolve.software",
   pathPrefix: "",
-  siteImage: "avatar.jpg",
+  siteImage: "/avatar.jpg",
   siteLanguage: "en",
   // author
   authorName: "XSolve",

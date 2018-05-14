@@ -1,11 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
+
 require("core-js/fn/array/find");
+const path = require('path');
 
 import Main from "../components/Main";
 import Article from "../components/Main/Article";
 import PageHeader from "../components/Page/PageHeader";
 import Search from "../components/Search";
+import Seo from "../components/Seo";
 
 const SearchPage = props => {
   const { data } = props;
@@ -16,6 +19,10 @@ const SearchPage = props => {
         <PageHeader title="Search by" algolia={true} />
         <Search algolia={data.site.siteMetadata.algolia} />
       </Article>
+      <Seo
+        data={{ title: "Search", slug: `/${path.basename(__filename, ".js")}` }}
+        facebook={data.site.siteMetadata.facebook}
+      />
     </Main>
   );
 };
@@ -35,6 +42,9 @@ export const query = graphql`
           appId
           searchOnlyApiKey
           indexName
+        }
+        facebook {
+          appId
         }
       }
     }
