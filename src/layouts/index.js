@@ -143,7 +143,7 @@ export const guery = graphql`
           frontmatter {
             title
             subTitle
-            category
+            #category
             postAuthor
             cover {
               children {

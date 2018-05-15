@@ -1,17 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
 import injectSheet from "react-jss";
-import IconButton from "material-ui/IconButton";
-
-import Link from "gatsby-link";
 import { connect } from "react-redux";
 import screenfull from "screenfull";
 
+import Link from "gatsby-link";
+import IconButton from "material-ui/IconButton";
 import HomeIcon from "material-ui-icons/Home";
 import SearchIcon from "material-ui-icons/Search";
 import ArrowUpwardIcon from "material-ui-icons/ArrowUpward";
 import FullscreenIcon from "material-ui-icons/Fullscreen";
 import FullscreenExitIcon from "material-ui-icons/FullscreenExit";
+import RssIcon from "material-ui-icons/RssFeed";
+import FontSetter from "./FontSetter";
+//import CategoryFilter from "./CategoryFilter"
 
 import {
   setNavigatorPosition,
@@ -21,8 +23,6 @@ import {
   setCategoryFilter
 } from "../../state/store";
 import { featureNavigator, moveNavigatorAside } from "./../../utils/shared";
-import FontSetter from "./FontSetter";
-import CategoryFilter from "./CategoryFilter";
 
 const styles = theme => ({
   actionsBar: {
@@ -132,9 +132,11 @@ class ActionsBar extends React.Component {
           <IconButton aria-label="Back to list" onClick={this.homeOnClick} title="Back to the list">
             <HomeIcon />
           </IconButton>
+          {/*
           {(isWideScreen || navigatorPosition !== "is-aside") && (
             <CategoryFilter categories={categories} filterCategory={this.categoryFilterOnClick} />
           )}
+          */}
           <IconButton
             aria-label="Search"
             onClick={this.searchOnClick}
@@ -144,6 +146,14 @@ class ActionsBar extends React.Component {
             title="Search"
           >
             <SearchIcon />
+          </IconButton>
+          <IconButton
+            aria-label="RSS feed"
+            component={Link}
+            to="/rss.xml"
+            title="RSS feed"
+          >
+            <RssIcon />
           </IconButton>
         </div>
         <div className={classes.group}>

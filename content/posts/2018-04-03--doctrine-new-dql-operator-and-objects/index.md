@@ -1,7 +1,6 @@
 ---
 title: Doctrine NEW DQL operator and objects
 subTitle: Can we combine them?
-category: "Doctrine"
 tags: ["PHP", "Doctrine", "Doctrine NEW", "ORM", "DQL", "Data Transfer Object"]
 cover: doctrine.png
 postAuthor: Przemek Pawlas

@@ -1,7 +1,6 @@
 ---
 title: MySQL decimal formatting
 subTitle: Without FORMAT() usage
-category: "mysql"
 tags: ["PHP", "MySQL", "Doctrine", "DQL", "decimal"]
 cover: mysql.png
 postAuthor: Kamil Ścisłowski
