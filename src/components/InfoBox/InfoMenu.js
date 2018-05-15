@@ -28,14 +28,16 @@ const InfoMenu = props => {
 
   return (
     <nav className={classes.infoMenu}>
-      <Link to="/how-to-contribute/" onClick={linkOnClick} className={classes.link} data-shape="closed">
+      <Link
+        to="/how-to-contribute/"
+        onClick={linkOnClick}
+        className={classes.link}
+        data-shape="closed"
+      >
         How to contribute
       </Link>
       <Link to="/tags" onClick={linkOnClick} className={classes.link} data-shape="closed">
         Most popular tags
-      </Link>
-      <Link to="/" onClick={linkOnClick} className={classes.link} data-shape="closed">
-        Articles
       </Link>
     </nav>
   );

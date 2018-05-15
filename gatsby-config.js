@@ -32,7 +32,9 @@ module.exports = {
     title: config.siteTitle,
     description: config.siteDescription,
     siteUrl: config.siteUrl,
+    siteImageUrl: config.siteUrl + config.pathPrefix + config.siteImage,
     pathPrefix: config.pathPrefix,
+    language: config.siteLanguage,
     algolia: {
       appId: process.env.ALGOLIA_APP_ID ? process.env.ALGOLIA_APP_ID : "",
       searchOnlyApiKey: process.env.ALGOLIA_SEARCH_ONLY_API_KEY
@@ -45,16 +47,6 @@ module.exports = {
     }
   },
   plugins: [
-    {
-      resolve: `gatsby-plugin-algolia`,
-      options: {
-        appId: process.env.ALGOLIA_APP_ID ? process.env.ALGOLIA_APP_ID : "",
-        apiKey: process.env.ALGOLIA_ADMIN_API_KEY ? process.env.ALGOLIA_ADMIN_API_KEY : "",
-        indexName: process.env.ALGOLIA_INDEX_NAME ? process.env.ALGOLIA_INDEX_NAME : "",
-        queries,
-        chunkSize: 10000 // default: 1000
-      }
-    },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -168,43 +160,83 @@ module.exports = {
               siteMetadata {
                 title
                 description
-                siteUrl
+                pathPrefix
+                language
+                site_url: siteUrl
+                image_url: siteImageUrl
               }
             }
           }
         `,
+        setup: ({
+          query: {
+            site: { siteMetadata },
+            ...rest
+          },
+        }) => {
+          return {
+            ...siteMetadata,
+            ...rest,
+            custom_namespaces: { media: "http://video.search.yahoo.com/mrss" }
+          };
+        },
         feeds: [
           {
             serialize: ({ query: { site, allMarkdownRemark } }) => {
+              const siteUrl = site.siteMetadata.site_url + site.siteMetadata.pathPrefix;
+
               return allMarkdownRemark.edges.map(edge => {
-                return Object.assign({}, edge.node.frontmatter, {
-                  description: edge.node.excerpt,
+                return {
+                  title: edge.node.frontmatter.title,
+                  description: edge.node.frontmatter.subTitle,
                   author: edge.node.frontmatter.postAuthor,
                   categories: edge.node.frontmatter.tags,
-                  url: site.siteMetadata.siteUrl + edge.node.fields.slug,
-                  guid: site.siteMetadata.siteUrl + edge.node.fields.slug,
-                  custom_elements: [{ "content:encoded": edge.node.html }]
-                });
+                  date: edge.node.fields.prefix,
+                  url: siteUrl + edge.node.fields.slug,
+                  guid: siteUrl + edge.node.fields.slug,
+                  custom_elements: [
+                    {
+                      "content:encoded": edge.node.html
+                    },
+                    {
+                      "media:thumbnail": [
+                        {
+                          _attr: {
+                            url: siteUrl + edge.node.frontmatter.cover.childImageSharp.resize.src
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                };
               });
             },
             query: `
               {
                 allMarkdownRemark(
-                  limit: 1000,
+                  limit: 30,
                   filter: { id: { regex: "//posts//" } }
+                  sort: { fields: [fields___prefix], order: DESC }
                 ) {
                   edges {
                     node {
-                      excerpt
                       html
                       fields { 
                         slug
+                        prefix
                       }
                       frontmatter {
                         title
                         subTitle
                         postAuthor
                         tags
+                        cover {
+                          childImageSharp {
+                            resize(width: 300) {
+                              src
+                            }
+                          }
+                        }
                       }
                     }
                   }
