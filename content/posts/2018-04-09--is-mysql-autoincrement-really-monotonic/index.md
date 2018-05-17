@@ -9,13 +9,13 @@ postAuthor: Maciek Papież
 TL;DR: If a race condition between two MySQL transactions appears, the row
 with `ID = N` may appear in the database *BEFORE* another row with `ID < N`.
 
-# The task
+## The task
 
 Last week, I've been asked to build a microservice that will be responsible for
 polling a table for data and pushing it to a Kafka topic. As the table contains
 immutable events, it'd wise to use some kind of incremental loading.
 
-# The tool
+## The tool
 
 Confluent JDBC Connector ([see more](https://docs.confluent.io/current/connect/connect-jdbc/docs/index.html))
 is a ready-made add-on exploiting Kafka Connect possiblities, it simplifies
@@ -29,7 +29,7 @@ the docs don't mention any kind of risks involved here.
 
 Beware, it's a trap! (At least with MySQL that I had to use here.)
 
-# The trap
+## The trap
 
 We need three terminals here, let's call them A, B and C.
 
@@ -119,7 +119,7 @@ select * from foo;
 
 Now, both `alfa` and `bravo` rows are visible.
 
-# The issue
+## The issue
 
 During the between-commit phase, the row `bravo` with `ID = 2` was visible
 for other connections while the row `alfa` (`ID = 1`) was still uncommited, thus
@@ -138,7 +138,7 @@ add `where ID > 2` to your query".
 
 We've just ommited the `alfa` row!
 
-# Solution ideas
+## Solution ideas
 
 Here's a list of proposals that might work (or might not):
 
