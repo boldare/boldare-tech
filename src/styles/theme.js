@@ -53,9 +53,9 @@ const theme = createMuiTheme({
     },
     sizes: {
       closedHeight: 80,
-      postsListItemH1Font: 1.3,
-      postsListItemH2Font: 1.1,
-      postsListItemH3Font: 0.85,
+      postsListItemH2Font: 1.3,
+      postsListItemH3Font: 1.1,
+      postsListItemH4Font: 0.85,
       postsListItemH3Margin: "0.4em 0",
       fontIncraseForM: 1.15,
       fontIncraseForL: 1.3

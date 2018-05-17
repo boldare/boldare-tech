@@ -70,47 +70,48 @@ const styles = theme => ({
     display: "flex",
     flexDirection: "column",
     width: "100%",
-    "& h1": {
+    "& h2": {
       lineHeight: 1.15,
       fontWeight: 600,
       letterSpacing: "-0.03em",
       margin: 0,
-      fontSize: `${theme.navigator.sizes.postsListItemH1Font}em`,
-      [`@media (min-width: ${theme.mediaQueryTresholds.M}px)`]: {
-        fontSize: `${theme.navigator.sizes.postsListItemH1Font * theme.navigator.sizes.fontIncraseForM}em`
-      },
-      [`@media (min-width: ${theme.mediaQueryTresholds.L}px)`]: {
-        fontSize: `${theme.navigator.sizes.postsListItemH1Font * theme.navigator.sizes.fontIncraseForL}em`,
-        ".moving-featured &, .is-aside &": {
-          fontSize: "1em",
-          fontWeight: 400
-        }
-      }
-    },
-    "& h2": {
-      lineHeight: 1.2,
-      display: "block",
       fontSize: `${theme.navigator.sizes.postsListItemH2Font}em`,
-      margin: ".3em 0 0 0",
       [`@media (min-width: ${theme.mediaQueryTresholds.M}px)`]: {
         fontSize: `${theme.navigator.sizes.postsListItemH2Font * theme.navigator.sizes.fontIncraseForM}em`
       },
       [`@media (min-width: ${theme.mediaQueryTresholds.L}px)`]: {
         fontSize: `${theme.navigator.sizes.postsListItemH2Font * theme.navigator.sizes.fontIncraseForL}em`,
         ".moving-featured &, .is-aside &": {
-          display: "none"
+          fontSize: "1em",
+          fontWeight: 400
         }
       }
     },
     "& h3": {
+      lineHeight: 1.2,
+      display: "block",
+      fontSize: `${theme.navigator.sizes.postsListItemH3Font}em`,
+      margin: ".3em 0 0 0",
       [`@media (min-width: ${theme.mediaQueryTresholds.M}px)`]: {
         fontSize: `${theme.navigator.sizes.postsListItemH3Font * theme.navigator.sizes.fontIncraseForM}em`
       },
       [`@media (min-width: ${theme.mediaQueryTresholds.L}px)`]: {
-        fontSize: `${theme.navigator.sizes.postsListItemH3Font * theme.navigator.sizes.fontIncraseForL}em`
+        fontSize: `${theme.navigator.sizes.postsListItemH3Font * theme.navigator.sizes.fontIncraseForL}em`,
+        ".moving-featured &, .is-aside &": {
+          display: "none"
+        }
+      }
+    },
+    "& h4": {
+      fontWeight: "normal",
+      [`@media (min-width: ${theme.mediaQueryTresholds.M}px)`]: {
+        fontSize: `${theme.navigator.sizes.postsListItemH4Font * theme.navigator.sizes.fontIncraseForM}em`
+      },
+      [`@media (min-width: ${theme.mediaQueryTresholds.L}px)`]: {
+        fontSize: `${theme.navigator.sizes.postsListItemH4Font * theme.navigator.sizes.fontIncraseForL}em`
       },
       ".moving-featured &, .is-aside &": {
-        fontSize: `${theme.navigator.sizes.postsListItemH3Font}em`,
+        fontSize: `${theme.navigator.sizes.postsListItemH4Font}em`,
         margin: theme.navigator.sizes.postsListItemH3Margin
       }
     },
@@ -171,9 +172,9 @@ class ListItem extends React.Component {
             {/*<Img sizes={post.node.frontmatter.cover.children[0].sizes} />*/}
           </div>
           <div className={classes.listItemText}>
-            <h1>{post.node.frontmatter.title}</h1>
-            {post.node.frontmatter.subTitle && <h2>{post.node.frontmatter.subTitle}</h2>}
-            {post.node.frontmatter.postAuthor && <h3>{post.node.frontmatter.postAuthor}</h3>}
+            <h2>{post.node.frontmatter.title}</h2>
+            {post.node.frontmatter.subTitle && <h3>{post.node.frontmatter.subTitle}</h3>}
+            {post.node.frontmatter.postAuthor && <h4>{post.node.frontmatter.postAuthor}</h4>}
           </div>
         </Link>
       </li>

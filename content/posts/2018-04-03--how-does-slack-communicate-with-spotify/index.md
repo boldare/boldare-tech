@@ -6,13 +6,13 @@ cover: spotify_slack.png
 postAuthor: Maciej Papież
 ---
 
-# How it all started
+## How it all started
 We're using Slack extensively here at @xsolve, it seems that everyone does. Recently,
 I've noticed that if you paste a Spotify link to Slack, it gets converted to a Spotify
 widget. What's more, you can control your fully-local, desktop Spotify app from there!
 How come?! Let me show you the steps that I took in order to find the true answer.
 
-# Take the wrong path
+## Take the wrong path
 A fellow suggested that the Spotify widget in Slack exploits the concept of custom
 protocol handlers (see [here](https://www.google.pl/search?q=web+protocol+handler)).
 
@@ -22,7 +22,7 @@ It didn't connect with already running instance at all, just spawned a new one.
 
 That's not what I was looking for!
 
-# Find the widget
+## Find the widget
 Another fellow suggested that it might be useful to play around with Spotify's [play button](https://developer.spotify.com/technologies/widgets/spotify-play-button/),
 which could potentially work similarly as Slack's widget (they indeed look similar).
 
@@ -48,7 +48,7 @@ additional security-related parameters (CSRF, oauth).
 
 We found it!
 
-# More info to extract
+## More info to extract
 
 If you were curious about the data the app returns to the widget, take a look at
 this JSON snippet.

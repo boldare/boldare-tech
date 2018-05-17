@@ -16,17 +16,17 @@ postAuthor: Michał Rożenek
 - [Chapter 5 - Multiple reducers using combineReducers method](#chapter-5)
 - [Chapter 6 - Fetching data with Redux, redux-thunk middleware, and Axios](#chapter-6)
 
-# <a name="definitions"></a>What is Redux?
+## <a name="definitions"></a>What is Redux?
 
 Everything you change in your application, including data and UI changes is contained in an object called `state`, so
 basically Redux is a store that contains the application state and a few interesting methods.
 
-## State 
+### State 
 
 `State` is a read-only object contains information about your application.
 When you want to modify the state, you need to `dispatch` an `action`.
 
-## Action
+### Action
 
 Put simply, `action` is a plain JavaScript object including information about changes in the application.
 You can send an action to the `store` using `store.dispatch()` method.
@@ -39,7 +39,7 @@ Action's minimum requirement is a `type` property. Example below:
 }
 ```
 
-## Action creators
+### Action creators
 
 `Action creators` are functions which basically return or dispatch an action object. Example below:
 
@@ -51,14 +51,14 @@ function increase() {
 }
 ```
 
-## Reducer
+### Reducer
 
 `Reducer` specifies how the application `state` changes in regard to a `dispatched action`.
 Reducer receives `initial state`, `previous state` and `action`, then returns a new `state` object depending on `action.type`.
 
 Store should be `immutable`, so the reducer **doesn't modify** the previous state, just returns a **new state object**.
 
-## Store
+### Store
 
 `Store` holds the current application `state` object, and has a few useful methods, for example `dispatch` allowing you to `dispatch actions`.
 When creating a `store`, you need to provide a `reducer` as a parameter to let the store know what you want to update and how.
@@ -67,7 +67,7 @@ When creating a `store`, you need to provide a `reducer` as a parameter to let t
 const store = createStore(reducer);
 ```
 
-### Store methods:
+#### Store methods:
 
 `getState` - returns current state
 
@@ -75,12 +75,12 @@ const store = createStore(reducer);
 
 `subscribe` - lets you subscribe on store changes and register a callback
 
-### Important tips !
+#### Important tips !
 
 - Store shouldn't be mutated!
 - You should always return a new object.
 
-### To avoid object mutations, you can use those methods:
+#### To avoid object mutations, you can use those methods:
 
 - spread operator:
 
@@ -99,7 +99,7 @@ return Object.assign({}, state, {
 }
 ```
 
-# <a name="react-installation"></a>React installation
+## <a name="react-installation"></a>React installation
 
 For this article I used `createReactApp` starter.
 
@@ -116,7 +116,7 @@ Congratulations! Your React application is running.
 
 Now we want to install Redux.
 
-# <a name="redux-installation"></a>Redux installation
+## <a name="redux-installation"></a>Redux installation
 
 ```
 npm i react-redux redux --save.
@@ -127,7 +127,7 @@ Please open the react app folder in your IDE, go to `src`.
 For this article I removed all unnecessary files.
 You can also remove everything from `src` besides index.js.
 
-# <a name="chapter-1"></a>Chapter 1 - Create our first Redux Store
+## <a name="chapter-1"></a>Chapter 1 - Create our first Redux Store
 
 Go to ```index.js```
 First of all, we need to import the `createStore` method
@@ -260,7 +260,7 @@ ReactDOM.render(<App />, document.getElementById('root'));
 
 [Chapter code here](https://bitbucket.org/michalrozenek/redux-tutorial/src/9c69705bf901b0779a55957dd8b3ed3e856e5453/src/?at=lesson-01)
 
-# <a name="chapter-2"></a>Chapter 2 - Modify the store from UI
+## <a name="chapter-2"></a>Chapter 2 - Modify the store from UI
 
 To modify the `store` from the `UI`, we will add some buttons in the `App component`.
 
@@ -323,7 +323,7 @@ rootRender();
 Now you can modify your application state from the `UI`.
 Chapter code is [here](https://bitbucket.org/michalrozenek/redux-tutorial/src/4cf6bd490fe5c3f75e6d3fb0d3f0639e369b6d16/src?at=lesson-02)
 
-# <a name="chapter-3"></a>Chapter 3 - Redux middleware and logger
+## <a name="chapter-3"></a>Chapter 3 - Redux middleware and logger
 
 Redux allows you to use `middlewares`.
 In this chapter we want to use a `logger` middleware.
@@ -362,7 +362,7 @@ Your logger should look like this
 Chapter code is [here](https://bitbucket.org/michalrozenek/redux-tutorial/src/f30faa2b6b883520c7e62646cf1857ff2ca13c7f/src?at=lesson-03)
 
 
-# <a name="chapter-4"></a>Chapter 4 - Dividing Redux Store to separate files, Connect(), Provider
+## <a name="chapter-4"></a>Chapter 4 - Dividing Redux Store to separate files, Connect(), Provider
 
 In this chapter we are going to clean up our application.
 We want to:
@@ -569,7 +569,7 @@ ReactDOM.render(<App />, document.getElementById('root'));
 Congratulations! We finished this chapter!
 Chapter code is [here](https://bitbucket.org/michalrozenek/redux-tutorial/src/573143833d2671f342cb400a47daa2b18a816fb5/src?at=lesson-04)
 
-# <a name="chapter-5"></a>Chapter 5 - Multiple reducers using combineReducers method
+## <a name="chapter-5"></a>Chapter 5 - Multiple reducers using combineReducers method
 
 To combine reducers, we can use `combineReducers` method from `redux` library.
 In the next chapter we want to fetch some data, and now we will create a data reducer for this purpose.
@@ -677,7 +677,7 @@ In `Counter.js` we have `this.props.counter` as an object now, so if we want to 
 
 Chapter code is [here](https://bitbucket.org/michalrozenek/redux-tutorial/src/ee7af501f898a8dd8cba05b9372b79b093ee3c15/src?at=lesson-05)
 
-# <a name="chapter-6"></a>Chapter 6 - Fetching data with Redux, redux-thunk middleware, and Axios
+## <a name="chapter-6"></a>Chapter 6 - Fetching data with Redux, redux-thunk middleware, and Axios
 
 To `dispatch asynchronous actions` you will need `redux-thunk`, which
 basically is a function that wraps an expression to delay its evaluation.
@@ -739,7 +739,7 @@ instead of
 case 'DATA_FETCHING'
 ```
 
-## How to prepare action creators for data fetching
+### How to prepare action creators for data fetching
 
 Create an action directory and dataAction.js `action/dataAction.js`
 Import axios and types we want to use.
