@@ -14,12 +14,12 @@ postAuthor: Dawid Śpiechowicz
 
 ## <a name="what-is-minio"></a>What is Minio?
 
-Minio is open source AWS S3 compatible file storage.
+[Minio](https://minio.io) is open source AWS S3 compatible file storage.
 You can run it on environment you fully control.
 
 This blog post assumes you use Minio for development / testing purposes as AWS S3 replacement.
 
-If you are interested in production usage then you should take a look at distributed Minio mode which contains data loss protection features.
+If you are interested in production usage then you should take a look at [distributed Minio](https://docs.minio.io/docs/distributed-minio-quickstart-guide) mode which contains data loss protection features.
 
 ## <a name="how-to-spin-it-up"></a>How to spin it up?
 
