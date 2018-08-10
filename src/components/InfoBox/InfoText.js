@@ -5,6 +5,7 @@ import injectSheet from "react-jss";
 const styles = theme => ({
   text: {
     display: "block",
+    color: "white",
     fontWeight: 300,
     lineHeight: 1.5,
     fontSize: ".95em",

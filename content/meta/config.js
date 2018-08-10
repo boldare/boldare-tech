@@ -2,22 +2,22 @@ const colors = require("../../src/styles/colors");
 
 module.exports = {
   homeTitle: "Tech-blog",
-  siteTitle: "XSolve tech-blog",
-  shortSiteTitle: "XSolve tech-blog",
-  siteDescription: "XSolve developers blog.",
+  siteTitle: "Boldare tech-blog",
+  shortSiteTitle: "Boldare tech-blog",
+  siteDescription: "Boldare developers blog.",
   siteUrl: "https://tech.xsolve.software",
   pathPrefix: "",
   siteImage: "/avatar.jpg",
   siteLanguage: "en",
   // author
-  authorName: "XSolve",
+  authorName: "Boldare",
   authorTwitterAccount: "@xsolve_tech",
   // info
   infoTitle: "Tech-blog",
-  infoTitleNote: "by XSolve",
+  infoTitleNote: "by Boldare",
   // manifest.json
-  manifestName: "XSolve tech-blog",
-  manifestShortName: "XS-TechBlog", // max 12 characters
+  manifestName: "Boldare tech-blog",
+  manifestShortName: "BLDR-TechBlog", // max 12 characters
   manifestStartUrl: "/",
   manifestBackgroundColor: colors.bg,
   manifestThemeColor: colors.bg,
