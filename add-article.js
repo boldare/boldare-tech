@@ -32,7 +32,7 @@ const getDate = () => {
   if (month.length === 1) {
     month = "0" + month;
   }
-  let day = date.getDay().toString();
+  let day = date.getDate().toString();
   if (day.length === 1) {
     day = "0" + day;
   }

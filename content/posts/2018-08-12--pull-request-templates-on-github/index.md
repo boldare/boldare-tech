@@ -2,7 +2,7 @@
 title: Pull Request Templates on GitHub
 subTitle: How to improve the code review process and reduce f**-up rate significantly
 tags: ["github", "pull", "pr", "templates", "project"]
-cover: pull_requests.png
+cover: github_logo.png
 postAuthor: Krzysztof Miemiec
 ---
 
@@ -10,7 +10,7 @@ postAuthor: Krzysztof Miemiec
 - [How does it help us](#how-does-it-help-us)
 - [Let's do this together](#lets-do-this-together)
 
-## <a name="pr-templates></a>Pull Request Templates
+## <a name="pr-templates"></a>Pull Request Templates
 
 *Have you ever used `PULL_REQUEST_TEMPLATE.md`?* If not, I really recommend you to start doing it. After adding such file to your repository, GitHub (or any other repository management service) will start adding that markdown file as a content of your Pull Requests. You can add a "before-merge checklist" of things that can't be automatically checked by CI or can be easily forgotten. A strict template structure also helps the others to quickly skim through the contents of PR description.
 
