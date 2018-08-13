@@ -24,11 +24,11 @@ XSolve-tech/
 
 1. Clone this repository or add/edit a file
 [directly on GitHub](https://github.com/xsolve-pl/xsolve-tech/new/master/content/posts)
-2. Create a new folder for the post and name it using pattern shown above 📂
+2. Use `yarn add-article` command to create a new structure for the post 📂
 3. Write an article in [Markdown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
-syntax and save it as `index.md`, English language is preferred ✍️
+syntax and save it in `index.md`, English language is preferred ✍️
 4. Put an image (post avatar) in the created folder, technology icon is preferred 🖼
-5. Add the following required tags at the very top of the article 👆
+5. Update the following required tags at the very top of the article 👆
 
 ```
 ---
