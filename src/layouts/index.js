@@ -145,15 +145,7 @@ export const guery = graphql`
             subTitle
             #category
             postAuthor
-            cover {
-              children {
-                ... on ImageSharp {
-                  resolutions(width: 90, height: 90) {
-                    ...GatsbyImageSharpResolutions_withWebp_noBase64
-                  }
-                }
-              }
-            }
+            cover
           }
         }
       }

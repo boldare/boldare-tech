@@ -13,7 +13,7 @@ const Seo = props => {
   const siteUrl = config.siteUrl + config.pathPrefix;
   const title = providedTitle ? `${providedTitle} - ${config.shortSiteTitle}` : config.siteTitle;
   const description = providedDescription ? providedDescription : `${providedTitle} - ${config.siteDescription}`;
-  const imageSrc = siteUrl + (providedCover ? providedCover.childImageSharp.resize.src : config.siteImage);
+  const imageSrc = siteUrl + (providedCover ? providedCover : config.siteImage);
   const url = siteUrl + (providedSlug ? providedSlug : "");
   const twitterAccount = config.authorTwitterAccount ? config.authorTwitterAccount : "";
 

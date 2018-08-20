@@ -2,7 +2,7 @@
 title: Is MySQL's auto_increment really monotonic?
 subTitle: Why you shouldn't rely on auto_increment feature in some cases.
 tags: ["MySQL", "Kafka", "transaction", "AUTO_INCREMENT"]
-cover: mysql.png
+cover: /img/mysql.png
 postAuthor: Maciej Papież
 ---
 

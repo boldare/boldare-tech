@@ -2,7 +2,7 @@
 title: Doctrine with MySQL 8
 subTitle: How to use them together
 tags: ["PHP", "MySQL", "Doctrine", "Doctrine DBAL"]
-cover: doctrine.png
+cover: /img/doctrine.png
 postAuthor: Przemek Pawlas
 ---
 
@@ -22,7 +22,7 @@ authentication method by default. All you have to do is add:
 ```
 [mysqld]
 default-authentication-plugin=mysql_native_password
-``` 
+```
 
 to your MySQL config file, e.g. `/etc/mysql/conf.d/my.cnf` on the official
 Docker image.

@@ -50,6 +50,13 @@ module.exports = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
+        path: `${__dirname}/static/img/`,
+        name: "img"
+      }
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
         path: `${__dirname}/content/posts/`,
         name: "posts"
       }
@@ -221,7 +228,7 @@ module.exports = {
                   edges {
                     node {
                       html
-                      fields { 
+                      fields {
                         slug
                         prefix
                       }
@@ -259,6 +266,8 @@ module.exports = {
       options: {
         dir: `svg-icons`
       }
-    }
+    },
+    `gatsby-plugin-netlify-cms`,
+    `gatsby-plugin-netlify`
   ]
 };

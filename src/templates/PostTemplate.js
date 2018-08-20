@@ -26,7 +26,7 @@ class PostTemplate extends React.Component {
 
   filterTagsBySlug(group) {
     let containsSlug = false;
-    
+
     _.forEach(group.edges, edge => {
       if (edge.node.fields.slug === this.props.data.post.fields.slug) {
         containsSlug = true;
@@ -92,13 +92,7 @@ export const postQuery = graphql`
         title
         subTitle
         postAuthor
-        cover {
-          childImageSharp {
-            resize(width: 300) {
-              src
-            }
-          }
-        }
+        cover
       }
     }
     tags: allMarkdownRemark {
