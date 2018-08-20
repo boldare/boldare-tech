@@ -209,7 +209,7 @@ module.exports = {
                       "media:thumbnail": [
                         {
                           _attr: {
-                            url: siteUrl + edge.node.frontmatter.cover.childImageSharp.resize.src
+                            url: siteUrl + edge.node.frontmatter.cover
                           }
                         }
                       ]
@@ -237,13 +237,7 @@ module.exports = {
                         subTitle
                         postAuthor
                         tags
-                        cover {
-                          childImageSharp {
-                            resize(width: 300) {
-                              src
-                            }
-                          }
-                        }
+                        cover
                       }
                     }
                   }

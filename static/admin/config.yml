@@ -3,7 +3,6 @@ backend:
   repo: mateuszmatyszkowicz/xsolve-tech
   branch: feature/netlify-cms
 
-
 media_folder: static/img
 public_folder: /img
 
@@ -12,21 +11,14 @@ slug:
   clean_accents: true
 
 collections:
-  - name: "settings"
-    label: "Settings"
+  - name: "parts"
+    label: "Parts"
     delete: false
-    editor:
-      preview: false
-    files:
-      - name: "general"
-        label: "General Settings"
-        file: "meta/config.json"
-        description: "General Site Settings"
-        fields:
-          - {label: "Site Title", name: "siteTitle", widget: "string", required: false}
-          - {label: "Alternative Site Title (short)", name: "siteTitleAlt", widget: "string", required: false}
-          - {label: "Site Description", name: "siteDescription", widget: "string", required: false}
-          - {label: "Default Site Cover", name: "siteCover", widget: "image", required: false}
+    folder: "content/parts"
+    fields:
+      - {label: "Title", name: "title", widget: "string", pattern: ['.{5,}', "Must have at least 5 characters"]}
+      - {label: "Content", name: "body", widget: "markdown", required: false}
+
   - name: "blog"
     label: "Blog Articles"
     label_singular: "Blog Article"
@@ -34,10 +26,11 @@ collections:
     create: true
     slug: "{{slug}}"
     fields:
-      - {label: "Template Key", name: "templateKey", widget: "hidden", default: "article-page"}
       - {label: "Title", name: "title", widget: "string", pattern: ['.{5,}', "Must have at least 5 characters"]}
-      - {label: "Lead Content", name: "lead", widget: "markdown", required: false}
+      - {label: "Title", name: "subTitle", widget: "string", required: false, pattern: ['.{5,}', "Must have at least 5 characters"]}
+      - {label: "Content", name: "body", widget: "markdown", required: false}
       - {label: "Cover", name: "cover", widget: "image"}
       - {label: "Article Tags", name: "tags", widget: "list"}
+      - {label: "Post Authors", name: "postAuthor", widget: "string"}
 
 
