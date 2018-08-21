@@ -1,13 +1,13 @@
 import React from "react";
 import injectSheet from "react-jss";
-import {MuiThemeProvider} from "material-ui/styles";
+import { MuiThemeProvider } from "material-ui/styles";
 import PropTypes from "prop-types";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 
 import theme from "../styles/theme";
 import globals from "../styles/globals";
 
-import {setFontSizeIncrease, setIsWideScreen} from "../state/store";
+import { setFontSizeIncrease, setIsWideScreen } from "../state/store";
 
 import asyncComponent from "../components/common/AsyncComponent/";
 import Loading from "../components/common/Loading/";
@@ -15,7 +15,7 @@ import Navigator from "../components/Navigator/";
 import ActionsBar from "../components/ActionsBar/";
 import InfoBar from "../components/InfoBar/";
 
-import {isWideScreen, timeoutThrottlerHandler} from "../utils/helpers";
+import { isWideScreen, timeoutThrottlerHandler } from "../utils/helpers";
 
 const InfoBox = asyncComponent(
   () =>
@@ -145,15 +145,7 @@ export const guery = graphql`
             subTitle
             #category
             postAuthor
-            cover {
-              children {
-                ... on ImageSharp {
-                  resolutions(width: 90, height: 90) {
-                    ...GatsbyImageSharpResolutions_withWebp_noBase64
-                  }
-                }
-              }
-            }
+            cover
           }
         }
       }

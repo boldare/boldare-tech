@@ -1,0 +1,38 @@
+backend:
+  name: github
+  repo: xsolve-pl/xsolve-tech
+  branch: feature/netlify-cms
+
+media_folder: static/img
+public_folder: /img
+
+publish_mode: editorial_workflow
+
+slug:
+  encoding: "ascii"
+  clean_accents: true
+
+collections:
+  - name: "parts"
+    label: "Parts"
+    delete: false
+    folder: "content/parts"
+    fields:
+      - {label: "Title", name: "title", widget: "string", pattern: ['.{5,}', "Must have at least 5 characters"]}
+      - {label: "Content", name: "body", widget: "markdown", required: false}
+
+  - name: "blog"
+    label: "Blog Articles"
+    label_singular: "Blog Article"
+    folder: "content/posts"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string", pattern: ['.{5,}', "Must have at least 5 characters"]}
+      - {label: "Sub title", name: "subTitle", widget: "string", required: false, pattern: ['.{5,}', "Must have at least 5 characters"]}
+      - {label: "Content", name: "body", widget: "markdown", required: false}
+      - {label: "Cover", name: "cover", widget: "image"}
+      - {label: "Article Tags", name: "tags", widget: "list"}
+      - {label: "Post Authors", name: "postAuthor", widget: "string"}
+
+

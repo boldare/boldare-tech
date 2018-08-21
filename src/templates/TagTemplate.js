@@ -95,15 +95,7 @@ export const pageQuery = graphql`
             title
             subTitle
             postAuthor
-            cover {
-              children {
-                ... on ImageSharp {
-                  resolutions(width: 90, height: 90) {
-                    ...GatsbyImageSharpResolutions_withWebp_noBase64
-                  }
-                }
-              }
-            }
+            cover
           }
         }
       }
