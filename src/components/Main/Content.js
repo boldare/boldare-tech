@@ -53,7 +53,7 @@ const styles = theme => ({
       margin: "0 0 .5em 0"
     },
     "& img": {
-      maxWidth: "100%"
+      width: "100%"
     },
     "& blockquote": {
       border: `5px solid ${theme.main.colors.blockquoteFrame}`,
