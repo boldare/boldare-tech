@@ -85,7 +85,7 @@
     "instantsearch.css": "^7.0.0",
     "material-ui": "1.0.0-beta.36",
     "material-ui-icons": "^1.0.0-beta.17",
-    "netlify-cms": "1.9.3",
+    "netlify-cms": "1.1.0",
     "react-custom-scrollbars": "^4.2.1",
     "react-disqus-comments": "^1.1.1",
     "react-facebook": "^4.2.1",
