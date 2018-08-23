@@ -53,7 +53,7 @@ const Socialcons = props => {
             rel="noopener noreferrer"
             title={item.name}
           >
-            <Icon className={classes.svg} />
+            <img src={Icon} className={classes.svg} />
           </a>
         );
       })}
