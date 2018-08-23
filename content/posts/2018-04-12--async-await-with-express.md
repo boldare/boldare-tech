@@ -2,7 +2,7 @@
 title: Async/await in Express routing
 subTitle: How to do it?
 tags: ["Javascript", "ES7", "Express", "async", "await"]
-cover: express.png
+cover: /img/express.png
 postAuthor: Dawid Rożenek
 ---
 
@@ -39,7 +39,7 @@ const getUser = async (req, res, next) => {
 router.get("/user/:id", getUser);
 ```
 
-Now our `getUser` function will catch errors in the `catch` block, but it's not a perfect solution. I can't imagine using `async/await` with `try/catch` in whole application... 
+Now our `getUser` function will catch errors in the `catch` block, but it's not a perfect solution. I can't imagine using `async/await` with `try/catch` in whole application...
 We can create some `middleware` to remove the `try/catch` statement.
 
 ```js

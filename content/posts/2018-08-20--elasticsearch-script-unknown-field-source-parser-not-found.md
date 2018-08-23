@@ -2,7 +2,7 @@
 title: Elasticsearch error - [script] unknown field [source], parser not found
 subTitle: Caused by Elastica and how to fix Travis?
 tags: ["Elasticsearch", "Elastica", "Elasticsearch script", "Travis", "PHP"]
-cover: elasticsearch.png
+cover: /img/elasticsearch.png
 postAuthor: Przemek Pawlas
 ---
 
@@ -10,9 +10,9 @@ postAuthor: Przemek Pawlas
 
 If you're using a script for Elasticsearch, e.g. a `Function Score` query,
 you may spot `[script] unknown field [source], parser not found` error
-after upgrading Elasticsearch to `5.6.0` or higher and the library for 
+after upgrading Elasticsearch to `5.6.0` or higher and the library for
 your back-end language. In my case `ruflin/elastica` that resulted in
-mentioned error on Travis. 
+mentioned error on Travis.
 
 ## How did I solve it?
 

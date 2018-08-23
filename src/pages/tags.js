@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const _ = require("lodash");
-const path = require('path');
+const path = require("path");
 
 import Main from "../components/Main";
 import Article from "../components/Main/Article";
@@ -27,7 +27,7 @@ const TagsPage = props => {
         facebook={data.site.siteMetadata.facebook}
       />
     </Main>
-  )
+  );
 };
 
 TagsPage.propTypes = {

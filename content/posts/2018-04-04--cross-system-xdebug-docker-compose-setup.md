@@ -2,14 +2,14 @@
 title: Cross-system XDebug Docker setup
 subTitle: Docker Compose example
 tags: ["bash", "PHP", "XDebug", "XDEBUG_CONFIG", "Docker", "Docker Compose", "$OSTYPE", ".env"]
-cover: docker.png
+cover: /img/docker.png
 postAuthor: Przemek Pawlas
 ---
 
 ## Issue
 
 XDebug can be difficult to configure with Docker due to the requirement of
-remote host IP (`remote_host` option) after installing XDebug and calling 
+remote host IP (`remote_host` option) after installing XDebug and calling
 `echo "\nxdebug.remote_enable=1" >> /usr/local/etc/php/conf.d/xdebug.ini `
 in your PHP image. So far I've encountered manual `.env` variable setups.
 But it's possible to obtain it automatically.
@@ -38,7 +38,7 @@ fi
 docker-compose "$@"
 RESULT=$?
 exit $RESULT
-``` 
+```
 
 It reads the IP address based on `$OSTYPE`. Mac and Windows Docker versions provide
 in-built definitions in their latest versions. Place the script in the same

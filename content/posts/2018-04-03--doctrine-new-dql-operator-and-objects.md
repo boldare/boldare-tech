@@ -2,7 +2,7 @@
 title: Doctrine NEW DQL operator and objects
 subTitle: Can we combine them?
 tags: ["PHP", "Doctrine", "Doctrine NEW", "ORM", "DQL", "Data Transfer Object"]
-cover: doctrine.png
+cover: /img/doctrine.png
 postAuthor: Przemek Pawlas
 ---
 
@@ -26,13 +26,13 @@ namespace Example\DTO;
 class SomeEntityData
 {
     // Property definitions
-    
+
     public function __construct(string $field, ?int $count)
     {
         $this->field = $field;
         $this->count = $count;
     }
-    
+
     // Getters
 }
 ```

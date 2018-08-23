@@ -1,7 +1,13 @@
 ---
 title: Travis - problematic Python and Node
-tags: ["Travis", "Python", "Node.js", "aws.cli", "nvm", ".nvrmc"]
-cover: travis.png
+cover: /img/travis.png
+tags:
+  - Travis
+  - Python
+  - Node.js
+  - aws.cli
+  - nvm
+  - .nvrmc
 postAuthor: Krzysztof Miemiec
 ---
 
