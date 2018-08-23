@@ -1,9 +1,16 @@
 ---
 title: Doctrine NEW DQL operator and objects
 subTitle: Can we combine them?
-tags: ["PHP", "Doctrine", "Doctrine NEW", "ORM", "DQL", "Data Transfer Object"]
 cover: /img/doctrine.png
-postAuthor: Przemek Pawlas
+tags:
+  - PHP
+  - Doctrine
+  - Doctrine NEW
+  - ORM
+  - DQL
+  - Data Transfer Object
+  - ''
+postAuthor: Przemysław Pawlas
 ---
 
 ## Issue
