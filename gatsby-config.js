@@ -256,9 +256,9 @@ module.exports = {
       }
     },
     {
-      resolve: "gatsby-plugin-svgr",
+      resolve: "gatsby-plugin-react-svg",
       options: {
-        dir: `svg-icons`
+        include: /svg-icons/
       }
     },
     `gatsby-plugin-netlify-cms`,
