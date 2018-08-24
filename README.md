@@ -23,6 +23,7 @@ There are two way to contribute
 7. INFO: To add images to article, you need upload it by `Media` page.
 8. Then simple add it in article `![Describe file](/img/<your-file-name>)`
 
+
 👉 Cloning repository
 
 The articles' file structure:
