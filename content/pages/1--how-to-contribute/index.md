@@ -9,13 +9,13 @@ Any helpful contributions are welcome.
 3 lines, 3 paragraphs? Doesn't matter.
 
 ## How to contribute
-There are two ways, to contribute
+There are two ways to contribute:
 
 👉 Using CMS system
 
 1. Go to [Tech blog Xsolve](https://tech.xsolve.software/admin/), sometimes you need to do it twice, It's caused by routing.
 2. Log in by credentials, preferred github.
-3. Go to `Blog Articles` or click `Quick add`, at the very top of the page.
+3. Go to `Blog Articles` or click `Quick add` at the very top of the page.
 4. Click `New Blog Article`.
 5. Create article by providing all required data, also upload `cover`.
 6. If you save article, it will be sent as PR for review.
