@@ -9,7 +9,6 @@ tags:
   - ORM
   - DQL
   - Data Transfer Object
-  - ''
 postAuthor: Przemysław Pawlas
 ---
 
