@@ -9,7 +9,7 @@ Any helpful contributions are welcome.
 3 lines, 3 paragraphs? Doesn't matter.
 
 ## How to contribute
-There are two ways to contribute
+There are two ways, to contribute
 
 👉 Using CMS system
 
@@ -20,7 +20,7 @@ There are two ways to contribute
 5. Create article by providing all required data, also upload `cover`.
 6. If you save article, it will be sent as PR for review.
 
-7. INFO: To add images to article, you need to upload them in `Media` page.
+7. INFO: To add images to article, you need to upload them on `Media` page.
 8. Then simple add it in article `![Describe file](/img/<your-file-name>)`
 
 
