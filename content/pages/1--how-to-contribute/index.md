@@ -9,19 +9,18 @@ Any helpful contributions are welcome.
 3 lines, 3 paragraphs? Doesn't matter.
 
 ## How to contribute
-
-There are two way to contribute
+There are two ways to contribute
 
 👉 Using CMS system
 
 1. Go to [Tech blog Xsolve](https://tech.xsolve.software/admin/), sometimes you need to do it twice, It's caused by routing.
 2. Log in by credentials, preferred github.
-3. Go to `Blog Articles` or by clicking `Quick add` on the very top page.
+3. Go to `Blog Articles` or click `Quick add`, at the very top of the page.
 4. Click `New Blog Article`.
 5. Create article by providing all required data, also upload `cover`.
-6. If you save article will be saved as a draft for review purposes.
+6. If you save article, it will be sent as PR for review.
 
-7. INFO: To add images to article, you need upload it by `Media` page.
+7. INFO: To add images to article, you need to upload them in `Media` page.
 8. Then simple add it in article `![Describe file](/img/<your-file-name>)`
 
 
