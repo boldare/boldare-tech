@@ -15,7 +15,7 @@ There are two way to contribute
 👉 Using CMS system
 
 1. Go to [Tech blog Xsolve](https://tech.xsolve.software/admin/), sometimes you need to do it twice, It's caused by routing.
-2. Log in by credentials, preffered github.
+2. Log in by credentials, preferred github.
 3. Go to `Blog Articles` or by clicking `Quick add` on the very top page.
 4. Click `New Blog Article`.
 5. Create article by providing all required data, also upload `cover`.
