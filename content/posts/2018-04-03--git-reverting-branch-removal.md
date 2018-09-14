@@ -1,7 +1,7 @@
 ---
 title: Reverting branch removal in Git
 tags: ["Git", "git reflog"]
-cover: git.png
+cover: /img/git.png
 postAuthor: Mateusz Rosiek
 ---
 

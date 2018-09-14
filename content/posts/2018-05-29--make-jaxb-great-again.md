@@ -2,7 +2,7 @@
 title: Make JAXB great again!
 subTitle: Setup JAXB to generate a fluent builder API and use java.time classes
 tags: ["java", "jdk8", "jaxb", "java.time", "maven", "builder pattern"]
-cover: java.png
+cover: /img/java.png
 postAuthor: Maciej Papież
 ---
 

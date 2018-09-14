@@ -164,10 +164,10 @@ class ListItem extends React.Component {
               <picture>
                 <source
                   type="image/webp"
-                  srcSet={post.node.frontmatter.cover.children[0].resolutions.srcSetWebp}
+                  srcSet={post.node.frontmatter.cover}
                 />
-                <source srcSet={post.node.frontmatter.cover.children[0].resolutions.srcSet} />
-                <img src={post.node.frontmatter.cover.children[0].resolutions.src} alt="" />
+                <source srcSet={post.node.frontmatter.cover} />
+                <img src={post.node.frontmatter.cover} alt="" />
               </picture>
             </LazyLoad>
             {/*<Img sizes={post.node.frontmatter.cover.children[0].sizes} />*/}

@@ -2,7 +2,7 @@
 title: MySQL decimal formatting
 subTitle: Without FORMAT() usage
 tags: ["PHP", "MySQL", "Doctrine", "DQL", "decimal"]
-cover: mysql.png
+cover: /img/mysql.png
 postAuthor: Kamil Ścisłowski
 ---
 

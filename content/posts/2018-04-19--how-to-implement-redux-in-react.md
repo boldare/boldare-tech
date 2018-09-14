@@ -2,7 +2,7 @@
 title: How to implement Redux in React
 subTitle: What is Redux and how we can combine it with our application?
 tags: ["Javascript", "React", "Redux", "tutorial", "Redux store", "reducer", "middleware"]
-cover: redux.png
+cover: /img/redux.png
 postAuthor: Michał Rożenek
 ---
 
@@ -21,7 +21,7 @@ postAuthor: Michał Rożenek
 Everything you change in your application, including data and UI changes is contained in an object called `state`, so
 basically Redux is a store that contains the application state and a few interesting methods.
 
-### State 
+### State
 
 `State` is a read-only object contains information about your application.
 When you want to modify the state, you need to `dispatch` an `action`.
@@ -273,7 +273,7 @@ class App extends Component {
         <button onClick={() => increase()}>
           +
         </button>
-  
+
         <button onClick={() => decrease()}>
         -
         </button>
@@ -357,7 +357,7 @@ const store = createStore(reducer, middleware);
 Done!
 Your logger should look like this
 
-![Redux logger](./redux-logger.png)
+![Redux logger](/img/redux-logger.png)
 
 Chapter code is [here](https://bitbucket.org/michalrozenek/redux-tutorial/src/f30faa2b6b883520c7e62646cf1857ff2ca13c7f/src?at=lesson-03)
 
@@ -390,7 +390,7 @@ class Counter extends Component {
         <button onClick={() => this.props.increase()}>
           +
         </button>
-  
+
         <button onClick={() => this.props.decrease()}>
         -
         </button>
@@ -460,7 +460,7 @@ class Counter extends Component {
         <button onClick={() => this.props.increase()}>
           +
         </button>
-  
+
         <button onClick={() => this.props.decrease()}>
         -
         </button>
@@ -647,10 +647,10 @@ export default createStore(reducer, middleware);
 Now our state structure changed
 
 State before:
-![Redux logger](./redux_state_before.png)
+![Redux logger](/img/redux_state_before.png)
 
 State after:
-![Redux logger](./redux_state_after.png)
+![Redux logger](/img/redux_state_after.png)
 
 Our simple state changed, so we need to modify the `counter reducer` and `<Counter />` component a little bit.
 
@@ -902,6 +902,6 @@ Go to the main `index.js` file, import the `Data` component and put in the `rend
 This is it!
 We have data fetching handled with Redux and redux-thunk.
 
-![Redux data fetching](./redux_data_fetching.png)
+![Redux data fetching](/img/redux_data_fetching.png)
 
 Code [here](https://bitbucket.org/michalrozenek/redux-tutorial/src/aaa5e6bf7548ea50fb6448100216b6a2840f10b8/src?at=lesson-07)

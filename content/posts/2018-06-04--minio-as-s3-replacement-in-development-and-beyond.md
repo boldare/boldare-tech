@@ -2,7 +2,7 @@
 title: Minio as S3 replacement in development and beyond
 subTitle: How to configure self-hosted S3 file storage with Docker and setup Symfony Flysystem
 tags: ["s3", "aws", "amazon", "symfony", "docker", "flysystem"]
-cover: minio.png
+cover: /img/minio.png
 postAuthor: Dawid Śpiechowicz
 ---
 
