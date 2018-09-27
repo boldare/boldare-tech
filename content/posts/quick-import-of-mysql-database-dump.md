@@ -34,7 +34,7 @@ services:
       - ./mysql/config.cnf:/etc/mysql/conf.d/config.cnf
 ```
 
-We aren't using named volume to keep MySQL data as we often rebuild the whole application and we don't have a need for retaining them. But when you look at the documentation of [official MySQL Docker image](https://hub.docker.com/_/mysql/) you'll notice that it's possible to mount a volume to `/var/lib/mysql` so that all databases are preserved.
+We don't use named volume to keep MySQL data as we often rebuild the whole application and we don't have a need for retaining them. But when you look at the documentation of [official MySQL Docker image](https://hub.docker.com/_/mysql/) you'll notice that it's possible to mount a volume to `/var/lib/mysql` so that all databases are preserved.
 
 It becomes apparent that you would be able to quickly replace whole database contents if you would be able to change the content of this volume. Since this would only require some files to be copied (without building indexes, checking foreign keys, locking etc. as it is when `.sql` files are imported via MySQL client) it would be much faster then ordinary import.
 
