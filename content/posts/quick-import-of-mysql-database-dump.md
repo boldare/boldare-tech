@@ -27,6 +27,7 @@ services:
 
   db:
     image: mysql:5.7
+    # ...
     container_name: foo_db
     volumes:
       # Some configuration attached using a volume.
@@ -59,6 +60,7 @@ services:
 
   db:
     image: mysql:5.7
+    # ...
     container_name: foo_db
     volumes:
       # Some configuration attached using a volume.
