@@ -99,7 +99,7 @@ Following this we will create another named volume that will contain a copy of o
 
 Now we have our backup ready!
 
-Let's say we did some work and now we want to clean up the database. We have to remove our `foo_db_data` container so it can be cloned from `foo_db_data_clone`. In order to do it we also have to remove our `db` container since named volumes cannot be removed if they are used by any container:
+Let's say we did some work and now we want to clean up the database. We have to remove our `foo_db_data` volume so it can be cloned from `foo_db_data_clone`. In order to do it we also have to remove our `foo_db` container since named volumes cannot be removed if they are used by any container:
 
 ```
 # On host
