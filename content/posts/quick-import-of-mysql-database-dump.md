@@ -40,7 +40,7 @@ It becomes apparent that you would be able to quickly replace whole database con
 
 The plan is as follows:
 
-1. Alter `ocker-compose.yml` to mount a named data volume for MySQL service.
+1. Alter `docker-compose.yml` to mount a named data volume for MySQL service.
 2. Import database dump you want to preserve using MySQL client.
 3. Clone named data volume.
 4. When database needs to be cleaned up use previously cloned named data volume and clone it back.
