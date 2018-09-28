@@ -77,6 +77,7 @@ volumes:
 So let's create this named volume now:
 
 ```bash
+# On host
 docker volume create --name foo_db_data
 ```
 
