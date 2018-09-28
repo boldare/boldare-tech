@@ -90,7 +90,7 @@ docker exec -it foo_app bash
 mysql -uuser -p -hdb foo < foo.sql
 ```
 
-Following this we will create another named volume that will contain a copy of our data. We can use a [simple Bash script](https://github.com/gdiepen/docker-convenience-scripts/blob/master/docker_clone_volume.sh) to copy all files from `foo_db_data volume` to `foo_db_data_clone` volume - visit [Guido Diepen's blog](https://www.guidodiepen.nl/2016/05/cloning-docker-data-volumes/) to find out more about how it works. Basically it uses Alpine image to which both source and destination volumes are mounted and that copies all files between them. The script also creates destination volume for us. We invoke it as follows:
+Following this we will create another named volume that will contain a copy of our data. We can use a [simple Bash script](https://github.com/gdiepen/docker-convenience-scripts/blob/master/docker_clone_volume.sh) to copy all files from `foo_db_data` volume to `foo_db_data_clone` volume - visit [Guido Diepen's blog](https://www.guidodiepen.nl/2016/05/cloning-docker-data-volumes/) to find out more about how it works. Basically it uses Alpine image to which both source and destination volumes are mounted and that copies all files between them. The script also creates destination volume for us. We invoke it as follows:
 
 ```bash
 # On host
