@@ -184,7 +184,7 @@ module.exports = {
                 allMarkdownRemark(
                   limit: 30,
                   filter: { fileAbsolutePath: { regex: "//posts//" } }
-                  sort: { fields: [fields___prefix], order: DESC }
+                  sort: { fields: [fields___date], order: DESC }
                 ) {
                   edges {
                     node {
