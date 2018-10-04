@@ -1,5 +1,5 @@
-import { createMuiTheme } from "material-ui/styles";
-import Color from "color";
+const { createMuiTheme } = require("material-ui/styles");
+const Color = require("color");
 
 const colors = require("./colors");
 
@@ -202,4 +202,4 @@ const theme = createMuiTheme({
   }
 });
 
-export default theme;
+module.exports = theme;

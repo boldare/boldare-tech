@@ -1,4 +1,5 @@
 import React from "react";
+import { graphql } from "gatsby";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
@@ -57,28 +58,28 @@ const mapDispatchToProps = {
 export default connect(mapStateToProps, mapDispatchToProps)(PageTemplate);
 
 //eslint-disable-next-line no-undef
-export const pageQuery = graphql`
-  query PageByPath($slug: String!) {
-    page: markdownRemark(fields: { slug: { eq: $slug } }) {
-      id
-      html
-      fields {
-        slug
-      }
-      frontmatter {
-        title
-      }
-    }
-    footnote: markdownRemark(id: { regex: "/footnote/" }) {
-      id
-      html
-    }
-    site {
-      siteMetadata {
-        facebook {
-          appId
-        }
-      }
-    }
-  }
-`;
+// export const pageQuery = graphql`
+//   query PageByPath($slug: String!) {
+//     page: markdownRemark(fields: { slug: { eq: $slug } }) {
+//       id
+//       html
+//       fields {
+//         slug
+//       }
+//       frontmatter {
+//         title
+//       }
+//     }
+//     footnote: markdownRemark(id: { regex: "/footnote/" }) {
+//       id
+//       html
+//     }
+//     site {
+//       siteMetadata {
+//         facebook {
+//           appId
+//         }
+//       }
+//     }
+//   }
+// `;

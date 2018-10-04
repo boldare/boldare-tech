@@ -1,4 +1,5 @@
 import React from "react";
+import { graphql } from "gatsby";
 import PropTypes from "prop-types";
 
 const _ = require("lodash");
@@ -10,7 +11,7 @@ import Main from "../components/Main/";
 import Post from "../components/Post/";
 import Footer from "../components/Footer/";
 import Seo from "../components/Seo";
-
+import Layout from "../components/layout";
 
 require("core-js/fn/array/find");
 require("prismjs/themes/prism-okaidia.css");
@@ -26,7 +27,6 @@ class PostTemplate extends React.Component {
 
   filterTagsBySlug(group) {
     let containsSlug = false;
-
     _.forEach(group.edges, edge => {
       if (edge.node.fields.slug === this.props.data.post.fields.slug) {
         containsSlug = true;
@@ -38,26 +38,38 @@ class PostTemplate extends React.Component {
   }
 
   render() {
-    const { data, pathContext } = this.props;
-    const facebook = (((data || {}).site || {}).siteMetadata || {}).facebook;
+    const {
+      data: {
+        site: {
+          siteMetadata: { facebook }
+        },
+        post,
+        footnote,
+        author,
+        tags
+      },
+      pageContext
+    } = this.props;
 
-    const postTags = _.filter(data.tags.group, (group) => {
-      return this.filterTagsBySlug(group)
+    const postTags = _.filter(tags.group, group => {
+      return this.filterTagsBySlug(group);
     });
 
     return (
-      <Main>
-        <Post post={data.post} tags={postTags} slug={pathContext.slug} author={data.author} />
-        <Footer footnote={data.footnote} />
-        <Seo data={data.post} facebook={facebook} />
-      </Main>
+      <Layout>
+        <Main>
+          <Post post={post} tags={postTags} slug={pageContext.slug} author={author} />
+          <Footer footnote={footnote} />
+          <Seo data={post} facebook={facebook} />
+        </Main>
+      </Layout>
     );
   }
 }
 
 PostTemplate.propTypes = {
   data: PropTypes.object.isRequired,
-  pathContext: PropTypes.object.isRequired,
+  pageContext: PropTypes.object.isRequired,
   navigatorPosition: PropTypes.string.isRequired,
   setNavigatorPosition: PropTypes.func.isRequired,
   isWideScreen: PropTypes.bool.isRequired
@@ -75,19 +87,21 @@ const mapDispatchToProps = {
   setNavigatorShape
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(PostTemplate);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PostTemplate);
 
 // TODO - whenever possible, filter tag groups by slug here: https://github.com/gatsbyjs/gatsby/issues/5046
 //eslint-disable-next-line no-undef
 export const postQuery = graphql`
-  query PostBySlug($slug: String!) {
+  query($slug: String!) {
     post: markdownRemark(fields: { slug: { eq: $slug } }) {
-      id
-      html
       fields {
         slug
         prefix
       }
+      html
       frontmatter {
         title
         subTitle
@@ -108,13 +122,17 @@ export const postQuery = graphql`
         }
       }
     }
-    author: markdownRemark(id: { regex: "/author/" }) {
+    author: file(relativePath: { eq: "parts/author.md" }) {
       id
-      html
+      childMarkdownRemark {
+        html
+      }
     }
-    footnote: markdownRemark(id: { regex: "/footnote/" }) {
+    footnote: file(relativePath: { eq: "parts/footnote.md" }) {
       id
-      html
+      childMarkdownRemark {
+        html
+      }
     }
     site {
       siteMetadata {

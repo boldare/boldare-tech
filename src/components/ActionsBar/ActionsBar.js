@@ -4,7 +4,7 @@ import injectSheet from "react-jss";
 import { connect } from "react-redux";
 import screenfull from "screenfull";
 
-import Link from "gatsby-link";
+import { Link } from "gatsby";
 import IconButton from "material-ui/IconButton";
 import HomeIcon from "material-ui-icons/Home";
 import SearchIcon from "material-ui-icons/Search";

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import injectSheet from "react-jss";
 import classNames from "classnames";
 
-import { navigateTo } from "gatsby-link";
+import { navigate } from "gatsby";
 
 import { MenuItem, MenuList } from "material-ui/Menu";
 import MoreVertIcon from "material-ui-icons/MoreVert";
@@ -93,26 +93,28 @@ class TopMenu extends React.Component {
                       Home
                     </MenuItem>
                     {pages.map((page, i) => {
-                      const { fields, frontmatter } = page.node;
-
-                      return (
-                        <a key={fields.slug} href={fields.slug} style={{ display: "block" }}>
-                          <MenuItem
-                            onClick={e => {
-                              this.props.pageLinkOnClick(e);
-                              this.handleClose();
-                            }}
-                          >
-                            {frontmatter.menuTitle ? frontmatter.menuTitle : frontmatter.title}
-                          </MenuItem>
-                        </a>
+                      const {
+                        childMarkdownRemark: { frontmatter }
+                      } = page.node;
+                      return null
+                      return (null
+                        // <a key={fields.slug} href={fields.slug} style={{ display: "block" }}>
+                        //   <MenuItem
+                        //     onClick={e => {
+                        //       this.props.pageLinkOnClick(e);
+                        //       this.handleClose();
+                        //     }}
+                        //   >
+                        //     {frontmatter.menuTitle ? frontmatter.menuTitle : frontmatter.title}
+                        //   </MenuItem>
+                        // </a>
                       );
                     })}
                     <MenuItem
                       onClick={e => {
                         this.props.pageLinkOnClick(e);
                         this.handleClose();
-                        navigateTo("/tags");
+                        navigate("/tags");
                       }}
                     >
                       Most popular tags

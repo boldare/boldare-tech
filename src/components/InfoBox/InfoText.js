@@ -21,7 +21,7 @@ const styles = theme => ({
 
 const InfoText = props => {
   const { classes, info } = props;
-  const text = info.node.html;
+  const text = info.node.childMarkdownRemark.html;
 
   return <div className={classes.text} dangerouslySetInnerHTML={{ __html: text }} />;
 };

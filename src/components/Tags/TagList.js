@@ -4,7 +4,7 @@ import injectSheet from "react-jss";
 
 const _ = require("lodash");
 
-import { navigateTo } from "gatsby-link";
+import { navigate } from "gatsby";
 import Chip from "material-ui/Chip";
 
 const styles = theme => ({
@@ -62,20 +62,20 @@ const TagList = props => {
   const { classes, tags } = props;
 
   function handleTagClick(tagName) {
-    navigateTo(`/tags/${_.kebabCase(tagName)}/`);
+    navigate(`/tags/${_.kebabCase(tagName)}/`);
   }
 
   return (
     <div className={classes.tagList}>
-      {tags.map((tag) =>
+      {tags.map(tag => (
         <Chip
           className={classes.tag}
           key={tag.name}
           label={tag.name}
-          avatar={<b className={classes.tagCount}>{tag.totalCount}</b>}
+          avatar={<div className={classes.tagCount}>{tag.totalCount}</div>}
           onClick={() => handleTagClick(tag.name)}
         />
-      )}
+      ))}
     </div>
   );
 };
@@ -85,9 +85,9 @@ TagList.propTypes = {
   tags: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string.isRequired,
-      totalCount: PropTypes.number.isRequired,
+      totalCount: PropTypes.number.isRequired
     }).isRequired
-  ).isRequired,
+  ).isRequired
 };
 
 export default injectSheet(styles)(TagList);

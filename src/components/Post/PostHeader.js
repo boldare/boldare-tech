@@ -57,7 +57,7 @@ const PostHeader = props => {
       <h1 className={classes.title}>{title}</h1>
       {subTitle && <h2 className={classes.subTitle}>{subTitle}</h2>}
       <h4 className={postAuthor}>Author: {postAuthor}</h4>
-      <div className={classes.meta}>{myDate(date)}</div>
+      {/* <div className={classes.meta}>{myDate(date)}</div> */}
       <TagList tags={tags} />
     </header>
   );
@@ -74,7 +74,7 @@ PostHeader.propTypes = {
       totalCount: PropTypes.number.isRequired,
     }).isRequired
   ).isRequired,
-  date: PropTypes.string.isRequired
+  // date: PropTypes.string.isRequired
 };
 
 export default injectSheet(styles)(PostHeader);
