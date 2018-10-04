@@ -9,6 +9,7 @@ import Main from "../components/Main/";
 import Page from "../components/Page/";
 import Footer from "../components/Footer/";
 import Seo from "../components/Seo";
+import Layout from "../components/layout";
 
 class PageTemplate extends React.Component {
   moveNavigatorAside = moveNavigatorAside.bind(this);
@@ -21,17 +22,23 @@ class PageTemplate extends React.Component {
 
   render() {
     const { data } = this.props;
-    const facebook = (((data || {}).site || {}).siteMetadata || {}).facebook;
+    const {
+      site: {
+        siteMetadata: { facebook }
+      }
+    } = data;
 
     return (
-      <Main>
-        <Page page={data.page} />
-        <Footer footnote={data.footnote} />
-        <Seo
-          data={{ title: data.page.frontmatter.title, slug: data.page.fields.slug }}
-          facebook={facebook}
-        />
-      </Main>
+      <Layout>
+        <Main>
+          <Page page={data.page} />
+          <Footer footnote={data.footnote} />
+          <Seo
+            data={{ title: data.page.frontmatter.title, slug: data.page.fields.slug }}
+            facebook={facebook}
+          />
+        </Main>
+      </Layout>
     );
   }
 }
@@ -55,31 +62,35 @@ const mapDispatchToProps = {
   setNavigatorShape
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(PageTemplate);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PageTemplate);
 
-//eslint-disable-next-line no-undef
-// export const pageQuery = graphql`
-//   query PageByPath($slug: String!) {
-//     page: markdownRemark(fields: { slug: { eq: $slug } }) {
-//       id
-//       html
-//       fields {
-//         slug
-//       }
-//       frontmatter {
-//         title
-//       }
-//     }
-//     footnote: markdownRemark(id: { regex: "/footnote/" }) {
-//       id
-//       html
-//     }
-//     site {
-//       siteMetadata {
-//         facebook {
-//           appId
-//         }
-//       }
-//     }
-//   }
-// `;
+export const pageQuery = graphql`
+  query PageByPath($slug: String!) {
+    page: markdownRemark(fields: { slug: { eq: $slug } }) {
+      id
+      html
+      fields {
+        slug
+      }
+      frontmatter {
+        title
+      }
+    }
+    footnote: file(relativePath: { eq: "parts/footnote.md" }) {
+      id
+      childMarkdownRemark {
+        html
+      }
+    }
+    site {
+      siteMetadata {
+        facebook {
+          appId
+        }
+      }
+    }
+  }
+`;

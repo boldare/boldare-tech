@@ -57,7 +57,6 @@ TagsPage.propTypes = {
 export default TagsPage;
 
 // TODO - whenever possible, sort by totalCount here: https://github.com/gatsbyjs/gatsby/issues/5046
-//eslint-disable-next-line no-undef
 export const pagesQuery = graphql`
   query Tags {
     site {

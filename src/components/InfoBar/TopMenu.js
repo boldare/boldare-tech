@@ -1,17 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import injectSheet from "react-jss";
-import classNames from "classnames";
-
 import { navigate } from "gatsby";
-
-import { MenuItem, MenuList } from "material-ui/Menu";
-import MoreVertIcon from "material-ui-icons/MoreVert";
-import IconButton from "material-ui/IconButton";
+import classNames from "classnames";
 import { Manager, Target, Popper } from "react-popper";
-import ClickAwayListener from "material-ui/utils/ClickAwayListener";
-import Grow from "material-ui/transitions/Grow";
-import Paper from "material-ui/Paper";
+
+import { Grow, ClickAwayListener, IconButton, Paper, MenuItem, MenuList } from "@material-ui/core";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
 
 const styles = theme => ({
   topMenu: {
@@ -94,20 +89,20 @@ class TopMenu extends React.Component {
                     </MenuItem>
                     {pages.map((page, i) => {
                       const {
-                        childMarkdownRemark: { frontmatter }
+                        childMarkdownRemark: { fields, frontmatter }
                       } = page.node;
-                      return null
-                      return (null
-                        // <a key={fields.slug} href={fields.slug} style={{ display: "block" }}>
-                        //   <MenuItem
-                        //     onClick={e => {
-                        //       this.props.pageLinkOnClick(e);
-                        //       this.handleClose();
-                        //     }}
-                        //   >
-                        //     {frontmatter.menuTitle ? frontmatter.menuTitle : frontmatter.title}
-                        //   </MenuItem>
-                        // </a>
+
+                      return (
+                        <a key={fields.slug} href={fields.slug} style={{ display: "block" }}>
+                          <MenuItem
+                            onClick={e => {
+                              this.props.pageLinkOnClick(e);
+                              this.handleClose();
+                            }}
+                          >
+                            {frontmatter.menuTitle ? frontmatter.menuTitle : frontmatter.title}
+                          </MenuItem>
+                        </a>
                       );
                     })}
                     <MenuItem

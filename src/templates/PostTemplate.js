@@ -93,7 +93,6 @@ export default connect(
 )(PostTemplate);
 
 // TODO - whenever possible, filter tag groups by slug here: https://github.com/gatsbyjs/gatsby/issues/5046
-//eslint-disable-next-line no-undef
 export const postQuery = graphql`
   query($slug: String!) {
     post: markdownRemark(fields: { slug: { eq: $slug } }) {

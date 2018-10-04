@@ -1,7 +1,6 @@
 const path = require("path");
 const _ = require("lodash");
 const { createFilePath } = require(`gatsby-source-filesystem`);
-// const { store } = require(`./node_modules/gatsby/dist/redux`);
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
   const { createNodeField } = actions;
@@ -59,7 +58,10 @@ exports.createPages = async ({ graphql, actions }) => {
 
   pages.forEach(({ node: page }) => {
     const type = /posts/.test(page.relativePath) ? "post" : "page";
-    tags = [...tags, ...page.childMarkdownRemark.frontmatter.tags];
+
+    if (page.childMarkdownRemark.frontmatter.tags) {
+      tags = [...tags, ...page.childMarkdownRemark.frontmatter.tags];
+    }
 
     createPage({
       path: page.childMarkdownRemark.fields.slug,
@@ -82,47 +84,3 @@ exports.createPages = async ({ graphql, actions }) => {
     });
   });
 };
-
-// exports.modifyWebpackConfig = ({ config, stage }) => {
-//   switch (stage) {
-//     case "build-javascript":
-//       {
-//         let components = store.getState().pages.map(page => page.componentChunkName);
-//         components = _.uniq(components);
-//         config.plugin("CommonsChunkPlugin", webpack.optimize.CommonsChunkPlugin, [
-//           {
-//             name: `commons`,
-//             chunks: [`app`, ...components],
-//             minChunks: (module, count) => {
-//               const vendorModuleList = []; // [`material-ui`, `lodash`];
-//               const isFramework = _.some(
-//                 vendorModuleList.map(vendor => {
-//                   const regex = new RegExp(`[\\\\/]node_modules[\\\\/]${vendor}[\\\\/].*`, `i`);
-//                   return regex.test(module.resource);
-//                 })
-//               );
-//               return isFramework || count > 1;
-//             }
-//           }
-//         ]);
-//         // config.plugin("BundleAnalyzerPlugin", BundleAnalyzerPlugin, [
-//         //   {
-//         //     analyzerMode: "static",
-//         //     reportFilename: "./report/treemap.html",
-//         //     openAnalyzer: true,
-//         //     logLevel: "error",
-//         //     defaultSizes: "gzip"
-//         //   }
-//         // ]);
-//       }
-//       break;
-//   }
-//   return config;
-// };
-
-// exports.modifyBabelrc = ({ babelrc }) => {
-//   return {
-//     ...babelrc,
-//     plugins: babelrc.plugins.concat([`syntax-dynamic-import`, `dynamic-import-webpack`])
-//   };
-// };

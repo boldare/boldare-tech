@@ -45,6 +45,9 @@ const query = graphql`
       edges {
         node {
           childMarkdownRemark {
+            fields {
+              slug
+            }
             frontmatter {
               title
             }

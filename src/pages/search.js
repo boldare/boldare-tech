@@ -34,7 +34,6 @@ SearchPage.propTypes = {
 
 export default SearchPage;
 
-//eslint-disable-next-line no-undef
 export const query = graphql`
   query AlgoliaQuery {
     site {

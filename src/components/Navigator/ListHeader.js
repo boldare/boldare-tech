@@ -1,10 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import injectSheet from "react-jss";
-import IconButton from "material-ui/IconButton";
-
-import CloseIcon from "material-ui-icons/Close";
-import ExpandLessIcon from "material-ui-icons/ExpandLess";
+import { IconButton } from "@material-ui/core";
+import CloseIcon from "@material-ui/icons/Close";
+import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 
 const styles = theme => ({
   closed: {

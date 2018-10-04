@@ -1,4 +1,4 @@
-const { createMuiTheme } = require("material-ui/styles");
+const { createMuiTheme } = require("@material-ui/core/styles");
 const Color = require("color");
 
 const colors = require("./colors");

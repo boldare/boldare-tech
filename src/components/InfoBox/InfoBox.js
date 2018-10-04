@@ -115,4 +115,7 @@ const mapDispatchToProps = {
   setNavigatorShape
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(injectSheet(styles)(InfoBox));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(injectSheet(styles)(InfoBox));

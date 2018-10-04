@@ -83,7 +83,6 @@ TagTemplate.propTypes = {
 
 export default injectSheet(styles)(TagTemplate);
 
-// eslint-disable-next-line no-undef
 export const pageQuery = graphql`
   query($tag: String!) {
     site {
