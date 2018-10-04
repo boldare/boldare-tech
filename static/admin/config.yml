@@ -1,7 +1,7 @@
 backend:
-  name: github
+  name: git-gateway
   repo: mateuszmatyszkowicz/xsolve-tech
-  branch: feature/gatsby-v2
+  branch: feature/gatsby-v2-bldr
 
 media_folder: static/img
 public_folder: /img
