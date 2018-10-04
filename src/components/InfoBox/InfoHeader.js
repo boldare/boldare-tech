@@ -42,7 +42,6 @@ const styles = theme => ({
     width: "36px",
     height: "36px",
     borderRadius: "65% 75%",
-    border: "1px solid #ddd",
     transition: "all .3s",
     transitionTimingFunction: "ease",
     display: "inline-block",
@@ -67,6 +66,7 @@ const styles = theme => ({
   title: {
     willChange: "transform, left, top",
     fontSize: `${theme.info.fonts.boxTitleSize}em`,
+    color: "white",
     margin: 0,
     float: "left",
     transitionTimingFunction: "ease",
@@ -95,6 +95,9 @@ const styles = theme => ({
       }
     }
   },
+  subtitle: {
+    color: theme.info.colors.author
+  },
   expand: {
     position: "absolute",
     top: "30px",
@@ -118,7 +121,7 @@ const InfoHeader = props => {
       </Link>
       <h1 className={classes.title}>
         {config.infoTitle.replace(/ /g, "\u00a0")}
-        <small>{config.infoTitleNote}</small>
+        <small className={classes.subtitle}>{config.infoTitleNote}</small>
       </h1>
       <IconButton
         aria-label="Expand the box"

@@ -33,6 +33,7 @@ const query = graphql`
               cover
               tags
               postAuthor
+              subTitle
             }
           }
         }

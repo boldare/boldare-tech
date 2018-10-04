@@ -98,7 +98,7 @@ export const postQuery = graphql`
     post: markdownRemark(fields: { slug: { eq: $slug } }) {
       fields {
         slug
-        prefix
+        date
       }
       html
       frontmatter {

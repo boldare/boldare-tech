@@ -68,6 +68,7 @@ const styles = theme => ({
     margin: "0 0 0 1.5em",
     flexGrow: 1,
     display: "flex",
+    color: "black",
     flexDirection: "column",
     width: "100%",
     "& h2": {

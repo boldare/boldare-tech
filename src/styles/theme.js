@@ -28,7 +28,8 @@ const theme = createMuiTheme({
   info: {
     colors: {
       text: colors.gray,
-      background: colors.white,
+      author: colors.BLDRYellow,
+      background: colors.BLDRgray,
       socialIcons: colors.lightGray,
       socialIconsHover: colors.accent,
       menuLink: colors.gray,

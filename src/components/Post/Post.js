@@ -10,18 +10,17 @@ const Post = props => {
   const { post, tags, author } = props;
 
   const {
-    fields: { slug },
+    fields: { slug, date },
     frontmatter: { title, subTitle, postAuthor },
     html
   } = post;
-  // const date = ((post || {}).fields || {}).prefix;
 
   return (
     <Article>
       <PostHeader
         title={title}
         subTitle={subTitle}
-        //date={date}
+        date={date}
         postAuthor={postAuthor}
         tags={tags}
       />
@@ -31,16 +30,16 @@ const Post = props => {
   );
 };
 
-// Post.propTypes = {
-//   post: PropTypes.object.isRequired,
-//   tags: PropTypes.arrayOf(
-//     PropTypes.shape({
-//       name: PropTypes.string.isRequired,
-//       totalCount: PropTypes.number.isRequired,
-//     }).isRequired
-//   ).isRequired,
-//   author: PropTypes.object.isRequired,
-//   slug: PropTypes.string.isRequired
-// };
+Post.propTypes = {
+  post: PropTypes.object.isRequired,
+  tags: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      totalCount: PropTypes.number.isRequired,
+    }).isRequired
+  ).isRequired,
+  author: PropTypes.object.isRequired,
+  slug: PropTypes.string.isRequired
+};
 
 export default Post;

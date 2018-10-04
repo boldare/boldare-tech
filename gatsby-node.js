@@ -7,18 +7,21 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 
   if (node.internal.type === `MarkdownRemark`) {
     const slug = createFilePath({ node, getNode, basePath: `pages` });
-    const separtorIndex = ~slug.indexOf("--") ? slug.indexOf("--") : 0;
-    const shortSlugStart = separtorIndex ? separtorIndex + 2 : 0;
+    const separatorIndex = ~slug.indexOf("_") ? slug.indexOf("_") : 0;
+    const shortSlugStart = separatorIndex ? separatorIndex + 1 : 0;
+
+    const shortSlug = `${separatorIndex ? "/" : ""}${slug.substring(shortSlugStart)}`;
+    const date = separatorIndex ? slug.substring(separatorIndex, separatorIndex - 10) : "";
 
     createNodeField({
       node,
       name: `slug`,
-      value: `${separtorIndex ? "/" : ""}${slug.substring(shortSlugStart)}`
+      value: shortSlug
     });
     createNodeField({
       node,
-      name: `prefix`,
-      value: separtorIndex ? slug.substring(1, separtorIndex) : ""
+      name: `date`,
+      value: date
     });
   }
 };

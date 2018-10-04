@@ -2,32 +2,6 @@ require("dotenv").config();
 const config = require("./content/meta/config");
 const theme = require("./src/styles/theme");
 
-const query = `{
-  allMarkdownRemark(filter: { id: { regex: "//posts|pages//" } }) {
-    edges {
-      node {
-        objectID: id
-        fields {
-          slug
-        }
-        frontmatter {
-          title
-          subTitle
-          postAuthor
-          tags
-        }
-      }
-    }
-  }
-}`;
-
-const queries = [
-  {
-    query,
-    transformer: ({ data }) => data.allMarkdownRemark.edges.map(({ node }) => node)
-  }
-];
-
 module.exports = {
   siteMetadata: {
     title: config.siteTitle,
@@ -166,7 +140,7 @@ module.exports = {
           query: {
             site: { siteMetadata },
             ...rest
-          },
+          }
         }) => {
           return {
             ...siteMetadata,
@@ -185,7 +159,7 @@ module.exports = {
                   description: edge.node.frontmatter.subTitle,
                   author: edge.node.frontmatter.postAuthor,
                   categories: edge.node.frontmatter.tags,
-                  date: edge.node.fields.prefix,
+                  date: edge.node.fields.date,
                   url: siteUrl + edge.node.fields.slug,
                   guid: siteUrl + edge.node.fields.slug,
                   custom_elements: [
@@ -217,7 +191,7 @@ module.exports = {
                       html
                       fields {
                         slug
-                        prefix
+                        date
                       }
                       frontmatter {
                         title
