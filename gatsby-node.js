@@ -27,7 +27,15 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 };
 
 exports.createPages = async ({ graphql, actions }) => {
-  const { createPage } = actions;
+  const { createPage, createRedirect } = actions;
+
+  createRedirect({
+    fromPath: "/a",
+    toPath: "/admin/",
+    isPermanent: true,
+    redirectInBrowser: true,
+    force: true
+  });
 
   const templates = {
     post: path.resolve("./src/templates/PostTemplate.js"),
@@ -45,6 +53,7 @@ exports.createPages = async ({ graphql, actions }) => {
             childMarkdownRemark {
               fields {
                 slug
+                date
               }
               frontmatter {
                 tags
@@ -65,6 +74,16 @@ exports.createPages = async ({ graphql, actions }) => {
     if (page.childMarkdownRemark.frontmatter.tags) {
       tags = [...tags, ...page.childMarkdownRemark.frontmatter.tags];
     }
+
+    createRedirect({
+      fromPath: `${page.childMarkdownRemark.fields.slug}edit`,
+      toPath: `/admin/#/collections/blog/entries/${
+        page.childMarkdownRemark.fields.date
+      }_${page.childMarkdownRemark.fields.slug.substr(1)}`,
+      isPermanent: true,
+      redirectInBrowser: true,
+      force: true
+    });
 
     createPage({
       path: page.childMarkdownRemark.fields.slug,

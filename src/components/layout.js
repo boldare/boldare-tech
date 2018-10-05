@@ -126,7 +126,7 @@ class Layout extends React.Component {
   };
 
   render() {
-    const { children } = this.props;
+    const { children, type } = this.props;
 
     // TODO: dynamic management of tabindexes for keybord navigation
     return (
@@ -160,7 +160,7 @@ class Layout extends React.Component {
             >
               {children}
               <Navigator posts={posts} />
-              <ActionsBar categories={this.getCategories(data.posts.edges)} />
+              <ActionsBar categories={this.getCategories(data.posts.edges)} type={type} />
               <InfoBar pages={data.pages.edges} parts={data.parts.edges} />
               {this.props.isWideScreen && (
                 <InfoBox pages={data.pages.edges} parts={data.parts.edges} />

@@ -29,7 +29,7 @@ class PageTemplate extends React.Component {
     } = data;
 
     return (
-      <Layout>
+      <Layout type="page">
         <Main>
           <Page page={data.page} />
           <Footer footnote={data.footnote} />
