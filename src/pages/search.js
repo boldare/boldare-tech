@@ -1,4 +1,5 @@
 import React from "react";
+import { graphql } from "gatsby";
 import PropTypes from "prop-types";
 
 require("core-js/fn/array/find");
@@ -33,7 +34,6 @@ SearchPage.propTypes = {
 
 export default SearchPage;
 
-//eslint-disable-next-line no-undef
 export const query = graphql`
   query AlgoliaQuery {
     site {

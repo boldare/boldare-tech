@@ -1,17 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import injectSheet from "react-jss";
+import { navigate } from "gatsby";
 import classNames from "classnames";
-
-import { navigateTo } from "gatsby-link";
-
-import { MenuItem, MenuList } from "material-ui/Menu";
-import MoreVertIcon from "material-ui-icons/MoreVert";
-import IconButton from "material-ui/IconButton";
 import { Manager, Target, Popper } from "react-popper";
-import ClickAwayListener from "material-ui/utils/ClickAwayListener";
-import Grow from "material-ui/transitions/Grow";
-import Paper from "material-ui/Paper";
+
+import { Grow, ClickAwayListener, IconButton, Paper, MenuItem, MenuList } from "@material-ui/core";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
 
 const styles = theme => ({
   topMenu: {
@@ -93,7 +88,9 @@ class TopMenu extends React.Component {
                       Home
                     </MenuItem>
                     {pages.map((page, i) => {
-                      const { fields, frontmatter } = page.node;
+                      const {
+                        childMarkdownRemark: { fields, frontmatter }
+                      } = page.node;
 
                       return (
                         <a key={fields.slug} href={fields.slug} style={{ display: "block" }}>
@@ -112,7 +109,7 @@ class TopMenu extends React.Component {
                       onClick={e => {
                         this.props.pageLinkOnClick(e);
                         this.handleClose();
-                        navigateTo("/tags");
+                        navigate("/tags");
                       }}
                     >
                       Most popular tags

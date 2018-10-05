@@ -1,5 +1,5 @@
-import { createMuiTheme } from "material-ui/styles";
-import Color from "color";
+const { createMuiTheme } = require("@material-ui/core/styles");
+const Color = require("color");
 
 const colors = require("./colors");
 
@@ -28,7 +28,8 @@ const theme = createMuiTheme({
   info: {
     colors: {
       text: colors.gray,
-      background: colors.white,
+      author: colors.BLDRYellow,
+      background: colors.BLDRgray,
       socialIcons: colors.lightGray,
       socialIconsHover: colors.accent,
       menuLink: colors.gray,
@@ -202,4 +203,4 @@ const theme = createMuiTheme({
   }
 });
 
-export default theme;
+module.exports = theme;

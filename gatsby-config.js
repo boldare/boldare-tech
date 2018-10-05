@@ -1,31 +1,6 @@
 require("dotenv").config();
 const config = require("./content/meta/config");
-
-const query = `{
-  allMarkdownRemark(filter: { id: { regex: "//posts|pages//" } }) {
-    edges {
-      node {
-        objectID: id
-        fields {
-          slug
-        }
-        frontmatter {
-          title
-          subTitle
-          postAuthor
-          tags
-        }
-      }
-    }
-  }
-}`;
-
-const queries = [
-  {
-    query,
-    transformer: ({ data }) => data.allMarkdownRemark.edges.map(({ node }) => node)
-  }
-];
+const theme = require("./src/styles/theme");
 
 module.exports = {
   siteMetadata: {
@@ -47,32 +22,18 @@ module.exports = {
     }
   },
   plugins: [
+    `gatsby-plugin-jss`,
     {
-      resolve: `gatsby-source-filesystem`,
+      resolve: `@wapps/gatsby-plugin-material-ui`,
       options: {
-        path: `${__dirname}/static/img/`,
-        name: "img"
+        theme
       }
     },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        path: `${__dirname}/content/posts/`,
-        name: "posts"
-      }
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        path: `${__dirname}/content/pages/`,
-        name: "pages"
-      }
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `parts`,
-        path: `${__dirname}/content/parts/`
+        path: `${__dirname}/content`,
+        name: "content"
       }
     },
     {
@@ -179,7 +140,7 @@ module.exports = {
           query: {
             site: { siteMetadata },
             ...rest
-          },
+          }
         }) => {
           return {
             ...siteMetadata,
@@ -198,7 +159,7 @@ module.exports = {
                   description: edge.node.frontmatter.subTitle,
                   author: edge.node.frontmatter.postAuthor,
                   categories: edge.node.frontmatter.tags,
-                  date: edge.node.fields.prefix,
+                  date: edge.node.fields.date,
                   url: siteUrl + edge.node.fields.slug,
                   guid: siteUrl + edge.node.fields.slug,
                   custom_elements: [
@@ -222,15 +183,15 @@ module.exports = {
               {
                 allMarkdownRemark(
                   limit: 30,
-                  filter: { id: { regex: "//posts//" } }
-                  sort: { fields: [fields___prefix], order: DESC }
+                  filter: { fileAbsolutePath: { regex: "//posts//" } }
+                  sort: { fields: [fields___date], order: DESC }
                 ) {
                   edges {
                     node {
                       html
                       fields {
                         slug
-                        prefix
+                        date
                       }
                       frontmatter {
                         title

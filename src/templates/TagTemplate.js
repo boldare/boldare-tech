@@ -1,4 +1,5 @@
 import React from "react";
+import { graphql } from "gatsby";
 import PropTypes from "prop-types";
 import injectSheet from "react-jss";
 
@@ -8,9 +9,10 @@ import Main from "../components/Main";
 import PageHeader from "../components/Page/PageHeader";
 import Seo from "../components/Seo";
 import Navigator from "../components/Navigator/";
-import Link from "gatsby-link";
+import { Link } from "gatsby";
+import Layout from "../components/layout";
 
-const styles = theme => ({
+const styles = () => ({
   header: {
     padding: "3.5rem"
   }
@@ -18,30 +20,41 @@ const styles = theme => ({
 
 class TagTemplate extends React.Component {
   render() {
-    const { classes, data, pathContext } = this.props;
-    const { tag } = pathContext;
+    const { classes, data, pageContext } = this.props;
+    const { tag } = pageContext;
 
-    const tagHeader = `${data.posts.totalCount} post${data.posts.totalCount === 1 ? "" : "s"} tagged with "${tag}"`;
+    const tagHeader = `${data.posts.totalCount} post${
+      data.posts.totalCount === 1 ? "" : "s"
+    } tagged with "${tag}"`;
+
+    const posts = data.posts.edges.map(({ node: { fields, frontmatter } }) => {
+      return {
+        ...fields,
+        ...frontmatter
+      };
+    });
 
     return (
-      <Main>
-        <div className={classes.header}>
-          <PageHeader title={tagHeader} />
-          <Link to="/tags">Most popular tags</Link>
-        </div>
-        <Navigator posts={data.posts.edges} navigatorPosition={"is-list"} />
-        <Seo
-          data={{ title: `Posts with tag ${tag}`, slug: `tags/${_.kebabCase(tag)}` }}
-          facebook={data.site.siteMetadata.facebook}
-        />
-      </Main>
+      <Layout>
+        <Main>
+          <div className={classes.header}>
+            <PageHeader title={tagHeader} />
+            <Link to="/tags">Most popular tags</Link>
+          </div>
+          <Navigator posts={posts} navigatorPosition={"is-list"} />
+          <Seo
+            data={{ title: `Posts with tag ${tag}`, slug: `tags/${_.kebabCase(tag)}` }}
+            facebook={data.site.siteMetadata.facebook}
+          />
+        </Main>
+      </Layout>
     );
   }
 }
 
 TagTemplate.propTypes = {
   classes: PropTypes.object.isRequired,
-  pathContext: PropTypes.shape({
+  pageContext: PropTypes.shape({
     tag: PropTypes.string.isRequired
   }),
   data: PropTypes.shape({
@@ -70,9 +83,8 @@ TagTemplate.propTypes = {
 
 export default injectSheet(styles)(TagTemplate);
 
-//eslint-disable-next-line no-undef
 export const pageQuery = graphql`
-  query PostsByTag($tag: String!) {
+  query($tag: String!) {
     site {
       siteMetadata {
         facebook {
@@ -83,7 +95,7 @@ export const pageQuery = graphql`
     posts: allMarkdownRemark(
       limit: 100
       filter: { frontmatter: { tags: { in: [$tag] } } }
-      sort: { fields: [fields___prefix], order: DESC }
+      sort: { fields: [fields___date], order: DESC }
     ) {
       totalCount
       edges {

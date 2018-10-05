@@ -67,11 +67,11 @@ class InfoBox extends React.Component {
 
   render() {
     const { classes, parts, pages, navigatorPosition, navigatorShape } = this.props;
-    const info = parts.find(el => el.node.frontmatter.title === "info");
+    const info = parts.find(el => el.node.childMarkdownRemark.frontmatter.title === "info");
 
     return (
       <aside
-        className={`${classes.infoBox} ${navigatorPosition ? navigatorPosition : ""} 
+        className={`${classes.infoBox} ${navigatorPosition ? navigatorPosition : ""}
         ${navigatorShape ? navigatorShape : ""}`}
       >
         {info && (
@@ -115,4 +115,7 @@ const mapDispatchToProps = {
   setNavigatorShape
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(injectSheet(styles)(InfoBox));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(injectSheet(styles)(InfoBox));

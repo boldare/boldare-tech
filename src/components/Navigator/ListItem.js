@@ -1,5 +1,5 @@
 import React from "react";
-import Link from "gatsby-link";
+import { Link } from "gatsby";
 import PropTypes from "prop-types";
 import injectSheet from "react-jss";
 import LazyLoad from "react-lazyload";
@@ -68,6 +68,7 @@ const styles = theme => ({
     margin: "0 0 0 1.5em",
     flexGrow: 1,
     display: "flex",
+    color: "black",
     flexDirection: "column",
     width: "100%",
     "& h2": {
@@ -77,10 +78,12 @@ const styles = theme => ({
       margin: 0,
       fontSize: `${theme.navigator.sizes.postsListItemH2Font}em`,
       [`@media (min-width: ${theme.mediaQueryTresholds.M}px)`]: {
-        fontSize: `${theme.navigator.sizes.postsListItemH2Font * theme.navigator.sizes.fontIncraseForM}em`
+        fontSize: `${theme.navigator.sizes.postsListItemH2Font *
+          theme.navigator.sizes.fontIncraseForM}em`
       },
       [`@media (min-width: ${theme.mediaQueryTresholds.L}px)`]: {
-        fontSize: `${theme.navigator.sizes.postsListItemH2Font * theme.navigator.sizes.fontIncraseForL}em`,
+        fontSize: `${theme.navigator.sizes.postsListItemH2Font *
+          theme.navigator.sizes.fontIncraseForL}em`,
         ".moving-featured &, .is-aside &": {
           fontSize: "1em",
           fontWeight: 400
@@ -93,10 +96,12 @@ const styles = theme => ({
       fontSize: `${theme.navigator.sizes.postsListItemH3Font}em`,
       margin: ".3em 0 0 0",
       [`@media (min-width: ${theme.mediaQueryTresholds.M}px)`]: {
-        fontSize: `${theme.navigator.sizes.postsListItemH3Font * theme.navigator.sizes.fontIncraseForM}em`
+        fontSize: `${theme.navigator.sizes.postsListItemH3Font *
+          theme.navigator.sizes.fontIncraseForM}em`
       },
       [`@media (min-width: ${theme.mediaQueryTresholds.L}px)`]: {
-        fontSize: `${theme.navigator.sizes.postsListItemH3Font * theme.navigator.sizes.fontIncraseForL}em`,
+        fontSize: `${theme.navigator.sizes.postsListItemH3Font *
+          theme.navigator.sizes.fontIncraseForL}em`,
         ".moving-featured &, .is-aside &": {
           display: "none"
         }
@@ -105,10 +110,12 @@ const styles = theme => ({
     "& h4": {
       fontWeight: "normal",
       [`@media (min-width: ${theme.mediaQueryTresholds.M}px)`]: {
-        fontSize: `${theme.navigator.sizes.postsListItemH4Font * theme.navigator.sizes.fontIncraseForM}em`
+        fontSize: `${theme.navigator.sizes.postsListItemH4Font *
+          theme.navigator.sizes.fontIncraseForM}em`
       },
       [`@media (min-width: ${theme.mediaQueryTresholds.L}px)`]: {
-        fontSize: `${theme.navigator.sizes.postsListItemH4Font * theme.navigator.sizes.fontIncraseForL}em`
+        fontSize: `${theme.navigator.sizes.postsListItemH4Font *
+          theme.navigator.sizes.fontIncraseForL}em`
       },
       ".moving-featured &, .is-aside &": {
         fontSize: `${theme.navigator.sizes.postsListItemH4Font}em`,
@@ -130,7 +137,7 @@ class ListItem extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.categoryFilter !== this.props.categoryFilter) {
-      const category = this.props.post.node.frontmatter.category;
+      const category = this.props.post.category;
       const categoryFilter = this.props.categoryFilter;
 
       if (categoryFilter === "all posts" && this.state.hidden) {
@@ -145,36 +152,29 @@ class ListItem extends React.Component {
 
   render() {
     const { classes, post, linkOnClick } = this.props;
+    const { category, postAuthor, cover, title, subTitle, slug } = post;
 
     return (
       <li
-        className={`${classes.listItem} ${post.node.frontmatter.category}`}
+        className={`${classes.listItem} ${category}`}
         style={{ display: `${this.state.hidden ? "none" : "block"}` }}
-        key={post.node.fields.slug}
+        key={slug}
       >
-        <Link
-          activeClassName="active"
-          className={classes.listLink}
-          to={post.node.fields.slug}
-          onClick={linkOnClick}
-        >
+        <Link activeClassName="active" className={classes.listLink} to={slug} onClick={linkOnClick}>
           <div className={`${classes.listItemPointer} pointer`}>
             <LazyLoad height={60} overflow={true} throttle={300} once={true} offset={100}>
               <picture>
-                <source
-                  type="image/webp"
-                  srcSet={post.node.frontmatter.cover}
-                />
-                <source srcSet={post.node.frontmatter.cover} />
-                <img src={post.node.frontmatter.cover} alt="" />
+                <source type="image/webp" srcSet={cover} />
+                <source srcSet={cover} />
+                <img src={cover} alt="" />
               </picture>
             </LazyLoad>
             {/*<Img sizes={post.node.frontmatter.cover.children[0].sizes} />*/}
           </div>
           <div className={classes.listItemText}>
-            <h2>{post.node.frontmatter.title}</h2>
-            {post.node.frontmatter.subTitle && <h3>{post.node.frontmatter.subTitle}</h3>}
-            {post.node.frontmatter.postAuthor && <h4>{post.node.frontmatter.postAuthor}</h4>}
+            <h2>{title}</h2>
+            {subTitle && <h3>{subTitle}</h3>}
+            {postAuthor && <h4>{postAuthor}</h4>}
           </div>
         </Link>
       </li>

@@ -4,16 +4,16 @@ import injectSheet from "react-jss";
 import { connect } from "react-redux";
 import screenfull from "screenfull";
 
-import Link from "gatsby-link";
-import IconButton from "material-ui/IconButton";
-import HomeIcon from "material-ui-icons/Home";
-import SearchIcon from "material-ui-icons/Search";
-import ArrowUpwardIcon from "material-ui-icons/ArrowUpward";
-import FullscreenIcon from "material-ui-icons/Fullscreen";
-import FullscreenExitIcon from "material-ui-icons/FullscreenExit";
-import RssIcon from "material-ui-icons/RssFeed";
+import { Link } from "gatsby";
+import { IconButton } from "@material-ui/core";
+import HomeIcon from "@material-ui/icons/Home";
+import SearchIcon from "@material-ui/icons/Search";
+import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
+import FullscreenIcon from "@material-ui/icons/Fullscreen";
+import FullscreenExitIcon from "@material-ui/icons/FullscreenExit";
+import RssIcon from "@material-ui/icons/RssFeed";
 import FontSetter from "./FontSetter";
-//import CategoryFilter from "./CategoryFilter"
+import CategoryFilter from "./CategoryFilter";
 
 import {
   setNavigatorPosition,
@@ -132,11 +132,11 @@ class ActionsBar extends React.Component {
           <IconButton aria-label="Back to list" onClick={this.homeOnClick} title="Back to the list">
             <HomeIcon />
           </IconButton>
-          {/*
+
           {(isWideScreen || navigatorPosition !== "is-aside") && (
             <CategoryFilter categories={categories} filterCategory={this.categoryFilterOnClick} />
           )}
-          */}
+
           <IconButton
             aria-label="Search"
             onClick={this.searchOnClick}
@@ -147,12 +147,7 @@ class ActionsBar extends React.Component {
           >
             <SearchIcon />
           </IconButton>
-          <IconButton
-            aria-label="RSS feed"
-            component={Link}
-            to="/rss.xml"
-            title="RSS feed"
-          >
+          <IconButton aria-label="RSS feed" component={Link} to="/rss.xml" title="RSS feed">
             <RssIcon />
           </IconButton>
         </div>
@@ -203,4 +198,7 @@ const mapDispatchToProps = {
   setCategoryFilter
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(injectSheet(styles)(ActionsBar));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(injectSheet(styles)(ActionsBar));

@@ -1,7 +1,7 @@
 backend:
   name: git-gateway
-  repo: xsolve-pl/xsolve-tech
-  branch: master
+  repo: mateuszmatyszkowicz/xsolve-tech
+  branch: feature/gatsby-v2-bldr
 
 media_folder: static/img
 public_folder: /img
@@ -26,7 +26,7 @@ collections:
     label_singular: "Blog Article"
     folder: "content/posts"
     create: true
-    slug: "{{slug}}"
+    slug: "{{year}}-{{month}}-{{day}}_{{slug}}"
     fields:
       - {label: "Title", name: "title", widget: "string", pattern: ['.{5,}', "Must have at least 5 characters"]}
       - {label: "Sub title", name: "subTitle", widget: "string", required: false, pattern: ['.{5,}', "Must have at least 5 characters"]}

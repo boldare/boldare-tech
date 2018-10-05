@@ -1,10 +1,12 @@
 import React from "react";
+import { graphql } from "gatsby";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 import { setNavigatorPosition, setNavigatorShape } from "../state/store";
 import { featureNavigator } from "../utils/shared";
 import Seo from "../components/Seo";
+import Layout from "../components/layout";
 
 class Index extends React.Component {
   featureNavigator = featureNavigator.bind(this);
@@ -20,9 +22,9 @@ class Index extends React.Component {
     const facebook = (((data || {}).site || {}).siteMetadata || {}).facebook;
 
     return (
-      <div>
+      <Layout>
         <Seo facebook={facebook} />
-      </div>
+      </Layout>
     );
   }
 }
@@ -48,7 +50,6 @@ const mapDispatchToProps = {
 
 export default connect(mapStateToProps, mapDispatchToProps)(Index);
 
-//eslint-disable-next-line no-undef
 export const pageQuery = graphql`
   query IndexQuery {
     site {
