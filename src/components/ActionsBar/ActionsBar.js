@@ -12,6 +12,9 @@ import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import FullscreenIcon from "@material-ui/icons/Fullscreen";
 import FullscreenExitIcon from "@material-ui/icons/FullscreenExit";
 import RssIcon from "@material-ui/icons/RssFeed";
+import Add from "@material-ui/icons/Add";
+import Create from "@material-ui/icons/Create";
+
 import FontSetter from "./FontSetter";
 import CategoryFilter from "./CategoryFilter";
 
@@ -119,12 +122,18 @@ class ActionsBar extends React.Component {
     }
   };
 
+  getPostEditLink = () => {
+    if (typeof window !== "undefined") {
+      return window.location.pathname + 'edit';
+    }
+  };
+
   categoryFilterOnClick = val => {
     this.props.setCategoryFilter(val);
   };
 
   render() {
-    const { classes, navigatorPosition, isWideScreen, categories } = this.props;
+    const { classes, navigatorPosition, isWideScreen, categories, type } = this.props;
 
     return (
       <div className={classes.actionsBar}>
@@ -150,6 +159,24 @@ class ActionsBar extends React.Component {
           <IconButton aria-label="RSS feed" component={Link} to="/rss.xml" title="RSS feed">
             <RssIcon />
           </IconButton>
+          <IconButton
+            aria-label="Write post"
+            component={Link}
+            to="/admin/#/collections/blog/new"
+            title="Write post"
+          >
+            <Add />
+          </IconButton>
+          {type === "post" && (
+            <IconButton
+              aria-label="Edit post"
+              component={Link}
+              to={`${this.getPostEditLink()}`}
+              title="Edit"
+            >
+              <Create />
+            </IconButton>
+          )}
         </div>
         <div className={classes.group}>
           {navigatorPosition === "is-aside" && <FontSetter increaseFont={this.fontSetterOnClick} />}

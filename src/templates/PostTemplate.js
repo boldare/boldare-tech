@@ -56,7 +56,7 @@ class PostTemplate extends React.Component {
     });
 
     return (
-      <Layout>
+      <Layout type="post">
         <Main>
           <Post post={post} tags={postTags} slug={pageContext.slug} author={author} />
           <Footer footnote={footnote} />

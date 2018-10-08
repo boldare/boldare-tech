@@ -35,7 +35,7 @@ class TagTemplate extends React.Component {
     });
 
     return (
-      <Layout>
+      <Layout type="tag">
         <Main>
           <div className={classes.header}>
             <PageHeader title={tagHeader} />
