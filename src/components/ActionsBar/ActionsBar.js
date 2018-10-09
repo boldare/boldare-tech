@@ -124,7 +124,7 @@ class ActionsBar extends React.Component {
 
   getPostEditLink = () => {
     if (typeof window !== "undefined") {
-      return window.location.pathname + 'edit';
+      return window.location.pathname + "edit";
     }
   };
 
@@ -142,9 +142,10 @@ class ActionsBar extends React.Component {
             <HomeIcon />
           </IconButton>
 
-          {(isWideScreen || navigatorPosition !== "is-aside") && (
+          {/* Uncomment it when filter comes to more usable */}
+          {/* {(isWideScreen || navigatorPosition !== "is-aside") && (
             <CategoryFilter categories={categories} filterCategory={this.categoryFilterOnClick} />
-          )}
+          )} */}
 
           <IconButton
             aria-label="Search"
