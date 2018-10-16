@@ -6,7 +6,7 @@ cover: /img/travis.png
 postAuthor: Marcin Łesek (@marcinlesek)
 ---
 
-Few days ago I faced a problem when I pushed some code to my feature branch, created Pull Request and waited for standard Travis build check, that all tests, builds etc. passed. Casual day in developer life. But not today! 
+Few days ago I faced a problem when I pushed some code to my feature branch, created Pull Request and waited for standard Travis build check, that all tests, builds etc. passed. Casual day in developer's life. But not today!
 
 ## Issue
 
