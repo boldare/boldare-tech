@@ -1,6 +1,6 @@
 ---
-title: Unresolved check from Travis on Github Pull Request
-subTitle: When your repository couldn't get information from Travis about build status and you stuck on unresolved PR
+title: Unresolved status check from Travis on Github Pull Request
+subTitle: When your repository couldn't get information from Travis about build status check and you stuck on unresolved PR
 tags: ["travis", "github", "ci", "continuous integration"]
 cover: /img/travis.png
 postAuthor: Marcin Łesek (@marcinlesek)
@@ -22,6 +22,22 @@ Restarting build, closing and reopening PR, creating new one with new commits di
 
 ## Solution?
 
-Obvious one! Not at all - 
-remove old integration, because now status checks pass
- only 
+Obvious one! Not at all - **remove old integration**, because now **status checks pass only via Github Apps**!
+
+Get into your repository **Settings** page, then choose **Branches** and edit protection rule for branch. There in 
+
+```
+Require status checks to pass before merging
+```
+
+you need to remove
+
+```
+continuous-integration/travis-ci
+```
+
+and choose one or both from:
+
+![](../../static/img/travis-check.png)
+
+Now your Pull Request should successfully obtains proper build status and you could get back to happy codin'!
