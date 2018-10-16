@@ -2,7 +2,7 @@
 title: Pull Request Templates on GitHub
 subTitle: How to improve the code review process and reduce f**-up rate significantly
 tags: ["github", "pull", "pr", "templates", "project"]
-cover: github_logo.png
+cover: /img/github_logo.png
 postAuthor: Krzysztof Miemiec
 ---
 
@@ -50,7 +50,7 @@ What kind of change does this PR introduce?
 N/A
 ````
 
-GitHub automatically detects multiple PR templates stored in `.github/PULL_REQUEST_TEMPLATE` in your repository's main branch, but their names have to be passed to the URL. 
+GitHub automatically detects multiple PR templates stored in `.github/PULL_REQUEST_TEMPLATE` in your repository's main branch, but their names have to be passed to the URL.
 
 First, the template for `staging` to `master` pull request, located in `.github/PULL_REQUEST_TEMPLATE/master.md`:
 
@@ -62,7 +62,7 @@ First, the template for `staging` to `master` pull request, located in `.github/
 * [ ] This pull request merges `staging` to `master`
 * [ ] The source commit is tagged with version number
 * [ ] Translations are in sync with the app
-* [ ] Approved by at least one developer: @krzysztof-miemiec 
+* [ ] Approved by at least one developer: @krzysztof-miemiec
 * [ ] **Pull request build** has passed
 * [ ] Staging app has been deployed successfully (sometimes iOS build fails despite successful deployment)
 * [ ] Production backend has been updated to reflect new features and fix bugs
@@ -89,7 +89,7 @@ First, the template for `staging` to `master` pull request, located in `.github/
 Changes since last production release.
 ````
 
-In our case, the link to quickly create such PR is 
+In our case, the link to quickly create such PR is
 ```
 https://github.com/xsolve-pl/project-name/compare/master...staging?expand=1&template=master.md
 ```
@@ -109,12 +109,12 @@ The result looks like this:
 >
 >Want to deploy the app? Press one of the buttons below:
 >
-><a href="https://github.com/xsolve-pl/project-name/compare/staging...develop?expand=1&template=staging.md">![Staging Release](./staging_release.svg)</a>
-> <a href="https://github.com/xsolve-pl/project-name/compare/master...staging?expand=1&template=master.md">![Production Release](./production_release.svg)</a>
+><a href="https://github.com/xsolve-pl/project-name/compare/staging...develop?expand=1&template=staging.md">![Staging Release](/img/staging_release.svg)</a>
+> <a href="https://github.com/xsolve-pl/project-name/compare/master...staging?expand=1&template=master.md">![Production Release](/img/production_release.svg)</a>
 >
 
 There is no easier way that I'm aware of - just a simple press of a button to create a release PR.
 
 Additional benefit of having a checklist is that we can track status of the progress on our release.
 
-![Pull Requests Summary](./pull_requests.png)
+![Pull Requests Summary](/img/pull_requests.png)

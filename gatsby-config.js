@@ -50,6 +50,13 @@ module.exports = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
+        path: `${__dirname}/static/img/`,
+        name: "img"
+      }
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
         path: `${__dirname}/content/posts/`,
         name: "posts"
       }
@@ -202,7 +209,7 @@ module.exports = {
                       "media:thumbnail": [
                         {
                           _attr: {
-                            url: siteUrl + edge.node.frontmatter.cover.childImageSharp.resize.src
+                            url: siteUrl + edge.node.frontmatter.cover
                           }
                         }
                       ]
@@ -221,7 +228,7 @@ module.exports = {
                   edges {
                     node {
                       html
-                      fields { 
+                      fields {
                         slug
                         prefix
                       }
@@ -230,13 +237,7 @@ module.exports = {
                         subTitle
                         postAuthor
                         tags
-                        cover {
-                          childImageSharp {
-                            resize(width: 300) {
-                              src
-                            }
-                          }
-                        }
+                        cover
                       }
                     }
                   }
@@ -255,10 +256,12 @@ module.exports = {
       }
     },
     {
-      resolve: "gatsby-plugin-svgr",
+      resolve: "gatsby-plugin-react-svg",
       options: {
-        dir: `svg-icons`
+        include: /svg-icons/
       }
-    }
+    },
+    `gatsby-plugin-netlify-cms`,
+    `gatsby-plugin-netlify`
   ]
 };

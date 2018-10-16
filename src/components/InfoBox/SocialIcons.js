@@ -4,9 +4,9 @@ import injectSheet from "react-jss";
 
 import config from "../../../content/meta/config";
 
-import GithubIcon from "../../images/svg-icons/github.svg";
-import FacebookIcon from "../../images/svg-icons/facebook.svg";
-import TwitterIcon from "../../images/svg-icons/twitter.svg";
+import GithubIcon from "!svg-react-loader!../../images/svg-icons/github.svg?name=GithubIcon";
+import FacebookIcon from "!svg-react-loader!../../images/svg-icons/facebook.svg?name=FacebookIcon";
+import TwitterIcon from "!svg-react-loader!../../images/svg-icons/twitter.svg?name=TwitterIcon";
 
 const styles = theme => ({
   social: {

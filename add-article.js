@@ -1,4 +1,3 @@
-const mkdirp = require("mkdirp");
 const path = require("path");
 const readline = require("readline");
 const fs = require("fs");
@@ -76,15 +75,14 @@ const main = async () => {
 
   // Prepare location
   const slug = getSlug(name);
-  const location = path.join(POSTS_DIR, slug);
+  const location = path.join(POSTS_DIR, `${slug}.md`);
   console.log("Location: " + location);
 
-  // Create directory
+  // Check for conflicts
   if (fs.existsSync(location)) {
     console.log("Article already exists");
     process.exit(2);
   }
-  mkdirp.sync(location);
 
   // Prepare template
   const template = `\
@@ -92,7 +90,7 @@ const main = async () => {
 title: ${name}
 subTitle: ${subtitle}
 tags: [${tags}]
-cover: 
+cover:
 postAuthor: ${author}
 ---
 
@@ -104,7 +102,7 @@ postAuthor: ${author}
 `;
 
   // Write template
-  fs.writeFileSync(path.join(location, "index.md"), template, "utf8");
+  fs.writeFileSync(location, template, "utf8");
 };
 
 main()
