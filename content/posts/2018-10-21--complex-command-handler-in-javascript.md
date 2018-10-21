@@ -2,8 +2,7 @@
 title: Complex command handler in JavaScript
 subTitle: Comparison of using Promise and async/await
 cover: /img/js.jpg
-tags:
-  - JavaScript
+tags: ["JavaScript", "Promise", "async", "await"]
 postAuthor: Mariusz Bąk (malef)
 ---
 Recently I needed to carry out some complicated process in my Node.js side project. This process consisted of multiple steps and while some of them could be run in parallel some other required to be run in sequence. Here I will show the basic solution I came up with as it's quite short and demonstrates the way of using both `Promise`s and `async`/`await`.
