@@ -7,7 +7,7 @@ postAuthor: Mariusz Bąk (malef)
 ---
 Recently I needed to carry out some complicated process in my Node.js side project. This process consisted of multiple steps and while some of them could be run in parallel some other required to be run in sequence. Here I will show the basic solution I came up with as it's quite short and demonstrates the way of using both `Promise`s and `async`/`await`.
 
-I wanted to follow the Command design pattern (https://en.wikipedia.org/wiki/Command_pattern) where Command object representing a single operation is provided with all the data required for carrying it out. Later such Command object is provided to a dedicated CommandHandler that would actually perform the task at hand, possibly making use of some external dependencies.
+I wanted to follow the [Command design pattern](https://en.wikipedia.org/wiki/Command_pattern) where Command object representing a single operation is provided with all the data required for carrying it out. Later such Command object is provided to a dedicated CommandHandler that would actually perform the task at hand, possibly making use of some external dependencies.
 
 In other words, I needed a piece of code that will execute some composite command that I would define upfront. This composite command would describe the whole process and would be composed of other composite commands (that would be handled recursively) or simple commands (that would have their dedicated command handlers provided as services). Let's go through the process of building such a service.
 
