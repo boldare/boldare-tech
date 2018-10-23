@@ -212,7 +212,7 @@ class CompositeCommandHandler {
     handleInSequence(commands) {
         let lastPromise = this.handle(commands[0]);
         for (const command of commands.slice(1)) {
-            lastPromise = promise.then(() => this.handle(command));
+            lastPromise = lastPromise.then(() => this.handle(command));
         }
         
         return lastPromise;
