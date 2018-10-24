@@ -25,9 +25,7 @@ we had them identified by UUIDs. We generated the UUIDs using the `javax.persist
 event listener:   
 
 ```java
-
 public class Price {
-
   @Id
   @Type(type = "pg-uuid")
   @Column(unique = true, nullable = false, columnDefinition = "uuid")
@@ -41,7 +39,6 @@ public class Price {
   }
   
 }
-
 ``` 
 
 ### Implemented `equals()` and `hashCode()`
@@ -49,13 +46,11 @@ public class Price {
 As good girls and boys, we also know we should take care of a proper `equals()` and `hashCode`
 implementation, which in case of JPA entities comes down to comparing the unique id:
 
-```$java
-
+```java
 @Builder
 @Entity
 public class Price {
 // ...
-
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -73,7 +68,6 @@ public class Price {
     return Objects.hash(id);
   }
  // ...
-
 ```
 
 (Here we'd like to say "hi" to one of our favorite writers 
@@ -85,7 +79,6 @@ So far so good. In the above setting, `Venue` is the managing entity, and `PERSI
 the cascaded operations, so adding a few prices to a venue is as simple as:
 
 ```java
-
   gasStation.getPrices().addAll(Set.of(
           Price.builder()
               .priceType(PriceType.REGULAR)
@@ -98,8 +91,6 @@ the cascaded operations, so adding a few prices to a venue is as simple as:
               .venue(gasStation)
               .build()
       ));
-
-
 ```
 
 (since we also use the pretty `@Builder` syntax, generated for us by Lombok).
@@ -132,13 +123,11 @@ field initialization, like that?
 @Builder
 @Entity
 public class Price {
-
   @Id
   @Type(type = "pg-uuid")
   @Column(unique = true, nullable = false, columnDefinition = "uuid")
   private UUID id = UUID.randomUUID();
   }
-
 ```  
 
 Well, almost. This would have worked if we hadn't used the goodness of `Lombok's` `@Builder` 
@@ -151,7 +140,6 @@ the initial value of a `@Builder` - decorated class. It's the `@Builder.Default`
 and we use it like this:
 
 ```java
-
 @Builder
 @Entity
 public class Price {
@@ -162,7 +150,6 @@ public class Price {
   @Builder.Default
   private UUID id = UUID.randomUUID();
 }
-  
 ```
 
 Ta-da, persistence functionality is saved, all `Price` instances get stored, and we can still use
@@ -179,4 +166,4 @@ we'd have to give up using `Builder` on this class,
 
 Hope you save some time and trouble with this couple of tips!
 
-Don't hesitate to [reach out](https://twitter.com/AnnaSkawinska)
+Don't hesitate to [reach out](https://twitter.com/AnnaSkawinska).
