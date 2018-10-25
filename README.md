@@ -57,4 +57,4 @@ postAuthor: Your Name
 ---
 ```
 
-5. Create a pull request to `master` branch to collaborate 🙌
+6. Create a pull request to `master` branch to collaborate 🙌
