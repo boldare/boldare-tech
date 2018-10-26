@@ -1,7 +1,7 @@
 ---
 title: How to implement Redux in React
 subTitle: What is Redux and how we can combine it with our application?
-tags: ["Javascript", "React", "Redux", "tutorial", "Redux store", "reducer", "middleware"]
+tags: ["JavaScript", "React", "Redux", "tutorial", "Redux store", "reducer", "middleware"]
 cover: /img/redux.png
 postAuthor: Michał Rożenek
 ---
