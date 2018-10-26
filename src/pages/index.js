@@ -11,9 +11,11 @@ import Layout from "../components/layout";
 class Index extends React.Component {
   featureNavigator = featureNavigator.bind(this);
 
-  componentWillMount() {
-    if (this.props.navigatorPosition !== "is-featured") {
-      this.props.setNavigatorPosition("is-featured");
+  constructor(props) {
+    super(props);
+
+    if (props.navigatorPosition !== "is-featured") {
+      props.setNavigatorPosition("is-featured");
     }
   }
 
@@ -48,7 +50,10 @@ const mapDispatchToProps = {
   setNavigatorShape
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Index);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Index);
 
 export const pageQuery = graphql`
   query IndexQuery {
