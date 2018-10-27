@@ -106,7 +106,7 @@ const styles = theme => ({
     ".is-aside.open &": {
       display: "block"
     },
-    color: theme.base.colors.link
+    color: theme.base.colors.accent
   }
 });
 

@@ -13,7 +13,7 @@ module.exports = {
   authorName: "Boldare",
   authorTwitterAccount: "@boldare_tech",
   // info
-  infoTitle: "Tech-blog",
+  infoTitle: "Tech blog",
   infoTitleNote: "by Boldare",
   // manifest.json
   manifestName: "Boldare | Tech Blog",
