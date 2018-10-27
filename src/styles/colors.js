@@ -10,5 +10,5 @@ module.exports = {
   mediocreLightGray: "#cecece",
   grayishBlue: "#cadee4",
   BLDRgray: "#292929",
-  BLDRYellow: "#f1d624",
+  BLDRYellow: "#f1d624"
 };

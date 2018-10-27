@@ -207,7 +207,8 @@ ActionsBar.propTypes = {
   setFontSizeIncrease: PropTypes.func.isRequired,
   categories: PropTypes.array.isRequired,
   setCategoryFilter: PropTypes.func.isRequired,
-  categoryFilter: PropTypes.string.isRequired
+  categoryFilter: PropTypes.string.isRequired,
+  type: PropTypes.string
 };
 
 const mapStateToProps = (state, ownProps) => {

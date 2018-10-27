@@ -105,7 +105,8 @@ const styles = theme => ({
     display: "none",
     ".is-aside.open &": {
       display: "block"
-    }
+    },
+    color: theme.base.colors.link
   }
 });
 

@@ -46,6 +46,7 @@ const styles = theme => ({
     padding: "0 40px 0",
     willChange: "opacity, bottom",
     transition: "bottom .5s 0s",
+    marginTop: 20,
     opacity: 1,
     transitionTimingFunction: "ease",
     ".is-aside.closed &": {
