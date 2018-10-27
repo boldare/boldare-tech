@@ -22,13 +22,6 @@ module.exports = {
     }
   },
   plugins: [
-    `gatsby-plugin-jss`,
-    {
-      resolve: `@wapps/gatsby-plugin-material-ui`,
-      options: {
-        theme
-      }
-    },
     {
       resolve: `gatsby-source-filesystem`,
       options: {

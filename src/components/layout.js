@@ -3,8 +3,11 @@ import injectSheet from "react-jss";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { graphql, StaticQuery } from "gatsby";
+
 import theme from "../styles/theme";
 import globals from "../styles/globals";
+
+import withRoot from "../withRoot";
 
 import { setFontSizeIncrease, setIsWideScreen } from "../state/store";
 
@@ -197,4 +200,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(injectSheet(globals)(Layout));
+)(withRoot(injectSheet(globals)(Layout)));

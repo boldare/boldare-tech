@@ -181,6 +181,9 @@ class ActionsBar extends React.Component {
         </div>
         <div className={classes.group}>
           {navigatorPosition === "is-aside" && <FontSetter increaseFont={this.fontSetterOnClick} />}
+          <IconButton aria-label="Back to top" onClick={this.arrowUpOnClick} title="Scroll to top">
+            <ArrowUpwardIcon />
+          </IconButton>
           {screenfull.enabled && (
             <IconButton
               aria-label="Fullscreen"
@@ -190,9 +193,6 @@ class ActionsBar extends React.Component {
               {this.state.fullscreen ? <FullscreenExitIcon /> : <FullscreenIcon />}
             </IconButton>
           )}
-          <IconButton aria-label="Back to top" onClick={this.arrowUpOnClick} title="Scroll to top">
-            <ArrowUpwardIcon />
-          </IconButton>
         </div>
       </div>
     );
