@@ -1,6 +1,5 @@
 require("dotenv").config();
 const config = require("./content/meta/config");
-const theme = require("./src/styles/theme");
 
 module.exports = {
   siteMetadata: {
@@ -22,13 +21,6 @@ module.exports = {
     }
   },
   plugins: [
-    `gatsby-plugin-jss`,
-    {
-      resolve: `@wapps/gatsby-plugin-material-ui`,
-      options: {
-        theme
-      }
-    },
     {
       resolve: `gatsby-source-filesystem`,
       options: {

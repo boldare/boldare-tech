@@ -2,8 +2,8 @@
 title: How to contribute
 ---
 
-## About #xsolve-tech
-Development tips && tricks.
+## About #boldare-tech
+Development tips and tricks.
 From devs. For devs.
 Any helpful contributions are welcome.
 3 lines, 3 paragraphs? Doesn't matter.

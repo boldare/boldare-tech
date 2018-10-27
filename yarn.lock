@@ -1106,12 +1106,6 @@
   version "0.0.32"
   resolved "https://registry.yarnpkg.com/@types/tmp/-/tmp-0.0.32.tgz#0d3cb31022f8427ea58c008af32b80da126ca4e3"
 
-"@wapps/gatsby-plugin-material-ui@^1.0.7":
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/@wapps/gatsby-plugin-material-ui/-/gatsby-plugin-material-ui-1.0.7.tgz#a7a8421f5b19fbe15617249d409a8329cc09ebf5"
-  dependencies:
-    react-jss "^8.6.1"
-
 "@webassemblyjs/ast@1.7.8":
   version "1.7.8"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/ast/-/ast-1.7.8.tgz#f31f480debeef957f01b623f27eabc695fa4fe8f"
@@ -5349,12 +5343,6 @@ gatsby-plugin-google-analytics@^2.0.6:
   dependencies:
     "@babel/runtime" "^7.0.0"
 
-gatsby-plugin-jss@^2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-jss/-/gatsby-plugin-jss-2.0.2.tgz#c170f89825317a6a4e14dbd91bb7c783d0533abb"
-  dependencies:
-    "@babel/runtime" "^7.0.0"
-
 gatsby-plugin-manifest@^2.0.4:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/gatsby-plugin-manifest/-/gatsby-plugin-manifest-2.0.4.tgz#c53ed4181bf1f6fef621469ab2b43c67081c76df"
@@ -5363,9 +5351,9 @@ gatsby-plugin-manifest@^2.0.4:
     bluebird "^3.5.0"
     sharp "^0.20.2"
 
-gatsby-plugin-netlify-cms@^3.0.3:
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-netlify-cms/-/gatsby-plugin-netlify-cms-3.0.3.tgz#50e8171316188f61dd488ae20e12eb35151b4260"
+gatsby-plugin-netlify-cms@^3.0.4:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-netlify-cms/-/gatsby-plugin-netlify-cms-3.0.4.tgz#48800cc146af8323cd7cb7174ec0747deef37fc6"
   dependencies:
     friendly-errors-webpack-plugin "^1.7.0"
     html-webpack-exclude-assets-plugin "^0.0.7"
@@ -5375,9 +5363,9 @@ gatsby-plugin-netlify-cms@^3.0.3:
     netlify-identity-widget "^1.4.11"
     webpack "^4.16.0"
 
-gatsby-plugin-netlify@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-netlify/-/gatsby-plugin-netlify-2.0.1.tgz#285fc47296d6eaa21c3329181bcf44f4173df3a5"
+gatsby-plugin-netlify@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-netlify/-/gatsby-plugin-netlify-2.0.2.tgz#1dc2da6ce79bf2572b1dc11b3a9527ae90bd2b1b"
   dependencies:
     "@babel/runtime" "^7.0.0"
     fs-extra "^4.0.2"
@@ -7561,7 +7549,7 @@ jss-vendor-prefixer@^7.0.0:
   dependencies:
     css-vendor "^0.3.8"
 
-jss@^9.3.3, jss@^9.7.0:
+jss@^9.3.3, jss@^9.7.0, jss@^9.8.7:
   version "9.8.7"
   resolved "https://registry.yarnpkg.com/jss/-/jss-9.8.7.tgz#ed9763fc0f2f0260fc8260dac657af61e622ce05"
   dependencies:
@@ -8550,9 +8538,9 @@ netlify-cms-backend-test@^2.0.6:
   dependencies:
     uuid "^3.3.2"
 
-netlify-cms-core@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/netlify-cms-core/-/netlify-cms-core-2.1.0.tgz#4a80789925b1ffca01d434a79c51d7f240f841c7"
+netlify-cms-core@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/netlify-cms-core/-/netlify-cms-core-2.1.1.tgz#07d4986604ac510310cd02897294e61c52ced922"
   dependencies:
     ajv "^6.4.0"
     ajv-errors "^1.0.0"
@@ -8717,9 +8705,9 @@ netlify-cms-widget-text@^2.0.5:
   dependencies:
     react-textarea-autosize "^5.2.0"
 
-netlify-cms@^2.1.2:
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/netlify-cms/-/netlify-cms-2.1.2.tgz#6905bf351b5b869ff3205cefa01863a367a98476"
+netlify-cms@^2.1.3:
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/netlify-cms/-/netlify-cms-2.1.3.tgz#2437d2b8de9f07aebac12182a1e04a1baeb99816"
   dependencies:
     emotion "^9.2.6"
     netlify-cms-backend-bitbucket "^2.0.7"
@@ -8727,7 +8715,7 @@ netlify-cms@^2.1.2:
     netlify-cms-backend-github "^2.0.9"
     netlify-cms-backend-gitlab "^2.0.6"
     netlify-cms-backend-test "^2.0.6"
-    netlify-cms-core "^2.1.0"
+    netlify-cms-core "^2.1.1"
     netlify-cms-editor-component-image "^2.0.4"
     netlify-cms-media-library-uploadcare "^0.2.0"
     netlify-cms-widget-boolean "^2.0.4"

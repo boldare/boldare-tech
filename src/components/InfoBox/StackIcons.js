@@ -40,11 +40,12 @@ const styles = theme => ({
   },
   header: {
     textAlign: "center",
-    fontSize: ".85em",
+    fontSize: ".9em",
     letterSpacing: ".3em",
     width: "100%",
     margin: "0 0 .8em 0",
-    fontWeight: 300
+    fontWeight: 300,
+    color: "#55F"
   }
 });
 
