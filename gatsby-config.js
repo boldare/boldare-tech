@@ -1,6 +1,5 @@
 require("dotenv").config();
 const config = require("./content/meta/config");
-const theme = require("./src/styles/theme");
 
 module.exports = {
   siteMetadata: {

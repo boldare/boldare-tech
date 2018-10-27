@@ -1,10 +1,10 @@
 const colors = require("../../src/styles/colors");
 
 module.exports = {
-  homeTitle: "Boldare Blog",
-  siteTitle: "Boldare tech-blog",
-  shortSiteTitle: "Boldare tech-blog",
-  siteDescription: "Boldare developers blog.",
+  homeTitle: "Boldare",
+  siteTitle: "Boldare | Tech",
+  shortSiteTitle: "Solution for every edge case problem",
+  siteDescription: "Boldare developers blog where we share our issue and best solution",
   siteUrl: "https://tech.xsolve.software",
   pathPrefix: "",
   siteImage: "/avatar.jpg",
@@ -16,7 +16,7 @@ module.exports = {
   infoTitle: "Tech-blog",
   infoTitleNote: "by Boldare",
   // manifest.json
-  manifestName: "Boldare tech-blog",
+  manifestName: "Boldare | Tech Blog",
   manifestShortName: "BLDR-TechBlog", // max 12 characters
   manifestStartUrl: "/",
   manifestBackgroundColor: colors.bg,
