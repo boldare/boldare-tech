@@ -13,7 +13,7 @@ There are two ways to contribute:
 
 👉 Using CMS system
 
-1. Go to [Tech blog Xsolve](https://tech.xsolve.software/admin/), sometimes you need to do it twice, It's caused by routing.
+1. Go to [Boldare Tech blog](https://tech.xsolve.software/admin/), sometimes you need to do it twice, It's caused by routing.
 2. Log in by credentials, preferred github.
 3. Go to `Blog Articles` or click `Quick add` at the very top of the page.
 4. Click `New Blog Article`.
