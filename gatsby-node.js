@@ -38,6 +38,14 @@ exports.createPages = async ({ graphql, actions }) => {
   const { createPage, createRedirect } = actions;
 
   createRedirect({
+    fromPath: "https://tech.xsolve.software/*",
+    toPath: "https://tech.boldare.com/:splat",
+    isPermanent: true,
+    redirectInBrowser: true,
+    force: true
+  });
+
+  createRedirect({
     fromPath: "/a",
     toPath: "/admin/",
     isPermanent: true,
