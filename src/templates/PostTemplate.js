@@ -54,7 +54,7 @@ class PostTemplate extends React.Component {
     } = this.props;
 
     const postTags = _.filter(
-      mergeTagsWithEqualKebabCaseName(_.orderBy(tags.group), "totalCount", "desc"),
+      mergeTagsWithEqualKebabCaseName(_.orderBy(tags.group, "totalCount", "desc")),
       group => this.filterTagsBySlug(group)
     );
 
