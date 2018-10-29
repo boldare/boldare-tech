@@ -1,6 +1,6 @@
 backend:
   name: git-gateway
-  repo: xsolve-pl/xsolve-tech
+  repo: xsolve-pl/boldare-tech
   branch: master
 
 media_folder: static/img
