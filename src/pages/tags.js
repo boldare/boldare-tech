@@ -25,7 +25,7 @@ const TagsPage = props => {
           <PageHeader title="Most popular tags" />
           <Content>
             <TagList
-              tags={mergeTagsWithEqualKebabCaseName(_.orderBy(data.tags.group), "totalCount", "desc")}
+              tags={mergeTagsWithEqualKebabCaseName(_.orderBy(data.tags.group, "totalCount", "desc"))}
             />
           </Content>
         </Article>

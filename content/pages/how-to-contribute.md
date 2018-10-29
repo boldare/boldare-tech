@@ -13,7 +13,7 @@ There are two ways to contribute:
 
 👉 Using CMS system
 
-1. Go to [admin panel](https://tech.xsolve.software/admin/)
+1. Go to [admin panel](../admin/)
 or click `+` icon in sidebar (skip points 2. and 3. in that case).
 2. Go to `Blog Articles` or click `Quick add` at the very top of the page.
 3. Click `New Blog Article`.

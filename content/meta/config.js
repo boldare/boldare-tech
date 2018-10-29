@@ -6,7 +6,7 @@ module.exports = {
   shortSiteTitle: "Boldare Tech",
   siteDescription: `Development tips && tricks. From devs. For devs.
 Any helpful contributions are welcome. 3 lines, 3 paragraphs? Doesn’t matter.`,
-  siteUrl: "https://tech.xsolve.software",
+  siteUrl: "https://tech.boldare.com",
   pathPrefix: "",
   siteImage: "/avatar.jpg",
   siteLanguage: "en",
