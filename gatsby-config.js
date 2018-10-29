@@ -1,31 +1,7 @@
 require("dotenv").config();
+const _ = require("lodash");
+const chunk = require("chunk-text");
 const config = require("./content/meta/config");
-
-const query = `{
-  allMarkdownRemark(filter: { id: { regex: "//posts|pages//" } }) {
-    edges {
-      node {
-        objectID: id
-        fields {
-          slug
-        }
-        frontmatter {
-          title
-          subTitle
-          postAuthor
-          tags
-        }
-      }
-    }
-  }
-}`;
-
-const queries = [
-  {
-    query,
-    transformer: ({ data }) => data.allMarkdownRemark.edges.map(({ node }) => node)
-  }
-];
 
 module.exports = {
   siteMetadata: {
@@ -36,43 +12,61 @@ module.exports = {
     pathPrefix: config.pathPrefix,
     language: config.siteLanguage,
     algolia: {
-      appId: process.env.ALGOLIA_APP_ID ? process.env.ALGOLIA_APP_ID : "",
-      searchOnlyApiKey: process.env.ALGOLIA_SEARCH_ONLY_API_KEY
-        ? process.env.ALGOLIA_SEARCH_ONLY_API_KEY
-        : "",
-      indexName: process.env.ALGOLIA_INDEX_NAME ? process.env.ALGOLIA_INDEX_NAME : ""
+      appId: config.algolia.appId,
+      searchOnlyApiKey: config.algolia.searchOnlyApiKey,
+      indexName: config.algolia.indexName
     },
     facebook: {
-      appId: process.env.FB_APP_ID ? process.env.FB_APP_ID : ""
+      appId: config.facebook.appId
     }
   },
   plugins: [
     {
-      resolve: `gatsby-source-filesystem`,
+      resolve: `gatsby-plugin-algolia`,
       options: {
-        path: `${__dirname}/static/img/`,
-        name: "img"
+        appId: config.algolia.appId,
+        apiKey: config.algolia.adminApiKey,
+        indexName: config.algolia.indexName,
+        queries: [
+          {
+            query: `{
+              allMarkdownRemark(filter: { fileAbsolutePath: { regex: "//posts|pages//" } }) {
+                edges {
+                  node {
+                    objectID: fileAbsolutePath
+                    fields {
+                      slug
+                    }
+                    internal {
+                      content
+                    }
+                    frontmatter {   
+                      title
+                      subTitle
+                      postAuthor
+                      tags
+                    }
+                  }
+                }
+              }
+            }`,
+            transformer: ({ data }) =>
+              _.flatten(
+                data.allMarkdownRemark.edges.map(({ node }) =>
+                  chunk(node.internal.content, 1000).map(contentChunk =>
+                    Object.assign({}, node, { internal: { content: contentChunk } })
+                  )
+                )
+              )
+          }
+        ]
       }
     },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        path: `${__dirname}/content/posts/`,
-        name: "posts"
-      }
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        path: `${__dirname}/content/pages/`,
-        name: "pages"
-      }
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `parts`,
-        path: `${__dirname}/content/parts/`
+        path: `${__dirname}/content`,
+        name: "content"
       }
     },
     {
@@ -155,7 +149,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
-        trackingId: process.env.GOOGLE_ANALYTICS_ID
+        trackingId: config.google.analyticsId
       }
     },
     {
@@ -179,7 +173,7 @@ module.exports = {
           query: {
             site: { siteMetadata },
             ...rest
-          },
+          }
         }) => {
           return {
             ...siteMetadata,
@@ -198,7 +192,7 @@ module.exports = {
                   description: edge.node.frontmatter.subTitle,
                   author: edge.node.frontmatter.postAuthor,
                   categories: edge.node.frontmatter.tags,
-                  date: edge.node.fields.prefix,
+                  date: edge.node.fields.date,
                   url: siteUrl + edge.node.fields.slug,
                   guid: siteUrl + edge.node.fields.slug,
                   custom_elements: [
@@ -222,15 +216,15 @@ module.exports = {
               {
                 allMarkdownRemark(
                   limit: 30,
-                  filter: { id: { regex: "//posts//" } }
-                  sort: { fields: [fields___prefix], order: DESC }
+                  filter: { fileAbsolutePath: { regex: "//posts//" } }
+                  sort: { fields: [fields___date], order: DESC }
                 ) {
                   edges {
                     node {
                       html
                       fields {
                         slug
-                        prefix
+                        date
                       }
                       frontmatter {
                         title

@@ -1,8 +1,8 @@
-# XSolve-tech blog 📰
+# Boldare Tech Blog
 
-👉 [Go to #xsolve-tech blog](https://tech.xsolve.software/)
+👉 [Go to #boldare-tech blog](https://tech.boldare.com/)
 
-## About #xsolve-tech
+## About #boldare-tech
 Development tips && tricks.
 From devs. For devs.
 Any helpful contributions are welcome.
@@ -13,15 +13,15 @@ There are two ways to contribute:
 
 👉 Using CMS system
 
-1. Go to [Tech blog Xsolve](https://tech.xsolve.software/admin/), sometimes you need to do it twice, It's caused by routing.
-2. Log in by credentials, preferred github.
-3. Go to `Blog Articles` or click `Quick add` at the very top of the page.
-4. Click `New Blog Article`.
-5. Create article by providing all required data, also upload `cover`.
-6. If you save article, it will be sent as PR for review.
+1. Go to [admin panel](https://tech.boldare.com/admin/)
+or click `+` icon in sidebar (skip points 2. and 3. in that case).
+2. Go to `Blog Articles` or click `Quick add` at the very top of the page.
+3. Click `New Blog Article`.
+4. Create article by providing all required data, also upload `cover`.
+5. If you save article, it will be sent as PR for review to blog's GH repository.
 
-7. INFO: To add images to article, you need to upload them on `Media` page.
-8. Then simple add it in article `![Describe file](/img/<your-file-name>)`
+INFO: To add images to article, you need to upload them on `Media` page.
+Then simply add it in article `![Describe file](/img/<your-file-name>)`
 
 
 👉 Cloning repository
@@ -44,7 +44,7 @@ xsolve-tech/
 2. Use `yarn add-article` command to create a new structure for the post 📂
 3. Write an article in [Markdown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
 syntax and save it in created file by script, English language is preferred ✍️
-4. Put an image (post avatar) in the `static/img`, technology icon is preferred 🖼
+4. Put an image (post avatar) in `static/img`, technology icon is preferred 🖼
 5. Update the following required tags at the very top of the article 👆
 
 ```

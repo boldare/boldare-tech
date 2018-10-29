@@ -1,29 +1,32 @@
 import React from "react";
-import { Router } from "react-router-dom";
 import { Provider } from "react-redux";
-import PropTypes from "prop-types";
-
+import { JssProvider } from "react-jss";
+import CssBaseline from "@material-ui/core/CssBaseline";
 import createStore from "./src/state/store";
+import { MuiThemeProvider } from "@material-ui/core/styles";
+import getPageContext from "./src/getPageContext";
 
-// remove the JSS style tag generated on the server to avoid conflicts with the one added on the client
-exports.onInitialClientRender = function() {
-  // eslint-disable-next-line no-undef
-  var ssStyles = window.document.getElementById("server-side-jss");
+export const onInitialClientRender = function() {
+  const ssStyles = window.document.getElementById("server-side-jss");
   ssStyles && ssStyles.parentNode.removeChild(ssStyles);
 };
 
-exports.replaceRouterComponent = ({ history }) => {
+export const wrapRootElement = ({ element }) => {
   const store = createStore();
-
-  const ConnectedRouterWrapper = ({ children }) => (
+  const pageContext = getPageContext();
+  const ConnectRootElement = (
     <Provider store={store}>
-      <Router history={history}>{children}</Router>
+      <JssProvider
+        registry={pageContext.sheetsRegistry}
+        generateClassName={pageContext.generateClassName}
+      >
+        <MuiThemeProvider theme={pageContext.theme} sheetsManager={pageContext.sheetsManager}>
+          <CssBaseline />
+          {React.cloneElement(element, { pageContext })}
+        </MuiThemeProvider>
+      </JssProvider>
     </Provider>
   );
 
-  ConnectedRouterWrapper.propTypes = {
-    children: PropTypes.object.isRequired
-  };
-
-  return ConnectedRouterWrapper;
+  return ConnectRootElement;
 };
