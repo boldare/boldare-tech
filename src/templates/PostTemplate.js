@@ -3,9 +3,11 @@ import { graphql } from "gatsby";
 import PropTypes from "prop-types";
 
 const _ = require("lodash");
+
 import { connect } from "react-redux";
 import { setNavigatorPosition, setNavigatorShape } from "../state/store";
 import { moveNavigatorAside } from "../utils/shared";
+import { mergeTagsWithEqualKebabCaseName } from "../utils/helpers";
 
 import Main from "../components/Main/";
 import Post from "../components/Post/";
@@ -51,9 +53,10 @@ class PostTemplate extends React.Component {
       pageContext
     } = this.props;
 
-    const postTags = _.filter(tags.group, group => {
-      return this.filterTagsBySlug(group);
-    });
+    const postTags = _.filter(
+      mergeTagsWithEqualKebabCaseName(_.orderBy(tags.group), "totalCount", "desc"),
+      group => this.filterTagsBySlug(group)
+    );
 
     return (
       <Layout type="post">

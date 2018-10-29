@@ -21,9 +21,9 @@ export default props => (
       <link rel="apple-touch-icon" href="/icons/apple-icon-144x144.png" sizes="144x144" />
       <link rel="apple-touch-icon" href="/icons/apple-icon-152x152.png" sizes="152x152" />
       <link rel="apple-touch-icon" href="/icons/apple-icon-180x180.png" sizes="180x180" />
-      <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png" />
-      <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png" />
-      <link rel="icon" type="image/png" sizes="96x96" href="/icons/favicon-96x96.png" />
+      <link rel="icon" type="image/x-icon" sizes="16x16" href="/icons/favicon-16x16.ico" />
+      {/*<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png" />*/}
+      {/*<link rel="icon" type="image/png" sizes="96x96" href="/icons/favicon-96x96.png" />*/}
     </head>
     <body {...props.bodyAttributes}>
       <noscript>You need to enable JavaScript to run this blog!</noscript>

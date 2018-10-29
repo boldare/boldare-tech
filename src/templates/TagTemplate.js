@@ -21,7 +21,7 @@ const styles = () => ({
 class TagTemplate extends React.Component {
   render() {
     const { classes, data, pageContext } = this.props;
-    const { tag } = pageContext;
+    const { tag, kebabCaseTag } = pageContext;
 
     const tagHeader = `${data.posts.totalCount} post${
       data.posts.totalCount === 1 ? "" : "s"
@@ -43,7 +43,7 @@ class TagTemplate extends React.Component {
           </div>
           <Navigator posts={posts} navigatorPosition={"is-list"} />
           <Seo
-            data={{ title: `Posts with tag ${tag}`, slug: `tags/${_.kebabCase(tag)}` }}
+            data={{ title: `Posts with tag ${tag}`, slug: `tags/${kebabCaseTag}` }}
             facebook={data.site.siteMetadata.facebook}
           />
         </Main>
@@ -55,6 +55,7 @@ class TagTemplate extends React.Component {
 TagTemplate.propTypes = {
   classes: PropTypes.object.isRequired,
   pageContext: PropTypes.shape({
+    kebabCaseTag: PropTypes.string.isRequired,
     tag: PropTypes.string.isRequired
   }),
   data: PropTypes.shape({
@@ -84,7 +85,7 @@ TagTemplate.propTypes = {
 export default injectSheet(styles)(TagTemplate);
 
 export const pageQuery = graphql`
-  query($tag: String!) {
+  query($kebabCaseTag: String!) {
     site {
       siteMetadata {
         facebook {
@@ -94,7 +95,7 @@ export const pageQuery = graphql`
     }
     posts: allMarkdownRemark(
       limit: 100
-      filter: { frontmatter: { tags: { in: [$tag] } } }
+      filter: { fields: { kebabCaseTags: { in: [$kebabCaseTag] } } }
       sort: { fields: [fields___date], order: DESC }
     ) {
       totalCount

@@ -1,4 +1,6 @@
 require("dotenv").config();
+const _ = require("lodash");
+const chunk = require("chunk-text");
 const config = require("./content/meta/config");
 
 module.exports = {
@@ -10,17 +12,56 @@ module.exports = {
     pathPrefix: config.pathPrefix,
     language: config.siteLanguage,
     algolia: {
-      appId: process.env.ALGOLIA_APP_ID ? process.env.ALGOLIA_APP_ID : "",
-      searchOnlyApiKey: process.env.ALGOLIA_SEARCH_ONLY_API_KEY
-        ? process.env.ALGOLIA_SEARCH_ONLY_API_KEY
-        : "",
-      indexName: process.env.ALGOLIA_INDEX_NAME ? process.env.ALGOLIA_INDEX_NAME : ""
+      appId: config.algolia.appId,
+      searchOnlyApiKey: config.algolia.searchOnlyApiKey,
+      indexName: config.algolia.indexName
     },
     facebook: {
-      appId: process.env.FB_APP_ID ? process.env.FB_APP_ID : ""
+      appId: config.facebook.appId
     }
   },
   plugins: [
+    {
+      resolve: `gatsby-plugin-algolia`,
+      options: {
+        appId: config.algolia.appId,
+        apiKey: config.algolia.adminApiKey,
+        indexName: config.algolia.indexName,
+        queries: [
+          {
+            query: `{
+              allMarkdownRemark(filter: { fileAbsolutePath: { regex: "//posts|pages//" } }) {
+                edges {
+                  node {
+                    objectID: fileAbsolutePath
+                    fields {
+                      slug
+                    }
+                    internal {
+                      content
+                    }
+                    frontmatter {   
+                      title
+                      subTitle
+                      postAuthor
+                      tags
+                    }
+                  }
+                }
+              }
+            }`,
+            transformer: ({ data }) =>
+              _.flatten(
+                data.allMarkdownRemark.edges.map(({ node }) =>
+                  chunk(node.internal.content, 1000).map(contentChunk =>
+                    Object.assign({}, node, { internal: { content: contentChunk } })
+                  )
+                )
+              )
+          }
+        ]
+      }
+    },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -108,7 +149,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
-        trackingId: process.env.GOOGLE_ANALYTICS_ID
+        trackingId: config.google.analyticsId
       }
     },
     {

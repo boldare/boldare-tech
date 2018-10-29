@@ -5,6 +5,8 @@ import PropTypes from "prop-types";
 const _ = require("lodash");
 const path = require("path");
 
+import { mergeTagsWithEqualKebabCaseName } from "../utils/helpers";
+
 import Main from "../components/Main";
 import Article from "../components/Main/Article";
 import Content from "../components/Main/Content";
@@ -22,7 +24,9 @@ const TagsPage = props => {
         <Article>
           <PageHeader title="Most popular tags" />
           <Content>
-            <TagList tags={_.orderBy(data.tags.group, "totalCount", "desc")} />
+            <TagList
+              tags={mergeTagsWithEqualKebabCaseName(_.orderBy(data.tags.group), "totalCount", "desc")}
+            />
           </Content>
         </Article>
         <Seo
@@ -57,6 +61,8 @@ TagsPage.propTypes = {
 export default TagsPage;
 
 // TODO - whenever possible, sort by totalCount here: https://github.com/gatsbyjs/gatsby/issues/5046
+// TODO - also, whenever possible, make the grouping case insensitive https://github.com/gatsbyjs/gatsby/issues/1789
+// For now JS workarounds are used.
 export const pagesQuery = graphql`
   query Tags {
     site {

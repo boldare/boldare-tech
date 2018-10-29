@@ -23,6 +23,14 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
       name: `date`,
       value: date
     });
+
+    if (node.frontmatter.tags) {
+      createNodeField({
+        node,
+        name: `kebabCaseTags`,
+        value: node.frontmatter.tags.map(tag => _.kebabCase(tag))
+      });
+    }
   }
 };
 
@@ -97,10 +105,13 @@ exports.createPages = async ({ graphql, actions }) => {
   tags = _.uniq(tags);
 
   tags.forEach(tag => {
+    const kebabCaseTag = _.kebabCase(tag);
+
     createPage({
-      path: `/tags/${_.kebabCase(tag)}/`,
+      path: `/tags/${kebabCaseTag}/`,
       component: templates.tag,
       context: {
+        kebabCaseTag,
         tag
       }
     });
