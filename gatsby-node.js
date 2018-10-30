@@ -1,139 +1,135 @@
-const webpack = require("webpack");
-//const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
-const _ = require("lodash");
-const Promise = require("bluebird");
 const path = require("path");
+const _ = require("lodash");
 const { createFilePath } = require(`gatsby-source-filesystem`);
-const { store } = require(`./node_modules/gatsby/dist/redux`);
 
-exports.onCreateNode = ({ node, getNode, boundActionCreators }) => {
-  const { createNodeField } = boundActionCreators;
+exports.onCreateNode = ({ node, getNode, actions }) => {
+  const { createNodeField } = actions;
+
   if (node.internal.type === `MarkdownRemark`) {
     const slug = createFilePath({ node, getNode, basePath: `pages` });
-    const separtorIndex = ~slug.indexOf("--") ? slug.indexOf("--") : 0;
-    const shortSlugStart = separtorIndex ? separtorIndex + 2 : 0;
+    const separatorIndex = ~slug.indexOf("_") ? slug.indexOf("_") : 0;
+    const shortSlugStart = separatorIndex ? separatorIndex + 1 : 0;
+
+    const shortSlug = `${separatorIndex ? "/" : ""}${slug.substring(shortSlugStart)}`;
+    const date = separatorIndex ? slug.substring(separatorIndex, separatorIndex - 10) : "";
+
     createNodeField({
       node,
       name: `slug`,
-      value: `${separtorIndex ? "/" : ""}${slug.substring(shortSlugStart)}`
+      value: shortSlug
     });
     createNodeField({
       node,
-      name: `prefix`,
-      value: separtorIndex ? slug.substring(1, separtorIndex) : ""
+      name: `date`,
+      value: date
     });
+
+    if (node.frontmatter.tags) {
+      createNodeField({
+        node,
+        name: `kebabCaseTags`,
+        value: node.frontmatter.tags.map(tag => _.kebabCase(tag))
+      });
+    }
   }
 };
 
-exports.createPages = ({ graphql, boundActionCreators }) => {
-  const { createPage } = boundActionCreators;
+exports.createPages = async ({ graphql, actions }) => {
+  const { createPage, createRedirect } = actions;
 
-  return new Promise((resolve, reject) => {
-    const postTemplate = path.resolve("./src/templates/PostTemplate.js");
-    const pageTemplate = path.resolve("./src/templates/PageTemplate.js");
-    const tagTemplate = path.resolve("./src/templates/TagTemplate.js");
-    resolve(
-      graphql(
-        `
-          {
-            allMarkdownRemark(filter: { id: { regex: "//posts|pages//" } }, limit: 1000) {
-              edges {
-                node {
-                  id
-                  fields {
-                    slug
-                    prefix
-                  }
-                  frontmatter {
-                    tags
-                  }
-                }
+  createRedirect({
+    fromPath: "https://tech.xsolve.software/*",
+    toPath: "https://tech.boldare.com/:splat",
+    isPermanent: true,
+    redirectInBrowser: true,
+    force: true
+  });
+
+  createRedirect({
+    fromPath: "https://tech.xsolve.software",
+    toPath: "https://tech.boldare.com",
+    isPermanent: true,
+    redirectInBrowser: true,
+    force: true
+  });
+
+  createRedirect({
+    fromPath: "/a",
+    toPath: "/admin/",
+    isPermanent: true,
+    redirectInBrowser: true,
+    force: true
+  });
+
+  const templates = {
+    post: path.resolve("./src/templates/PostTemplate.js"),
+    page: path.resolve("./src/templates/PageTemplate.js"),
+    tag: path.resolve("./src/templates/TagTemplate.js")
+  };
+
+  const result = await graphql(`
+    {
+      allFile(filter: { relativeDirectory: { in: ["posts", "pages"] } }) {
+        edges {
+          node {
+            id
+            relativePath
+            childMarkdownRemark {
+              fields {
+                slug
+                date
+              }
+              frontmatter {
+                tags
               }
             }
           }
-        `
-      ).then(result => {
-        if (result.errors) {
-          console.log(result.errors);
-          reject(result.errors);
         }
-
-        let tags = [];
-
-        // Create posts and pages.
-        _.each(result.data.allMarkdownRemark.edges, edge => {
-          const slug = edge.node.fields.slug;
-          const isPost = /posts/.test(edge.node.id);
-
-          if (_.get(edge, "node.frontmatter.tags")) {
-            tags = tags.concat(edge.node.frontmatter.tags);
-          }
-
-          createPage({
-            path: slug,
-            component: isPost ? postTemplate : pageTemplate,
-            context: {
-              slug: slug
-            }
-          });
-        });
-
-        tags = _.uniq(tags);
-
-        _.forEach(tags, tag => {
-          createPage({
-            path: `/tags/${_.kebabCase(tag)}/`,
-            component: tagTemplate,
-            context: {
-              tag
-            }
-          });
-        });
-      })
-    );
-  });
-};
-
-exports.modifyWebpackConfig = ({ config, stage }) => {
-  switch (stage) {
-    case "build-javascript":
-      {
-        let components = store.getState().pages.map(page => page.componentChunkName);
-        components = _.uniq(components);
-        config.plugin("CommonsChunkPlugin", webpack.optimize.CommonsChunkPlugin, [
-          {
-            name: `commons`,
-            chunks: [`app`, ...components],
-            minChunks: (module, count) => {
-              const vendorModuleList = []; // [`material-ui`, `lodash`];
-              const isFramework = _.some(
-                vendorModuleList.map(vendor => {
-                  const regex = new RegExp(`[\\\\/]node_modules[\\\\/]${vendor}[\\\\/].*`, `i`);
-                  return regex.test(module.resource);
-                })
-              );
-              return isFramework || count > 1;
-            }
-          }
-        ]);
-        // config.plugin("BundleAnalyzerPlugin", BundleAnalyzerPlugin, [
-        //   {
-        //     analyzerMode: "static",
-        //     reportFilename: "./report/treemap.html",
-        //     openAnalyzer: true,
-        //     logLevel: "error",
-        //     defaultSizes: "gzip"
-        //   }
-        // ]);
       }
-      break;
-  }
-  return config;
-};
+    }
+  `);
 
-exports.modifyBabelrc = ({ babelrc }) => {
-  return {
-    ...babelrc,
-    plugins: babelrc.plugins.concat([`syntax-dynamic-import`, `dynamic-import-webpack`])
-  };
+  let tags = [];
+  const pages = result.data.allFile.edges;
+
+  pages.forEach(({ node: page }) => {
+    const type = /posts/.test(page.relativePath) ? "post" : "page";
+
+    if (page.childMarkdownRemark.frontmatter.tags) {
+      tags = [...tags, ...page.childMarkdownRemark.frontmatter.tags];
+    }
+
+    createRedirect({
+      fromPath: `${page.childMarkdownRemark.fields.slug}edit`,
+      toPath: `/admin/#/collections/blog/entries/${
+        page.childMarkdownRemark.fields.date
+      }_${page.childMarkdownRemark.fields.slug.substr(1)}`,
+      isPermanent: true,
+      redirectInBrowser: true,
+      force: true
+    });
+
+    createPage({
+      path: page.childMarkdownRemark.fields.slug,
+      component: templates[type],
+      context: {
+        slug: page.childMarkdownRemark.fields.slug
+      }
+    });
+  });
+
+  tags = _.uniq(tags);
+
+  tags.forEach(tag => {
+    const kebabCaseTag = _.kebabCase(tag);
+
+    createPage({
+      path: `/tags/${kebabCaseTag}/`,
+      component: templates.tag,
+      context: {
+        kebabCaseTag,
+        tag
+      }
+    });
+  });
 };

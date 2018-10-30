@@ -38,6 +38,6 @@ continuous-integration/travis-ci
 
 and choose one or both from:
 
-![](../../static/img/travis-check.png)
+![](/img/travis-check.png)
 
 Now your Pull Request should successfully obtain proper build status and you could get back to happy codin'!

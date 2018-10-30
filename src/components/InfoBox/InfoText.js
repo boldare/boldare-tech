@@ -5,10 +5,11 @@ import injectSheet from "react-jss";
 const styles = theme => ({
   text: {
     display: "block",
+    color: "white",
     fontWeight: 300,
     lineHeight: 1.5,
     fontSize: ".95em",
-    textAlign: "left",
+    textAlign: "center",
     marginBottom: ".8em",
     "& p:first-child": {
       marginTop: 0
@@ -21,7 +22,7 @@ const styles = theme => ({
 
 const InfoText = props => {
   const { classes, info } = props;
-  const text = info.node.html;
+  const text = info.node.childMarkdownRemark.html;
 
   return <div className={classes.text} dangerouslySetInnerHTML={{ __html: text }} />;
 };

@@ -17,6 +17,14 @@ const styles = theme => ({
     "& .gatsby-highlight": {
       margin: "2em 0"
     },
+    '& :not(pre) > code[class*="language-"]': {
+      padding: ".25em .45em",
+      wordBreak: "break-word",
+      whiteSpace: "pre-wrap",
+      borderRadius: ".3em",
+      backgroundColor: "rgba(235, 235, 235, .9)",
+      color: "#272822"
+    },
     "& .gatsby-resp-iframe-wrapper": {
       margin: "2em 0"
     },
@@ -116,4 +124,7 @@ const mapDispatchToProps = {
   setFontSizeIncrease
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(injectSheet(styles)(Content));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(injectSheet(styles)(Content));

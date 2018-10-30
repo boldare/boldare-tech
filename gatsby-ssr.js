@@ -1,30 +1,30 @@
 import React from "react";
-import { JssProvider, SheetsRegistry } from "react-jss";
-import { MuiThemeProvider, createGenerateClassName } from "material-ui/styles";
 import { renderToString } from "react-dom/server";
 import { Provider } from "react-redux";
+import { JssProvider } from "react-jss";
+import { MuiThemeProvider } from "@material-ui/core/styles";
+
 require("dotenv").config();
 
 import createStore from "./src/state/store";
 import theme from "./src/styles/theme";
+import getPageContext from "./src/getPageContext";
+import { CssBaseline } from "@material-ui/core";
 
-function minifyCssString(css) {
-  return css.replace(/\n/g, "").replace(/\s\s+/g, " ");
-}
-
-exports.replaceRenderer = ({ bodyComponent, replaceBodyHTMLString, setHeadComponents }) => {
-  const sheetsRegistry = new SheetsRegistry();
-
-  const generateClassName = createGenerateClassName();
-
+export const replaceRenderer = ({ bodyComponent, replaceBodyHTMLString, setHeadComponents }) => {
   const store = createStore();
+  const pageContext = getPageContext();
 
   replaceBodyHTMLString(
     renderToString(
       <Provider store={store}>
-        <JssProvider registry={sheetsRegistry} generateClassName={generateClassName}>
-          <MuiThemeProvider theme={theme} sheetsManager={new Map()}>
-            {bodyComponent}
+        <JssProvider
+          registry={pageContext.sheetsRegistry}
+          generateClassName={pageContext.generateClassName}
+        >
+          <MuiThemeProvider theme={pageContext.theme} sheetsManager={pageContext.sheetsManager}>
+            <CssBaseline />
+            {React.cloneElement(bodyComponent, { pageContext })}
           </MuiThemeProvider>
         </JssProvider>
       </Provider>
@@ -36,16 +36,12 @@ exports.replaceRenderer = ({ bodyComponent, replaceBodyHTMLString, setHeadCompon
       type="text/css"
       id="server-side-jss"
       key="server-side-jss"
-      dangerouslySetInnerHTML={{ __html: minifyCssString(sheetsRegistry.toString()) }}
+      dangerouslySetInnerHTML={{ __html: pageContext.sheetsRegistry.toString() }}
     />
   ]);
 };
 
-exports.onRenderBody = ({ setHeadComponents }) => {
-  return setHeadComponents([]);
-};
-
-exports.onRenderBody = ({ setPostBodyComponents }) => {
+export const onRenderBody = ({ setPostBodyComponents }) => {
   return setPostBodyComponents([
     <div key="fb-root" id="fb-root" />,
     <link

@@ -4,16 +4,19 @@ import injectSheet from "react-jss";
 import { connect } from "react-redux";
 import screenfull from "screenfull";
 
-import Link from "gatsby-link";
-import IconButton from "material-ui/IconButton";
-import HomeIcon from "material-ui-icons/Home";
-import SearchIcon from "material-ui-icons/Search";
-import ArrowUpwardIcon from "material-ui-icons/ArrowUpward";
-import FullscreenIcon from "material-ui-icons/Fullscreen";
-import FullscreenExitIcon from "material-ui-icons/FullscreenExit";
-import RssIcon from "material-ui-icons/RssFeed";
+import { Link } from "gatsby";
+import { IconButton } from "@material-ui/core";
+import HomeIcon from "@material-ui/icons/Home";
+import SearchIcon from "@material-ui/icons/Search";
+import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
+import FullscreenIcon from "@material-ui/icons/Fullscreen";
+import FullscreenExitIcon from "@material-ui/icons/FullscreenExit";
+import RssIcon from "@material-ui/icons/RssFeed";
+import Add from "@material-ui/icons/Add";
+import Create from "@material-ui/icons/Create";
+
 import FontSetter from "./FontSetter";
-//import CategoryFilter from "./CategoryFilter"
+import CategoryFilter from "./CategoryFilter";
 
 import {
   setNavigatorPosition,
@@ -119,12 +122,18 @@ class ActionsBar extends React.Component {
     }
   };
 
+  getPostEditLink = () => {
+    if (typeof window !== "undefined") {
+      return window.location.pathname + "edit";
+    }
+  };
+
   categoryFilterOnClick = val => {
     this.props.setCategoryFilter(val);
   };
 
   render() {
-    const { classes, navigatorPosition, isWideScreen, categories } = this.props;
+    const { classes, navigatorPosition, isWideScreen, categories, type } = this.props;
 
     return (
       <div className={classes.actionsBar}>
@@ -132,11 +141,12 @@ class ActionsBar extends React.Component {
           <IconButton aria-label="Back to list" onClick={this.homeOnClick} title="Back to the list">
             <HomeIcon />
           </IconButton>
-          {/*
-          {(isWideScreen || navigatorPosition !== "is-aside") && (
+
+          {/* Uncomment it when filter comes to more usable */}
+          {/* {(isWideScreen || navigatorPosition !== "is-aside") && (
             <CategoryFilter categories={categories} filterCategory={this.categoryFilterOnClick} />
-          )}
-          */}
+          )} */}
+
           <IconButton
             aria-label="Search"
             onClick={this.searchOnClick}
@@ -147,17 +157,33 @@ class ActionsBar extends React.Component {
           >
             <SearchIcon />
           </IconButton>
-          <IconButton
-            aria-label="RSS feed"
-            component={Link}
-            to="/rss.xml"
-            title="RSS feed"
-          >
+          <IconButton aria-label="RSS feed" component={Link} to="/rss.xml" title="RSS feed">
             <RssIcon />
           </IconButton>
+          <IconButton
+            aria-label="Write post"
+            component={Link}
+            to="/admin/#/collections/blog/new"
+            title="Write post"
+          >
+            <Add />
+          </IconButton>
+          {type === "post" && (
+            <IconButton
+              aria-label="Edit post"
+              component={Link}
+              to={`${this.getPostEditLink()}`}
+              title="Edit"
+            >
+              <Create />
+            </IconButton>
+          )}
         </div>
         <div className={classes.group}>
           {navigatorPosition === "is-aside" && <FontSetter increaseFont={this.fontSetterOnClick} />}
+          <IconButton aria-label="Back to top" onClick={this.arrowUpOnClick} title="Scroll to top">
+            <ArrowUpwardIcon />
+          </IconButton>
           {screenfull.enabled && (
             <IconButton
               aria-label="Fullscreen"
@@ -167,9 +193,6 @@ class ActionsBar extends React.Component {
               {this.state.fullscreen ? <FullscreenExitIcon /> : <FullscreenIcon />}
             </IconButton>
           )}
-          <IconButton aria-label="Back to top" onClick={this.arrowUpOnClick} title="Scroll to top">
-            <ArrowUpwardIcon />
-          </IconButton>
         </div>
       </div>
     );
@@ -184,7 +207,8 @@ ActionsBar.propTypes = {
   setFontSizeIncrease: PropTypes.func.isRequired,
   categories: PropTypes.array.isRequired,
   setCategoryFilter: PropTypes.func.isRequired,
-  categoryFilter: PropTypes.string.isRequired
+  categoryFilter: PropTypes.string.isRequired,
+  type: PropTypes.string
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -203,4 +227,7 @@ const mapDispatchToProps = {
   setCategoryFilter
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(injectSheet(styles)(ActionsBar));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(injectSheet(styles)(ActionsBar));
