@@ -374,7 +374,6 @@ Now, you could check your site locally entering `localhost:{NGINX_PORT} and offi
 
 I hope it will help anyone to understand how **multi-stage builds** works and how you could use it to improve your SPA app (and not only because for API it also works perfectly, but it's topic for another post probably). You could find a working code on my [GitHub](https://github.com/marcinlesek/docker-spa-setup), so don't hesitate to check it if you'll force some troubles with this guide or ask me some questions here or on my [Twitter](https://twitter.com/marcinlesek), I will try to help you. :)
 
-
 I also leave here some helpful links (some basics and some advanced a bit, used to create this article and also mentioned above), but to be honest, the best way to learn Docker, is diggin' into it and checking their documentation, which is so great!
 
 * [What is a Container](https://www.docker.com/resources/what-container),
