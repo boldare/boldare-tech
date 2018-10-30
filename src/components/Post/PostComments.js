@@ -22,7 +22,7 @@ class PostComments extends React.Component {
   }
 
   render() {
-    const { classes, post, slug } = this.props;
+    const { classes, slug } = this.props;
 
     return (
       <div id="post-comments" className={classes.postComments}>
@@ -41,7 +41,6 @@ class PostComments extends React.Component {
 
 PostComments.propTypes = {
   classes: PropTypes.object.isRequired,
-  post: PropTypes.object.isRequired,
   slug: PropTypes.string.isRequired
 };
 

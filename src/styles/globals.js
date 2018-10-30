@@ -81,6 +81,17 @@ export default {
     },
 
     /**
+     * Style for `` inline code blocks
+     */
+    "code": {
+      backgroundColor: "rgba(235, 235, 235, .9)",
+      borderRadius: ".3em",
+      padding: ".25em .45em",
+      wordBreak: "break-word",
+      whiteSpace: "pre-wrap"
+    },
+
+    /**
      * Add the correct font style in Android 4.3-.
      */
     dfn: {

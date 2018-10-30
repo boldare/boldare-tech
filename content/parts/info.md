@@ -2,4 +2,7 @@
 title: info
 ---
 
-Open source development issues.<br>Tips & Tricks from devs for devs. Feel free to contribute.
+Development tips && tricks.  
+From devs. For devs.  
+Any helpful contributions are welcome.  
+3 lines, 3 paragraphs? Doesn't matter.

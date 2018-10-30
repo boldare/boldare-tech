@@ -1,5 +1,5 @@
-import { createMuiTheme } from "material-ui/styles";
-import Color from "color";
+const { createMuiTheme } = require("@material-ui/core/styles");
+const Color = require("color");
 
 const colors = require("./colors");
 
@@ -8,8 +8,8 @@ const theme = createMuiTheme({
     colors: {
       background: colors.white,
       text: colors.dark,
-      link: colors.accent,
-      linkHover: Color(colors.accent)
+      link: colors.blue,
+      linkHover: Color(colors.blue)
         .lighten(0.1)
         .string(),
       accent: colors.accent,
@@ -22,15 +22,17 @@ const theme = createMuiTheme({
       unstyledFamily: `Arial`,
       styledFamily: "Open Sans",
       styledFonts: "300,400,600"
-    }
+    },
+    emptyContent: "''"
   },
   info: {
     colors: {
       text: colors.gray,
-      background: colors.white,
+      author: colors.BLDRYellow,
+      background: colors.BLDRgray,
       socialIcons: colors.lightGray,
       socialIconsHover: colors.accent,
-      menuLink: colors.gray,
+      menuLink: colors.lightGray,
       menuLinkHover: colors.accent
     },
     sizes: {
@@ -52,10 +54,54 @@ const theme = createMuiTheme({
     },
     sizes: {
       closedHeight: 80,
-      postsListItemH1Font: 1.3,
-      postsListItemH2Font: 1.1,
+      postsListItemH2Font: 1.5,
+      postsListItemH3Font: 1.3,
+      postsListItemH4Font: 1,
+      postsListItemH3Margin: "0.4em 0",
       fontIncraseForM: 1.15,
       fontIncraseForL: 1.3
+    }
+  },
+  tagList: {
+    margin: "1em 0 0 0",
+    tag: {
+      margin: ".2em .5em",
+      borderRadius: ".3em 0 0 .3em",
+      paddingLeft: 16,
+      paddingRight: 13,
+      position: "relative",
+      background: colors.superLightGray,
+      backgroundHover: colors.mediocreLightGray
+    },
+    tagArrow: {
+      position: "absolute",
+      top: 0,
+      right: 0,
+      borderTop: "16px solid transparent",
+      borderBottom: "16px solid transparent",
+      borderLeft: `13px solid ${colors.superLightGray}`,
+      background: colors.white,
+      backgroundHover: colors.mediocreLightGray
+    },
+    tagCircle: {
+      position: "absolute",
+      top: 13,
+      left: 10,
+      height: 6,
+      width: 6,
+      borderRadius: 10,
+      background: colors.white,
+      boxShadow: "inset 0 1px rgba(0, 0, 0, 0.25)"
+    },
+    tagCount: {
+      font: ".8125rem",
+      lineHeight: "1rem",
+      margin: "0 -.5em 0 .5em",
+      padding: ".5rem",
+      height: 32,
+      width: "auto",
+      borderRadius: ".3em",
+      background: colors.grayishBlue
     }
   },
   main: {
@@ -157,4 +203,4 @@ const theme = createMuiTheme({
   }
 });
 
-export default theme;
+module.exports = theme;

@@ -35,6 +35,11 @@ const styles = theme => ({
         left: `${theme.info.sizes.width}px`,
         top: 0
       },
+      "&.is-list": {
+        position: "static",
+        transition: "left .9s",
+        width: `calc(100vw - ${theme.info.sizes.width}px - ${theme.bars.sizes.actionsBar}px)`
+      },
       "&.is-aside": {
         transition: "none, bottom 0.5s",
         left: 0,
@@ -116,9 +121,8 @@ class Navigator extends React.Component {
 
     return (
       <nav
-        className={`${classes.navigator} ${navigatorPosition ? navigatorPosition : ""} ${
-          navigatorShape ? navigatorShape : ""
-        } `}
+        className={`${classes.navigator} ${navigatorPosition ? navigatorPosition : ""}
+        ${navigatorShape ? navigatorShape : ""} `}
       >
         {this.props.posts.length && (
           <List
@@ -150,7 +154,9 @@ Navigator.propTypes = {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    navigatorPosition: state.navigatorPosition,
+    navigatorPosition: ownProps.navigatorPosition
+      ? ownProps.navigatorPosition
+      : state.navigatorPosition,
     navigatorShape: state.navigatorShape,
     isWideScreen: state.isWideScreen,
     categoryFilter: state.categoryFilter
@@ -163,4 +169,7 @@ const mapDispatchToProps = {
   setCategoryFilter
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(injectSheet(styles)(Navigator));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(injectSheet(styles)(Navigator));

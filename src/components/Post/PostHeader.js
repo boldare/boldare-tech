@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import injectSheet from "react-jss";
 
+import TagList from "../Tags/TagList";
+
 const styles = theme => ({
   header: {
     margin: "0 0 3em"
@@ -41,7 +43,7 @@ const styles = theme => ({
 });
 
 const PostHeader = props => {
-  const { classes, title, subTitle, date } = props;
+  const { classes, title, subTitle, date, postAuthor, tags } = props;
 
   function myDate(dateString) {
     const dateObj = new Date(dateString);
@@ -53,8 +55,10 @@ const PostHeader = props => {
   return (
     <header className={classes.header}>
       <h1 className={classes.title}>{title}</h1>
-      <h2 className={classes.subTitle}>{subTitle}</h2>
+      {subTitle && <h2 className={classes.subTitle}>{subTitle}</h2>}
+      <h4 className={postAuthor}>Author: {postAuthor}</h4>
       <div className={classes.meta}>{myDate(date)}</div>
+      <TagList tags={tags} />
     </header>
   );
 };
@@ -63,6 +67,13 @@ PostHeader.propTypes = {
   classes: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
   subTitle: PropTypes.string,
+  postAuthor: PropTypes.string,
+  tags: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      totalCount: PropTypes.number.isRequired,
+    }).isRequired
+  ).isRequired,
   date: PropTypes.string.isRequired
 };
 

@@ -1,15 +1,22 @@
 import React from "react";
+import { graphql } from "gatsby";
 import PropTypes from "prop-types";
-import Main from "../components/Main/";
-import { connect } from "react-redux";
-require("core-js/fn/array/find");
-require("prismjs/themes/prism-okaidia.css");
 
+const _ = require("lodash");
+
+import { connect } from "react-redux";
 import { setNavigatorPosition, setNavigatorShape } from "../state/store";
 import { moveNavigatorAside } from "../utils/shared";
+import { mergeTagsWithEqualKebabCaseName } from "../utils/helpers";
+
+import Main from "../components/Main/";
 import Post from "../components/Post/";
 import Footer from "../components/Footer/";
 import Seo from "../components/Seo";
+import Layout from "../components/layout";
+
+require("core-js/fn/array/find");
+require("prismjs/themes/prism-okaidia.css");
 
 class PostTemplate extends React.Component {
   moveNavigatorAside = moveNavigatorAside.bind(this);
@@ -20,23 +27,52 @@ class PostTemplate extends React.Component {
     }
   }
 
+  filterTagsBySlug(group) {
+    let containsSlug = false;
+    _.forEach(group.edges, edge => {
+      if (edge.node.fields.slug === this.props.data.post.fields.slug) {
+        containsSlug = true;
+        return false;
+      }
+    });
+
+    return containsSlug;
+  }
+
   render() {
-    const { data, pathContext } = this.props;
-    const facebook = (((data || {}).site || {}).siteMetadata || {}).facebook;
+    const {
+      data: {
+        site: {
+          siteMetadata: { facebook }
+        },
+        post,
+        footnote,
+        author,
+        tags
+      },
+      pageContext
+    } = this.props;
+
+    const postTags = _.filter(
+      mergeTagsWithEqualKebabCaseName(_.orderBy(tags.group, "totalCount", "desc")),
+      group => this.filterTagsBySlug(group)
+    );
 
     return (
-      <Main>
-        <Post post={data.post} slug={pathContext.slug} author={data.author} />
-        <Footer footnote={data.footnote} />
-        <Seo data={data.post} facebook={facebook} />
-      </Main>
+      <Layout type="post">
+        <Main>
+          <Post post={post} tags={postTags} slug={pageContext.slug} author={author} />
+          <Footer footnote={footnote} />
+          <Seo data={post} facebook={facebook} />
+        </Main>
+      </Layout>
     );
   }
 }
 
 PostTemplate.propTypes = {
   data: PropTypes.object.isRequired,
-  pathContext: PropTypes.object.isRequired,
+  pageContext: PropTypes.object.isRequired,
   navigatorPosition: PropTypes.string.isRequired,
   setNavigatorPosition: PropTypes.func.isRequired,
   isWideScreen: PropTypes.bool.isRequired
@@ -54,37 +90,51 @@ const mapDispatchToProps = {
   setNavigatorShape
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(PostTemplate);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PostTemplate);
 
-//eslint-disable-next-line no-undef
+// TODO - whenever possible, filter tag groups by slug here: https://github.com/gatsbyjs/gatsby/issues/5046
 export const postQuery = graphql`
-  query PostBySlug($slug: String!) {
+  query($slug: String!) {
     post: markdownRemark(fields: { slug: { eq: $slug } }) {
-      id
-      html
       fields {
         slug
-        prefix
+        date
       }
+      html
       frontmatter {
         title
         subTitle
-        cover {
-          childImageSharp {
-            resize(width: 300) {
-              src
+        postAuthor
+        cover
+      }
+    }
+    tags: allMarkdownRemark {
+      group(field: frontmatter___tags) {
+        name: fieldValue
+        totalCount
+        edges {
+          node {
+            fields {
+              slug
             }
           }
         }
       }
     }
-    author: markdownRemark(id: { regex: "/author/" }) {
+    author: file(relativePath: { eq: "parts/author.md" }) {
       id
-      html
+      childMarkdownRemark {
+        html
+      }
     }
-    footnote: markdownRemark(id: { regex: "/footnote/" }) {
+    footnote: file(relativePath: { eq: "parts/footnote.md" }) {
       id
-      html
+      childMarkdownRemark {
+        html
+      }
     }
     site {
       siteMetadata {

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import injectSheet from "react-jss";
-import Link from "gatsby-link";
+import { Link } from "gatsby";
 
 const styles = theme => ({
   infoMenu: {
@@ -28,12 +28,17 @@ const InfoMenu = props => {
 
   return (
     <nav className={classes.infoMenu}>
-        <Link to="/how-to-contribute/" onClick={linkOnClick} className={classes.link} data-shape="closed">
-            How to contribute
-        </Link>
-        <Link to="/" onClick={linkOnClick} className={classes.link} data-shape="closed">
-            Articles
-        </Link>
+      <Link
+        to="/how-to-contribute/"
+        onClick={linkOnClick}
+        className={classes.link}
+        data-shape="closed"
+      >
+        How to contribute
+      </Link>
+      <Link to="/tags" onClick={linkOnClick} className={classes.link} data-shape="closed">
+        Most popular tags
+      </Link>
     </nav>
   );
 };

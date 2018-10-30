@@ -22,7 +22,9 @@ const styles = theme => ({
 
 const Footer = props => {
   const { classes, footnote } = props;
-  const { html } = footnote;
+  const {
+    childMarkdownRemark: { html }
+  } = footnote;
 
   return (
     <footer className={classes.footer}>

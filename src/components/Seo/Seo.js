@@ -5,15 +5,17 @@ import config from "../../../content/meta/config";
 
 const Seo = props => {
   const { data, facebook } = props;
-  const postTitle = ((data || {}).frontmatter || {}).title;
-  const postDescription = ((data || {}).frontmatter || {}).description;
-  const postCover = ((data || {}).frontmatter || {}).cover;
-  const postSlug = ((data || {}).fields || {}).slug;
+  const providedTitle = ((data || {}).frontmatter || (data || {})).title || config.siteTitle;
+  const providedDescription = ((data || {}).frontmatter || (data || {})).subTitle;
+  const providedCover = ((data || {}).frontmatter || (data || {})).cover;
+  const providedSlug = ((data || {}).fields || (data || {})).slug;
 
-  const title = postTitle ? `${postTitle} - ${config.shortSiteTitle}` : config.siteTitle;
-  const description = postDescription ? postDescription : config.siteDescription;
-  const image = postCover ? postCover : config.siteImage;
-  const url = config.siteUrl + config.pathPrefix + postSlug;
+  const siteUrl = config.siteUrl + config.pathPrefix;
+  const title = providedTitle ? `${providedTitle} - ${config.shortSiteTitle}` : config.siteTitle;
+  const description = providedDescription ? providedDescription : `${providedTitle} - ${config.siteDescription}`;
+  const imageSrc = siteUrl + (providedCover ? providedCover : config.siteImage);
+  const url = siteUrl + (providedSlug ? providedSlug : "");
+  const twitterAccount = config.authorTwitterAccount ? config.authorTwitterAccount : "";
 
   return (
     <Helmet
@@ -29,21 +31,21 @@ const Seo = props => {
       <meta property="og:url" content={url} />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
-      <meta property="og:image" content={image} />
+      <meta property="og:image" content={imageSrc} />
       <meta property="og:type" content="website" />
       <meta property="fb:app_id" content={facebook.appId} />
       {/* Twitter Card tags */}
       <meta name="twitter:card" content="summary" />
-      <meta
-        name="twitter:creator"
-        content={config.authorTwitterAccount ? config.authorTwitterAccount : ""}
-      />
+      {/* Tag for entire blog */}
+      <meta name="twitter:site" content={twitterAccount} />
+      {/* Tag for a specific author - we should modify it if we ever allow Twitter in frontmatter */}
+      <meta name="twitter:creator" content={twitterAccount} />
     </Helmet>
   );
 };
 
 Seo.propTypes = {
-  data: PropTypes.object.isRequired,
+  data: PropTypes.object,
   facebook: PropTypes.object.isRequired
 };
 

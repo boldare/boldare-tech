@@ -1,80 +1,72 @@
 require("dotenv").config();
+const _ = require("lodash");
+const chunk = require("chunk-text");
 const config = require("./content/meta/config");
-
-const query = `{
-  allMarkdownRemark(filter: { id: { regex: "//posts|pages//" } }) {
-    edges {
-      node {
-        objectID: id
-        fields {
-          slug
-        }
-        internal {
-          content
-        }
-        frontmatter {
-          title
-          subTitle
-        }
-      }
-    }
-  }
-}`;
-
-const queries = [
-  {
-    query,
-    transformer: ({ data }) => data.allMarkdownRemark.edges.map(({ node }) => node)
-  }
-];
 
 module.exports = {
   siteMetadata: {
     title: config.siteTitle,
     description: config.siteDescription,
     siteUrl: config.siteUrl,
+    siteImageUrl: config.siteUrl + config.pathPrefix + config.siteImage,
     pathPrefix: config.pathPrefix,
+    language: config.siteLanguage,
     algolia: {
-      appId: process.env.ALGOLIA_APP_ID ? process.env.ALGOLIA_APP_ID : "",
-      searchOnlyApiKey: process.env.ALGOLIA_SEARCH_ONLY_API_KEY
-        ? process.env.ALGOLIA_SEARCH_ONLY_API_KEY
-        : "",
-      indexName: process.env.ALGOLIA_INDEX_NAME ? process.env.ALGOLIA_INDEX_NAME : ""
+      appId: config.algolia.appId,
+      searchOnlyApiKey: config.algolia.searchOnlyApiKey,
+      indexName: config.algolia.indexName
     },
     facebook: {
-      appId: process.env.FB_APP_ID ? process.env.FB_APP_ID : ""
+      appId: config.facebook.appId
     }
   },
   plugins: [
     {
       resolve: `gatsby-plugin-algolia`,
       options: {
-        appId: process.env.ALGOLIA_APP_ID ? process.env.ALGOLIA_APP_ID : "",
-        apiKey: process.env.ALGOLIA_ADMIN_API_KEY ? process.env.ALGOLIA_ADMIN_API_KEY : "",
-        indexName: process.env.ALGOLIA_INDEX_NAME ? process.env.ALGOLIA_INDEX_NAME : "",
-        queries,
-        chunkSize: 10000 // default: 1000
+        appId: config.algolia.appId,
+        apiKey: config.algolia.adminApiKey,
+        indexName: config.algolia.indexName,
+        queries: [
+          {
+            query: `{
+              allMarkdownRemark(filter: { fileAbsolutePath: { regex: "//posts|pages//" } }) {
+                edges {
+                  node {
+                    objectID: fileAbsolutePath
+                    fields {
+                      slug
+                    }
+                    internal {
+                      content
+                    }
+                    frontmatter {   
+                      title
+                      subTitle
+                      postAuthor
+                      tags
+                    }
+                  }
+                }
+              }
+            }`,
+            transformer: ({ data }) =>
+              _.flatten(
+                data.allMarkdownRemark.edges.map(({ node }) =>
+                  chunk(node.internal.content, 1000).map(contentChunk =>
+                    Object.assign({}, node, { internal: { content: contentChunk } })
+                  )
+                )
+              )
+          }
+        ]
       }
     },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        path: `${__dirname}/content/posts/`,
-        name: "posts"
-      }
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        path: `${__dirname}/content/pages/`,
-        name: "pages"
-      }
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `parts`,
-        path: `${__dirname}/content/parts/`
+        path: `${__dirname}/content`,
+        name: "content"
       }
     },
     {
@@ -85,7 +77,8 @@ module.exports = {
           {
             resolve: `gatsby-remark-images`,
             options: {
-              maxWidth: 800
+              maxWidth: 800,
+              backgroundColor: "transparent"
             }
           },
           {
@@ -156,7 +149,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
-        trackingId: process.env.GOOGLE_ANALYTICS_ID
+        trackingId: config.google.analyticsId
       }
     },
     {
@@ -168,41 +161,77 @@ module.exports = {
               siteMetadata {
                 title
                 description
-                siteUrl
+                pathPrefix
+                language
                 site_url: siteUrl
+                image_url: siteImageUrl
               }
             }
           }
         `,
+        setup: ({
+          query: {
+            site: { siteMetadata },
+            ...rest
+          }
+        }) => {
+          return {
+            ...siteMetadata,
+            ...rest,
+            custom_namespaces: { media: "http://video.search.yahoo.com/mrss" }
+          };
+        },
         feeds: [
           {
             serialize: ({ query: { site, allMarkdownRemark } }) => {
+              const siteUrl = site.siteMetadata.site_url + site.siteMetadata.pathPrefix;
+
               return allMarkdownRemark.edges.map(edge => {
-                return Object.assign({}, edge.node.frontmatter, {
-                  description: edge.node.excerpt,
-                  url: site.siteMetadata.siteUrl + edge.node.fields.slug,
-                  guid: site.siteMetadata.siteUrl + edge.node.fields.slug,
-                  custom_elements: [{ "content:encoded": edge.node.html }]
-                });
+                return {
+                  title: edge.node.frontmatter.title,
+                  description: edge.node.frontmatter.subTitle,
+                  author: edge.node.frontmatter.postAuthor,
+                  categories: edge.node.frontmatter.tags,
+                  date: edge.node.fields.date,
+                  url: siteUrl + edge.node.fields.slug,
+                  guid: siteUrl + edge.node.fields.slug,
+                  custom_elements: [
+                    {
+                      "content:encoded": edge.node.html
+                    },
+                    {
+                      "media:thumbnail": [
+                        {
+                          _attr: {
+                            url: siteUrl + edge.node.frontmatter.cover
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                };
               });
             },
             query: `
               {
                 allMarkdownRemark(
-                  limit: 1000,
-                  sort: { order: DESC, fields: [fields___prefix] },
-                  filter: { id: { regex: "//posts//" } }
+                  limit: 30,
+                  filter: { fileAbsolutePath: { regex: "//posts//" } }
+                  sort: { fields: [fields___date], order: DESC }
                 ) {
                   edges {
                     node {
-                      excerpt
                       html
-                      fields { 
+                      fields {
                         slug
-                        prefix 
+                        date
                       }
                       frontmatter {
                         title
+                        subTitle
+                        postAuthor
+                        tags
+                        cover
                       }
                     }
                   }
@@ -215,13 +244,18 @@ module.exports = {
       }
     },
     {
-      resolve: `gatsby-plugin-sitemap`
+      resolve: `gatsby-plugin-sitemap`,
+      options: {
+        exclude: ["/contact"]
+      }
     },
     {
-      resolve: "gatsby-plugin-svgr",
+      resolve: "gatsby-plugin-react-svg",
       options: {
-        dir: `svg-icons`
+        include: /svg-icons/
       }
-    }
+    },
+    `gatsby-plugin-netlify-cms`,
+    `gatsby-plugin-netlify`
   ]
 };
