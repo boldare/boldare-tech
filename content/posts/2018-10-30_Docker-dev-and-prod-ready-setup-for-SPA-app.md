@@ -72,7 +72,7 @@ Let's tightly pack our application with all dependencies into a light-weight blo
 ![Architecture template image](../../static/img/what-is-container.png)
 
 Always the same result, bypassing the infrastructure.
-It is a result of Docker way of working, shown above on architecture scheme.
+It is a result of the way Docker works, shown above on architecture scheme.
 For more details, check [What is a Container](https://www.docker.com/resources/what-container) where you can find great basics.
 
 ## <a name="own-playground"></a>Prepare your own playground
