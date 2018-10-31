@@ -106,7 +106,7 @@ Great!
 ### <a name="install-tools"></a>Install base tools - Docker & docker-compose
 
 Now the real fun begins.
-Next things that we'll need will be `Docker` and `docker-compose`.
+Next things that we'll need will be `docker` and `docker-compose`.
 This tutorial was written using:
 
 ```bash
