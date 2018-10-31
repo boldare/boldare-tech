@@ -69,7 +69,7 @@ Let's tightly pack our application with all dependencies into a light-weight blo
 
 >Available for both Linux and Windows-based applications, the containerized software will **always run the same, regardless of the infrastructure**. Containers **isolate software from its environment and ensure that it works uniformly despite differences for instance** between development and staging.
 
-![Architecture template image](../../static/img/what-is-container.png)
+![Architecture template image](/img/what-is-container.png)
 
 Always the same result, bypassing the infrastructure.
 It is a result of the way Docker works, shown above on architecture scheme.
