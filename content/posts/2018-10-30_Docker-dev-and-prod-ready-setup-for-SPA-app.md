@@ -127,7 +127,7 @@ $ cd .docker
 
 ## <a name="dev-env"></a>Start development environment
 
-Okay, we set up our own local machine, so we had all the tools we need to start our journey.
+Okay, we've set up our own local machine, so we have all the tools we need to start our journey.
 If you know a Docker a bit, you can have the first association with it as **Dockerfile**!
 Of course, you're right, but let me explain about it a bit more... 
 
