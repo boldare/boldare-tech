@@ -1,7 +1,7 @@
 ---
-title: Docker dev & prod ready setup for SPA app
+title: Dev & prod ready Docker setup for SPA app
 subTitle: Simple and light env setup to run SPA apps on various configurations with Docker multi-stage build
-tags: ["Docker", "docker-compose", "multi-stage", "environment", "build", "setup", "production", "SPA", "React", "Angular", "Vue", "guide", "tutorial"]
+tags: ["Docker", "Docker Compose", "multi-stage", "environment", "build", "setup", "production", "SPA", "React", "Angular", "Vue", "guide", "tutorial"]
 cover: /img/docker.png
 postAuthor: Marcin Łesek (@marcinlesek)
 ---
@@ -35,7 +35,7 @@ Fortunately, those times is gone, for most of us. :)
 
 ### <a name="source-vs-artifact"></a>Source vs. Artifact
 
-Due to optimization, performance etc., actual standards are to parse, minify, combine our production code.
+Due to optimization, performance etc., actual standards are to parse, minify and combine our production code.
 In this article, we will focus on setting up **development** and **production** environment for our app, but this setup will allow you to prepare more environments **in less than 3 minutes**.
 So what is the difference between `source` and `artifact` in the SPA application?
 Take a look for this simple React app structure:
@@ -55,7 +55,7 @@ Take a look for this simple React app structure:
   └── ...                          
 ```
 
-The whole `/src` folder is our app heart - main code that we're developing. Running applications locally, on development environment by some `webpack-dev-server` or another serving tool, give us an opportunity to have *hot module reload*, *live preview*, *fast run* etc.
+The whole `/src` folder is our app's heart - main code that we're developing. Running applications locally, on development environment by some `webpack-dev-server` or another serving tool, gives us an opportunity to have *hot module reload*, *live preview*, *fast run* etc.
 It's really good for development purpose and we'll use it!
 
 ### <a name="docker"></a>Docker, wtf is that?
@@ -64,16 +64,16 @@ I know, you probably know what is Docker and how it works, but if not, let me sh
 
 > A container is a standard unit of software that **packages up code and all its dependencies** so the application runs **quickly and reliably from one computing environment to another**. A Docker container image is a **lightweight, standalone, executable package** of software that includes everything needed to run an application: code, runtime, system tools, system libraries and settings.
 
-I have bolded more important information which will help you understand how it works and how huge benefits it brings to our lives are.
-Tightly package our application with all dependencies into a light-weight block called **container** to fast run it on every environment.
+I have highlighted key information which will help you understand how it works and how huge benefits it brings to our lives are.
+Let's tightly pack our application with all dependencies into a light-weight block called **container** to run it quickly on every environment.
 
 >Available for both Linux and Windows-based applications, the containerized software will **always run the same, regardless of the infrastructure**. Containers **isolate software from its environment and ensure that it works uniformly despite differences for instance** between development and staging.
 
 ![Architecture template image](../../static/img/what-is-container.png)
 
 Always the same result, bypassing the infrastructure.
-It is a result how Docker works, shown above on architecture scheme.
-For more details, check [What is a Container](https://www.docker.com/resources/what-container) where you can find great basics.
+It is a result of the way Docker works, shown above on architecture scheme.
+For more details, check [What is a Container](https://www.docker.com/resources/what-container).
 
 ## <a name="own-playground"></a>Prepare your own playground
 
@@ -106,7 +106,7 @@ Great!
 ### <a name="install-tools"></a>Install base tools - Docker & docker-compose
 
 Now the real fun begins.
-Next things that we'll need will be `Docker` and `docker-compose`.
+Next things that we'll need will be `docker` and `docker-compose`.
 This tutorial was written using:
 
 ```bash
@@ -117,7 +117,7 @@ docker-compose version 1.21.0, build 5920eb0
 ```
 
 If you don't have `docker` or `docker-compose` on your local machine, check [Docker installation guide](https://docs.docker.com/install/) or [docker-compose installation guide](https://docs.docker.com/compose/install/).
-Thanks to these versions, we could use **compose files** over `3.6` version.
+Due to these versions, we could use **compose files** over `3.6` version.
 Now, in project root directory let's create a directory called `.docker` where we'll keep the whole Docker configuration.
 
 ```bash
@@ -127,7 +127,7 @@ $ cd .docker
 
 ## <a name="dev-env"></a>Start development environment
 
-Okay, we set up our own local machine, so we had all the tools we need to start our journey.
+Okay, we've set up our own local machine, so we have all the tools we need to start our journey.
 If you know Docker a bit, your first association may be **Dockerfile**!
 Of course, you're right, but let me explain about it a bit more... 
 
