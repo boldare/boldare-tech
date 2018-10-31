@@ -135,18 +135,18 @@ Of course, you're right, but let me explain about it a bit more...
 
 ![Oh god, please no!](https://pics.me.me/no-god-please-21245703.png)
 
-Some of you will probably not agree with me, but I will try to convince you, that **using Dockerfile on development environment isn't the best way** you could choose (if not necessary, of course), but sometimes it's must have, but let's say it officially: in most examples, **it's not**.
+Some of you will probably not agree with me, but I will try to convince you, that **using Dockerfile on development environment isn't the best way** you could choose (if not necessary, of course) - sometimes it's a must have, but let's say it officially: in most cases, **it's not**.
 
 Dockerfile allows us to create a custom Docker image for our container from an existing one and add our changes to the build process.
 It's great, even we'll be using it here in next chapters, but **in production setup**, where *optimization, security and light-weight* of the app is **crucial**. 
 
 On the other hand, we have **docker-compose**, which could manage services (containers) with `docker-compose.yml` file.
-I can even try to say, that it helps us to simplify the definition of our services by defining all containers in one file.
+I would even say that it helps us to simplify the definition of our services by defining all containers in one file.
 Additionally, it allows us to set ports, image to use, volumes, environments variables and many more! After two years with Docker in commercial products, I could say, for basic or mid-advanced projects, we could handle it with only [docker-compose](https://docs.docker.com/compose/).
 Benefits?
 **Less time under building application** (mostly crucial for frontend developers working with watchers and hot reloads) because we'll be reducing our build time without any of our custom commands for build own image.
 
-Be more light and flexible, especially on the development environment, when you need this a lot with continuous changes you're making.
+Be lighter and flexible, especially on the development environment, when you need this a lot with continuous changes you're making.
 
 ### <a name="multi-compose-files"></a>Multiple compose files
 
@@ -195,7 +195,7 @@ services:
 Describe a bit more this little magic:
 
 * `image:` - here we're specifying that we want to use an image with predefined `node.js` in `carbon` (`8.x`) version. Based on this image, Docker will build a container for our application (`client`),
-* `volumes:` - this allows us to mount some data volume (we needn't copy data, because we mount data from our host to container) as `HOST:CONTAINER` path. So we're mounting `..` from the host (project root directory) to `/opt/app` in our container. We also add `:cached` to improve Mac's performance. More details about it [here](https://docs.docker.com/docker-for-mac/osxfs-caching/#cached).
+* `volumes:` - this allows us to mount some data volume (we don't need to data, because we mount data from our host to container) as `HOST:CONTAINER` path. So we're mounting `..` from the host (project root directory) to `/opt/app` in our container. We also add `:cached` to improve Mac's performance. More details about it [here](https://docs.docker.com/docker-for-mac/osxfs-caching/#cached).
 * `ports:` - here we assign port from our host to port in our container (`HOST:CONTAINER`), so we could access our container from outside e.g. `5000:5000` maps port `5000` from host to port `5000` in the container. We could also parametrize these values so we're getting them from env variables,
 * `working_dir:` - specifies root app directory, where `docker-compose` will be working,
 * `command:` - command which will run our container. We're passing to shell our commands (via `/bin/sh -c`), which firstly installs dependencies with frozen lockfile (don't generate new `yarn.lockfile` and download the same versions) and forces production flag to false (be sure, that `devDependencies` also will be installed).
@@ -217,7 +217,7 @@ NODE_PORT=3000
 We added few environment variables:
 
 * `COMPOSE_PROJECT_NAME` - set our project name, it will be used as a prefix for creating our services containers later, so it should be short and intuitive,
-* `COMPOSE_FILE` - this one is due to the fact, that we want to use multiple compose files. We're specifying what exactly files should be overridden and by which one. By this variable, we could setup it per application environment, but about this will be later. Syntax looks like: `base:override1:override2` etc.,
+* `COMPOSE_FILE` - this one is due to the fact, that we want to use multiple compose files. We specify which files should be overridden and by which one. By this variable, we could setup it per application environment, but about this will be later. Syntax looks like: `base:override1:override2` etc.,
 * `NODE_ENV` will be used in our app to specify in which environment we're now, like development or production,
 * `NODE_PORT` to easily change the exposed port from our service container, now we set it as default `3000`,
 
@@ -240,7 +240,7 @@ Starting my-app-spa_client_1 ... done
 
 ## <a name="prod-env"></a>Production time
 
-Now we can assume, that few sprints of development are gone and you have your dream *MVP ready to production*, but only development environment is working now - it's heavy, not optimized and with a lot of additional logs.
+Now we can assume that few sprints of developmenthave passed and you have your dream *MVP ready to production*. But only development environment is working now - it's heavy, not optimized and with a lot of unneeded logs.
 Let's change it!
 
 ### <a name="configure-it"></a>Configure it
@@ -272,7 +272,7 @@ Let's take a closer look at it:
 * `ports` - same as above, but now with another environment variable `NGINX_PORT` which we'll set up later,
 * `restart:` - container restart policy. We don't want our production to be down for a long time due to some mistakes or not to start after server restart - `unless-stopped` will cover it for us, containers will be restarted always, except for the moment when we'll stop them manually (e.g. `docker-compose stop`). I don't recommend it on our dev machines, because it'll start always with our operating system and sometimes you don't want to code, so free up your resources.
 
-This basic `docker-compose.prod.yml` **didn't handle everything, but it's really good to start for production setup** (or good skeleton for it).
+This basic `docker-compose.prod.yml` **won't handle everything, but it's really good to start for production setup** (or good skeleton for it).
 For example, here we didn't handle HTTPS connection on 443 port (but it's easy to add, don't worry #trueStory).
 
 Now let's build our `.env` file for production.
@@ -290,7 +290,7 @@ To be sure we didn't do it, we'll add a record to `.gitginore`:
 .docker/.env
 ```
 
-Now let's rename our `.env`s to `.env.dev.dist` where we'll storage our development variables setup and let's create `.env.prod.dist` for production.
+Now let's rename our `.env` to `.env.dev.dist` where we'll store our development variables setup and let's create `.env.prod.dist` for production.
 With this move, whenever you'll be changing the environment or setting it for the first time, you will have to do `cp .env.{ENV}.dist .env` correctly.
 Nothing special, but this must be kept in mind.
 
@@ -312,7 +312,7 @@ Nothing hard, isn't it?
 
 ### <a name="magic"></a>Magic of multi-stage build
 
-This is the moment everyone has been waiting for - create `Dockerfile` with [mutli stage build](https://docs.docker.com/develop/develop-images/multistage-build/)!
+This is the moment everyone was waiting for - we can create `Dockerfile` with [mutli stage build](https://docs.docker.com/develop/develop-images/multistage-build/)!
 
 ```Dockerfile
 # Dockerfile
@@ -342,7 +342,7 @@ Let's look on **first stage**, where we'll **build** our app.
 4. Now we're copying the whole project here.
 5. Run dependency install and production build to create our app. Of course, you could also use npm: `npm i; npm run build`.
 
-Probably you will think now - okay, we had our container, our app is built, why not add the second service as HTTP server in `docker-compose.prod.yml` file and serve this app?
+Probably you're thinking now - okay, we had our container, our app is built, why not add the second service as HTTP server in `docker-compose.prod.yml` file and serve this app?
 Here is a place, **where multi-stage build enters**!
 Of course, you're right, but in this container, you'd the whole app source, dependencies (`node_modules` bigger than the sun) and nothing to serve it (right now).
 The multi-stage could make it thinner, with nginx and only with one service!
@@ -421,7 +421,7 @@ Now, you could check your site locally entering `localhost:{NGINX_PORT}` and off
 
 ## <a name="extras"></a>Extras
 
-I hope it will help anyone to understand how **multi-stage build** works and how you could use it to improve your SPA app (and not only because for API it also works perfectly, but it's topic for another post probably).
+I hope this post will help you to understand how **multi-stage build** works and how you could use it to improve your SPA app (not that it won't work perfectly well for API too, but it's probably a topic for another post probably).
 You could find a working code on my [GitHub](https://github.com/marcinlesek/docker-spa-setup), so don't hesitate to check it if you'll force some troubles with this guide or ask me some questions here or on my [Twitter](https://twitter.com/marcinlesek), I will try to help you. :)
 
 I also leave here some helpful links (some basics and some advanced a bit, used to create this article and also mentioned above), but to be honest, the best way to learn Docker, is diggin' into it and checking their documentation, which is so great!
