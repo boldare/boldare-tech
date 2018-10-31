@@ -1,7 +1,7 @@
 ---
 title: Dev & prod ready Docker setup for SPA app
 subTitle: Simple and light env setup to run SPA apps on various configurations with Docker multi-stage build
-tags: ["Docker", "docker-compose", "multi-stage", "environment", "build", "setup", "production", "SPA", "React", "Angular", "Vue", "guide", "tutorial"]
+tags: ["Docker", "Docker Compose", "multi-stage", "environment", "build", "setup", "production", "SPA", "React", "Angular", "Vue", "guide", "tutorial"]
 cover: /img/docker.png
 postAuthor: Marcin Łesek (@marcinlesek)
 ---
