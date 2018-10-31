@@ -117,7 +117,7 @@ docker-compose version 1.21.0, build 5920eb0
 ```
 
 If you don't have `Docker` or `docker-compose` on your local machine, check [Docker installation guide](https://docs.docker.com/install/) or [docker-compose installation guide](https://docs.docker.com/compose/install/).
-Due to this versions, we could use **compose files** over `3.6` version.
+Due to these versions, we could use **compose files** over `3.6` version.
 Now, in project root directory let's create a directory called `.docker` where we'll keep the whole Docker configuration.
 
 ```bash
