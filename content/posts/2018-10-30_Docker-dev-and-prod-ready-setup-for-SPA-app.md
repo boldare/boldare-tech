@@ -64,7 +64,7 @@ I know, you probably know what is Docker and how it's work, but if not, let me s
 
 > A container is a standard unit of software that **packages up code and all its dependencies** so the application runs **quickly and reliably from one computing environment to another**. A Docker container image is a **lightweight, standalone, executable package** of software that includes everything needed to run an application: code, runtime, system tools, system libraries and settings.
 
-I have bolded more important information which will help you understand how it works and how huge benefits it brings to our lives.
+I have highlighted key information which will help you understand how it works and what a huge benefits it brings to the table.
 Let's tightly pack our application with all dependencies into a light-weight block called **container** to run it quickly on every environment.
 
 >Available for both Linux and Windows-based applications, the containerized software will **always run the same, regardless of the infrastructure**. Containers **isolate software from its environment and ensure that it works uniformly despite differences for instance** between development and staging.
