@@ -55,7 +55,7 @@ Take a look for this simple React app structure:
   └── ...                          
 ```
 
-The whole `/src` folder is our app heart - main code that we're developing. Running applications locally, on development environment by some `webpack-dev-server` or another serving tool, give us an opportunity to have *hot module reload*, *live preview*, *fast run* etc.
+The whole `/src` folder is our app's heart - main code that we're developing. Running applications locally, on development environment by some `webpack-dev-server` or another serving tool, gives us an opportunity to have *hot module reload*, *live preview*, *fast run* etc.
 It's really good for development purpose and we'll use it!
 
 ### <a name="docker"></a>Docker, wtf is that?
