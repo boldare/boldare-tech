@@ -35,7 +35,7 @@ Fortunately, this times is gone, for most of us. :)
 
 ### <a name="source-vs-artifact"></a>Source vs. Artifact
 
-Due to optimization, performance etc., actual standards are to parse, minify, combine our production code.
+Due to optimization, performance etc., actual standards are to parse, minify and combine our production code.
 In this article, we will focus on setting up **development** and **production** environment for our app, but this setup will allow you to prepare more environments **in less than 3 minutes**.
 So what is the difference between `source` and `artifact` in the SPA application?
 Take a look for this simple React app structure:
