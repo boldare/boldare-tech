@@ -24,7 +24,7 @@ $grey: #D6D7E1;
 $dark: #010105;
 ```
 
-Above implementation works, but only in small projects where style guide contains only a few variations of colors.
+Above implementation is fine, but only in small projects where style guide contains only a few variations of colors.
 What about rapidly growing projects with literally tons of color variants?
 We don't even know when things can turn into something like this:
 
@@ -42,9 +42,9 @@ I bet we all know this situation when graphic designer uses a new color and we d
 # Solution
 
 Some time ago I started to name colors as they are originally named.
-It will gives us a unique name for each variable which will organize all the colors in our application with logical order.
-Of course we don't know all the names so we can use tools like http://chir.ag/projects/name-that-color to get a name.
-After all our IDE will display small square filled with color next to variable with hex.
+It will gives us a unique name for each variable, which will organize all the colors in our application.
+We don't need to know all the names, because we can use tool like http://chir.ag/projects/name-that-color to initialize name and then our IDE usually displays a hint of color.
+After all, it sounds better than `blue-darkest` or `blue2`.
 
 ```css
 $royal-blue: #2B42E9;
