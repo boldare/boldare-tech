@@ -6294,10 +6294,10 @@ gatsby-plugin-manifest@^2.0.4:
     bluebird "^3.5.0"
     sharp "^0.21.0"
 
-gatsby-plugin-netlify-cms@^3.0.4:
-  version "3.0.5"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-netlify-cms/-/gatsby-plugin-netlify-cms-3.0.5.tgz#2508424c43ec432163656b63e46c6ea9ff8a29f9"
-  integrity sha512-aO1enD/R/0hrd61XrTqIFzon/7VEBnyE1TxoM10CnVLvCGXxlr1M/P71Yrif/RQCK5Oe4ghY5ADptWIGtSf33A==
+gatsby-plugin-netlify-cms@^3.0.6:
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-netlify-cms/-/gatsby-plugin-netlify-cms-3.0.6.tgz#296879cda7f4df9a37daf16a51a9687d7a89576b"
+  integrity sha512-aNvScXk02GmNaUm2ijtl7adry6AMeBj0FRYl5LFKb9Ogfb0/vmwJYKgPRwWycMI1/ZPvmbhipf3bp7ZxtgBIXg==
   dependencies:
     friendly-errors-webpack-plugin "^1.7.0"
     html-webpack-exclude-assets-plugin "^0.0.7"
