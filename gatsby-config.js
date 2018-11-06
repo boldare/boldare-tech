@@ -145,7 +145,12 @@ module.exports = {
         ]
       }
     },
-    `gatsby-plugin-offline`,
+    {
+      resolve: `gatsby-plugin-offline`,
+      options: {
+        navigateFallbackBlacklist: [/\?(.+&)?no-cache=1/]
+      }
+    },
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
