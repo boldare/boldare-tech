@@ -24,7 +24,7 @@ $grey: #D6D7E1;
 $dark: #010105;
 ```
 
-Above implementation is fine, but only in small projects where style guide contains only a few variations of colors.
+Above implementation is fine, but only in projects where style guide contains only a few variations of colors and style guide is defined since the beginning.
 What about rapidly growing projects with literally tons of color variants?
 We don't even know when things can turn into something like this:
 
@@ -38,11 +38,12 @@ $dark: #010105;
 ```
 
 I bet we all know this situation when graphic designer uses a new color and we don't really know how to name it because we can't think of new name for it.
+Should it be named as `light` variant? What when we already have a light variant defined?
 
 # Solution
 
 Some time ago I started to name colors as they are originally named.
-It will gives us a unique name for each variable, which will organize all the colors in our application.
+It will gives us a unique name for each variable, which will organize all the colors in our application and what is the most important, easy to find and replace.
 We don't need to know all the names, because we can use tool like http://chir.ag/projects/name-that-color to initialize name and then our IDE usually displays a hint of color.
 After all, it sounds better than `blue-darkest` or `blue2`.
 
@@ -55,8 +56,7 @@ $whisper: #EAECF5;
 $black-pearl: #010105;
 ```
 
-
-This approach works with styles in javascript or other preprocessors.
+This approach works also with styles in javascript or other preprocessors.
 We can modify our final solution to transform it into map of colors and brand colors which we will use for our application's palette.
 
 ```css
