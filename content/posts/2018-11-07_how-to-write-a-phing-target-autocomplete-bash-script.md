@@ -63,7 +63,7 @@ _phing () {
     COMPREPLY=( $(compgen -W "$targets" -- "$cur") )
 }
 
-# Assign the autocomplete function to binaries named phing
+# Assign the autocomplete function to executables named phing
 complete -F _phing phing
 ```
 
