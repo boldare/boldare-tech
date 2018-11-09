@@ -148,7 +148,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-offline`,
       options: {
-        navigateFallbackBlacklist: [/\?(.+&)?no-cache=1/]
+        navigateFallbackBlacklist: [/\?(.+&)?no-cache=1/],
       }
     },
     {

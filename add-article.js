@@ -40,7 +40,7 @@ const getDate = () => {
 
 const getSlug = name =>
   getDate() +
-  "--" +
+  "_" +
   name
     .trim()
     .toLowerCase()

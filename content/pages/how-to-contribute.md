@@ -33,10 +33,10 @@ boldare-tech/
 
 └── content/
     └── posts/
-        └── YYYY-MM-DD--the-post-title.md
+        └── YYYY-MM-DD_the-post-title.md
 └── static/
     └── img/
-        └── file-used-in-post.(img|png)
+        └── file-used-in-post.(svg|png)
 ```
 
 1. Clone this repository or add/edit a file
@@ -58,3 +58,5 @@ postAuthor: Your Name
 ```
 
 6. Create a pull request to `master` branch to collaborate 🙌
+7. Before merging remember to bump the article date in filename
+to the current date 
