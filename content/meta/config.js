@@ -6,13 +6,16 @@ module.exports = {
   shortSiteTitle: "Boldare Tech",
   siteDescription: `Development tips && tricks. From devs. For devs.
 Any helpful contributions are welcome. 3 lines, 3 paragraphs? Doesn’t matter.`,
+  homeDescription: "Boldare: Digital Product Design & Development Company",
   siteUrl: "https://tech.boldare.com",
+  homeUrl: "https://boldare.com",
   pathPrefix: "",
   siteImage: "/avatar.jpg",
   siteLanguage: "en",
   // author
   authorName: "Boldare",
-  authorTwitterAccount: "@boldare_tech",
+  authorTwitterAccount: "boldare_tech",
+  homeTwitterAccount: "boldare",
   // info
   infoTitle: "Tech blog",
   infoTitleNote: "by Boldare",

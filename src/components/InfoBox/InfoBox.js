@@ -59,7 +59,6 @@ const styles = theme => ({
 });
 
 class InfoBox extends React.Component {
-  avatarOnClick = featureNavigator.bind(this);
   menulinkOnClick = moveNavigatorAside.bind(this);
 
   expandOnClick = e => {
@@ -78,7 +77,6 @@ class InfoBox extends React.Component {
         {info && (
           <InfoHeader
             info={info}
-            avatarOnClick={this.avatarOnClick}
             expandOnClick={this.expandOnClick}
           />
         )}

@@ -3,16 +3,15 @@ import PropTypes from "prop-types";
 import injectSheet from "react-jss";
 import {
   FacebookShareButton,
-  GooglePlusShareButton,
   LinkedinShareButton,
   TwitterShareButton,
+  EmailShareButton,
   FacebookShareCount,
-  GooglePlusShareCount,
   LinkedinShareCount,
   FacebookIcon,
   TwitterIcon,
-  GooglePlusIcon,
-  LinkedinIcon
+  LinkedinIcon,
+  EmailIcon
 } from "react-share";
 
 import config from "../../../content/meta/config";
@@ -47,10 +46,11 @@ const styles = theme => ({
 
 class PostShare extends React.Component {
   render() {
-    const { post, classes, slug } = this.props;
-    const { excerpt, frontmatter } = post;
-    const { title } = frontmatter;
+    const { classes, post, tags, slug } = this.props;
+    const { frontmatter } = post;
+    const { title, subTitle } = frontmatter;
     const url = config.siteUrl + config.pathPrefix + slug;
+    const mergedTitle = `${title} - ${subTitle}`;
 
     const iconSize = 36;
     const filter = count => (count > 0 ? count : "");
@@ -59,18 +59,17 @@ class PostShare extends React.Component {
       <div className={classes.share}>
         <span className={classes.label}>SHARE</span>
         <div className={classes.links}>
-          <TwitterShareButton url={url} via='xsolve' title={title}>
+          <TwitterShareButton
+            url={url}
+            via={config.authorTwitterAccount}
+            title={mergedTitle}
+            hashtags={tags.map(tag => tag.name)}
+          >
             <TwitterIcon round size={iconSize} />
           </TwitterShareButton>
-          <GooglePlusShareButton url={url}>
-            <GooglePlusIcon round size={iconSize} />
-            <GooglePlusShareCount url={url}>
-              {count => <div className="share-count">{filter(count)}</div>}
-            </GooglePlusShareCount>
-          </GooglePlusShareButton>
           <FacebookShareButton
             url={url}
-            quote={`${title} - ${excerpt}`}
+            quote={mergedTitle}
             aria-label="Facebook share"
           >
             <FacebookIcon round size={iconSize} />
@@ -78,12 +77,15 @@ class PostShare extends React.Component {
               {count => <div className="share-count">{filter(count)}</div>}
             </FacebookShareCount>
           </FacebookShareButton>
-          <LinkedinShareButton url={url} title={title} description={excerpt}>
+          <LinkedinShareButton url={url} title={title} description={subTitle}>
             <LinkedinIcon round size={iconSize} />
             <LinkedinShareCount url={url}>
               {count => <div className="share-count">{filter(count)}</div>}
             </LinkedinShareCount>
           </LinkedinShareButton>
+          <EmailShareButton subject={mergedTitle} body={url}>
+            <EmailIcon round size={iconSize} />
+          </EmailShareButton>
         </div>
       </div>
     );
@@ -91,8 +93,14 @@ class PostShare extends React.Component {
 }
 
 PostShare.propTypes = {
-  post: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
+  post: PropTypes.object.isRequired,
+  tags: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      totalCount: PropTypes.number
+    }).isRequired
+  ).isRequired,
   slug: PropTypes.string.isRequired
 };
 

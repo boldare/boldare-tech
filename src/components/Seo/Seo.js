@@ -15,7 +15,7 @@ const Seo = props => {
   const description = providedDescription ? providedDescription : `${providedTitle} - ${config.siteDescription}`;
   const imageSrc = siteUrl + (providedCover ? providedCover : config.siteImage);
   const url = siteUrl + (providedSlug ? providedSlug : "");
-  const twitterAccount = config.authorTwitterAccount ? config.authorTwitterAccount : "";
+  const twitterAccount = config.authorTwitterAccount ? `@${config.authorTwitterAccount}` : "";
 
   return (
     <Helmet

@@ -7,7 +7,7 @@ postAuthor: Maciej Papież
 ---
 
 ## How it all started
-We're using Slack extensively here at @xsolve, it seems that everyone does. Recently,
+We're using Slack extensively here at @Boldare, it seems that everyone does. Recently,
 I've noticed that if you paste a Spotify link to Slack, it gets converted to a Spotify
 widget. What's more, you can control your fully-local, desktop Spotify app from there!
 How come?! Let me show you the steps that I took in order to find the true answer.

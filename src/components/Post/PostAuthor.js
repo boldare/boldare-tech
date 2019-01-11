@@ -47,7 +47,9 @@ const PostAuthor = props => {
 
   return (
     <div className={classes.author}>
-      <Avatar src={avatar} className={classes.avatar} alt={config.authorName} />
+      <a href={config.homeUrl} title={config.homeDescription}>
+        <Avatar src={avatar} className={classes.avatar} alt={config.authorName} />
+      </a>
       <div className={classes.box} dangerouslySetInnerHTML={{ __html: author.html }} />
     </div>
   );

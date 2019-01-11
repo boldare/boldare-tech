@@ -111,15 +111,15 @@ const styles = theme => ({
 });
 
 const InfoHeader = props => {
-  const { classes, avatarOnClick, expandOnClick } = props;
+  const { classes, expandOnClick } = props;
 
   return (
     <header className={classes.header}>
-      <Link className={classes.avatarLink} onClick={avatarOnClick} to="/" title="back to Home page">
+      <a className={classes.avatarLink} href={config.homeUrl} title={config.homeDescription}>
         <div className={classes.avatar}>
           <img src={avatar} alt="" />
         </div>
-      </Link>
+      </a>
       <h1 className={classes.title}>
         {config.infoTitle.replace(/ /g, "\u00a0")}
         <small className={classes.subtitle}>{config.infoTitleNote}</small>
@@ -138,7 +138,6 @@ const InfoHeader = props => {
 
 InfoHeader.propTypes = {
   classes: PropTypes.object.isRequired,
-  avatarOnClick: PropTypes.func.isRequired,
   expandOnClick: PropTypes.func.isRequired
 };
 

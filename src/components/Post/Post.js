@@ -25,7 +25,7 @@ const Post = props => {
         tags={tags}
       />
       <Content html={html} />
-      <PostFooter author={author} post={post} slug={slug} />
+      <PostFooter author={author} post={post} tags={tags} slug={slug} />
     </Article>
   );
 };
