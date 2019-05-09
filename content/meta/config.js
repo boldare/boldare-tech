@@ -28,7 +28,7 @@ Any helpful contributions are welcome. 3 lines, 3 paragraphs? Doesn’t matter.`
   manifestDisplay: "standalone",
   // social
   authorSocialLinks: [
-    { name: "github", url: "https://github.com/xsolve-pl" },
+    { name: "github", url: "https://github.com/boldare" },
     { name: "twitter", url: "https://twitter.com/boldare_tech" },
     { name: "facebook", url: "https://www.facebook.com/boldarecom/" }
   ],
