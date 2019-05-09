@@ -40,7 +40,7 @@ boldare-tech/
 ```
 
 1. Clone this repository or add/edit a file
-[directly on GitHub](https://github.com/xsolve-pl/boldare-tech/new/master/content/posts)
+[directly on GitHub](https://github.com/boldare/boldare-tech/new/master/content/posts)
 2. Use `yarn add-article` command to create a new structure for the post 📂
 3. Write an article in [Markdown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
 syntax and save it in created file by script, English language is preferred ✍️
@@ -59,4 +59,4 @@ postAuthor: Your Name
 
 6. Create a pull request to `master` branch to collaborate 🙌
 7. Before merging remember to bump the article date in filename
-to the current date 
+to the current date
