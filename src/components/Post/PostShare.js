@@ -83,7 +83,7 @@ class PostShare extends React.Component {
               {count => <div className="share-count">{filter(count)}</div>}
             </LinkedinShareCount>
           </LinkedinShareButton>
-          <EmailShareButton subject={mergedTitle} body={url}>
+          <EmailShareButton subject={mergedTitle} url={url} body={url}>
             <EmailIcon round size={iconSize} />
           </EmailShareButton>
         </div>
