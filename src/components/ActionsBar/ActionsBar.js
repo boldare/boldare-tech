@@ -168,16 +168,6 @@ class ActionsBar extends React.Component {
           >
             <Add />
           </IconButton>
-          {type === "post" && (
-            <IconButton
-              aria-label="Edit post"
-              component={Link}
-              to={`${this.getPostEditLink()}`}
-              title="Edit"
-            >
-              <Create />
-            </IconButton>
-          )}
         </div>
         <div className={classes.group}>
           {navigatorPosition === "is-aside" && <FontSetter increaseFont={this.fontSetterOnClick} />}
