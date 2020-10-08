@@ -85,4 +85,16 @@ Apple Watch, and it's WatchOS or any other device/language don't have any librar
     }
     ```
 
+For more details I recommend visiting [AWS' documentation](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_InitiateAuth.html#API_InitiateAuth_RequestSyntax)
+
 That's all, hope that helps!
+
+## Small tidbits 
+
+#### Why don't we use oauth2? 
+
+Some devices like Apple Watch or Fitbit and most of the other smartwatches can't show webpages, so we are unable to forward user to login page.
+
+#### Why not use oauth2's "password grant"?
+
+`The latest OAuth 2.0 Security Best Current Practice disallows the password grant entirely` [Source](https://oauth.net/2/grant-types/password/)
