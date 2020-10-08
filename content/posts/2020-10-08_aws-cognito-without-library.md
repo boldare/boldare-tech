@@ -97,4 +97,4 @@ Some devices like Apple Watch or Fitbit and most of the other smartwatches can't
 
 #### Why not use oauth2's "password grant"?
 
-`The latest OAuth 2.0 Security Best Current Practice disallows the password grant entirely` [Source](https://oauth.net/2/grant-types/password/)
+It's not supported by AWS cognito due to the latest `OAuth 2.0 Security Best Current Practice` which disallows the password grant entirely [Source](https://oauth.net/2/grant-types/password/)
