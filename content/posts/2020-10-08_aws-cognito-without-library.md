@@ -1,6 +1,6 @@
 ---
 title: How to use AWS cognito without any library
-subTitle: My target language doesn't support any aws' library for cognito, what do it do now?
+subTitle: My target language doesn't support any aws' library for cognito, what can I do now?
 tags: ["aws", "cognito", "watchos", "apple-watch", "unsupported"]
 cover: /img/aws.png
 postAuthor: Grzegorz M. (@grzesjam), Maciej Papież (@maciejpapiez)
