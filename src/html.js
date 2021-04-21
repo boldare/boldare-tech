@@ -7,7 +7,7 @@ export default props => (
       <meta charSet="utf-8" />
       <meta httpEquiv="x-ua-compatible" content="ie=edge" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <meta name="google-site-verification" content="uuR2oHP9vAD7YFf5EWvHMYgH_6D3ZeB5D5ku_oThbYM" />
+      <meta name="google-site-verification" content="yO-hUze6tjHDqM4C3Tj8PpgAUNQMHcLd6lQ1UQGR72k" />
       {props.headComponents}
       <meta name="apple-mobile-web-app-capable" content="yes" />
       <meta name="apple-mobile-web-app-status-bar-style" content="#D0E0D8" />
