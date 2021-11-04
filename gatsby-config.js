@@ -151,12 +151,12 @@ module.exports = {
         navigateFallbackBlacklist: [/\?(.+&)?no-cache=1/],
       }
     },
-    {
+/*     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
         trackingId: config.google.analyticsId
       }
-    },
+    }, */
     {
       resolve: `gatsby-plugin-feed`,
       options: {
