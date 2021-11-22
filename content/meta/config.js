@@ -7,7 +7,7 @@ module.exports = {
   siteDescription: `Development tips && tricks. From devs. For devs.
 Any helpful contributions are welcome. 3 lines, 3 paragraphs? Doesn’t matter.`,
   homeDescription: "Boldare: Digital Product Design & Development Company",
-  siteUrl: "https://tech.boldare.com/",
+  siteUrl: "https://tech.boldare.com/tech-blog/",
   homeUrl: "https://boldare.com",
   pathPrefix: "/tech-blog/",
   assetPrefix: `https://tech.boldare.com/tech-blog/"`,
