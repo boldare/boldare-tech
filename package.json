@@ -59,7 +59,7 @@
     "@material-ui/icons": "^3.0.1",
     "chunk-text": "^1.0.5",
     "color": "^3.0.0",
-    "gatsby": "^2.0.17",
+    "gatsby": "^2.4.0",
     "gatsby-image": "^2.0.13",
     "gatsby-plugin-algolia": "^0.2.0",
     "gatsby-plugin-catch-links": "^2.0.3",
