@@ -1,2 +1,4 @@
 /.net-in-my-browser /net-in-my-browser/
 /.net-in-my-browser/ /net-in-my-browser/
+
+https://tech.boldare.com/* https://tech.boldare.com/tech-blog/:splat
