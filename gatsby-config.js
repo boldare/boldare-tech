@@ -4,12 +4,12 @@ const chunk = require("chunk-text");
 const config = require("./content/meta/config");
 
 module.exports = {
+  pathPrefix: config.pathPrefix,
   siteMetadata: {
     title: config.siteTitle,
     description: config.siteDescription,
     siteUrl: config.siteUrl,
     siteImageUrl: config.siteUrl + config.pathPrefix + config.siteImage,
-    pathPrefix: config.pathPrefix,
     language: config.siteLanguage,
     algolia: {
       appId: config.algolia.appId,
