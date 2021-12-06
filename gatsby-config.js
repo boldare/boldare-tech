@@ -10,6 +10,7 @@ module.exports = {
     description: config.siteDescription,
     siteUrl: config.siteUrl,
     siteImageUrl: config.siteUrl + config.pathPrefix + config.siteImage,
+    pathPrefix: config.pathPrefix,
     language: config.siteLanguage,
     algolia: {
       appId: config.algolia.appId,

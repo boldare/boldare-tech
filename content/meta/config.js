@@ -9,7 +9,7 @@ Any helpful contributions are welcome. 3 lines, 3 paragraphs? Doesn’t matter.`
   homeDescription: "Boldare: Digital Product Design & Development Company",
   siteUrl: "https://tech.boldare.com/",
   homeUrl: "https://boldare.com",
-  pathPrefix: "/tech-blog",
+  pathPrefix: "/tech-blog/",
   siteImage: "/avatar.jpg",
   siteLanguage: "en",
   // author
