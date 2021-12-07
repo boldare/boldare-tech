@@ -54,8 +54,8 @@ exports.createPages = async ({ graphql, actions }) => {
   });
 
   createRedirect({
-    fromPath: "/",
-    toPath: "/tech-blog/",
+    fromPath: "https://tech.boldare.com/",
+    toPath: "/",
     redirectInBrowser: true,
     force: true
   });
