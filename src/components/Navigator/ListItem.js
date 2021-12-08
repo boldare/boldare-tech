@@ -3,6 +3,7 @@ import { Link } from "gatsby";
 import PropTypes from "prop-types";
 import injectSheet from "react-jss";
 import LazyLoad from "react-lazyload";
+import { pathPrefix } from "../../../content/meta/config";
 
 const styles = theme => ({
   listItem: {
@@ -150,6 +151,10 @@ class ListItem extends React.Component {
     }
   }
 
+  resolveImagePath(path) {
+    return `${pathPrefix}${path}`
+  }
+
   render() {
     const { classes, post, linkOnClick } = this.props;
     const { category, postAuthor, cover, title, subTitle, slug } = post;
@@ -164,9 +169,9 @@ class ListItem extends React.Component {
           <div className={`${classes.listItemPointer} pointer`}>
             <LazyLoad height={60} overflow={true} throttle={300} once={true} offset={100}>
               <picture>
-                <source type="image/webp" srcSet={cover} />
-                <source srcSet={cover} />
-                <img src={cover} alt="" />
+                <source type="image/webp" srcSet={this.resolveImagePath(cover)} />
+                <source srcSet={this.resolveImagePath(cover)} />
+                <img src={this.resolveImagePath(cover)} alt="" />
               </picture>
             </LazyLoad>
             {/*<Img sizes={post.node.frontmatter.cover.children[0].sizes} />*/}
