@@ -53,12 +53,12 @@ exports.createPages = async ({ graphql, actions }) => {
     force: true
   });
 
-/*   createRedirect({
+  createRedirect({
     fromPath: "/tech-blog/",
     toPath: "/:splat",
     redirectInBrowser: true,
     force: true
-  }); */
+  });
 
   const templates = {
     post: path.resolve("./src/templates/PostTemplate.js"),
