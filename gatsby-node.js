@@ -39,7 +39,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
   createRedirect({
     fromPath: "https://tech.xsolve.software/*",
-    toPath: "https://boldare.com/:splat",
+    toPath: "https://boldare.com/tech-blog/:splat",
     isPermanent: true,
     redirectInBrowser: true,
     force: true
@@ -49,6 +49,13 @@ exports.createPages = async ({ graphql, actions }) => {
     fromPath: "/a",
     toPath: "/admin/",
     isPermanent: true,
+    redirectInBrowser: true,
+    force: true
+  });
+
+  createRedirect({
+    fromPath: "/tech-blog/",
+    toPath: "/:splat",
     redirectInBrowser: true,
     force: true
   });
