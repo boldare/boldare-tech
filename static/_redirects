@@ -2,4 +2,4 @@
 /.net-in-my-browser/ /net-in-my-browser/
 
 https://tech.boldare.com/tech-blog/* https://boldare.com/tech-blog/:splat 301
-https://tech.boldare.com/ https://boldare.com/tech-blog/ 301!
+https://tech.boldare.com/ https://boldare.com/tech-blog/ 301
