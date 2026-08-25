@@ -107,5 +107,8 @@
     "redux": "^3.7.2",
     "redux-devtools-extension": "^2.13.2",
     "screenfull": "^3.3.2"
+  },
+  "resolutions": {
+    "favicons-webpack-plugin": "https://github.com/Creatiwity/favicons-webpack-plugin.git#f262255febeeca348bf7ae5cc140e0386c074e2c"
   }
 }
