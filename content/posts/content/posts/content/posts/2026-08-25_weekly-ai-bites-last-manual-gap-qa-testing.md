@@ -1,9 +1,10 @@
 ---
-title: This Week's AI Bite: The Last Manual Gap in QA Testing Is Closed
-subTitle: How a set of Claude Code skills and a biometric automation breakthrough closed the final manual bottleneck in end-to-end QA
+title: "This Week's AI Bite: The Last Manual Gap in QA Testing Is Closed"
+subTitle: "How a set of Claude Code skills and a biometric automation breakthrough closed the final manual bottleneck in end-to-end QA"
 tags: ["ai", "claude-code", "qa", "test-automation", "skills"]
 cover: weekly-ai-bites-qa-testing.jpg
 postAuthor: Milena Cylińska
+
 ---
 
 Weekly AI Bites is a series offering a direct window into our day-to-day AI work. Each post shares insights, experiments, and real experiences straight from our team's meetings and Slack conversations — the models we're testing, the challenges we're working through, and what's actually delivering results in live products. To keep up with what's happening in AI, check Boldare's channels every Monday for the newest bite.
