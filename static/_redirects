@@ -3,3 +3,10 @@
 
 https://tech.boldare.com/tech-blog/* https://boldare.com/tech-blog/:splat 301
 https://tech.boldare.com/ https://boldare.com/tech-blog/ 301
+
+# Gatsby's pathPrefix ("/tech-blog") is baked into every page/asset URL, but the
+# build output itself is written unprefixed. Rewrite so this site is directly
+# browsable (e.g. Netlify deploy previews) without a fronting proxy.
+# Scoped to path only (no host), so it only ever applies on hosts not already
+# matched above (tech.boldare.com is redirected away by the rules before this).
+/tech-blog/* /:splat 200
