@@ -10,6 +10,7 @@ Any helpful contributions are welcome. 3 lines, 3 paragraphs? Doesn’t matter.`
   siteUrl: "https://tech.boldare.com/",
   homeUrl: "https://boldare.com",
   pathPrefix: "/tech-blog",
+  cmsOrigin: "https://tech.boldare.com",
   siteImage: "/avatar.jpg",
   siteLanguage: "en",
   // author
