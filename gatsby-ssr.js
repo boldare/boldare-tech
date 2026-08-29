@@ -10,6 +10,7 @@ import createStore from "./src/state/store";
 import theme from "./src/styles/theme";
 import getPageContext from "./src/getPageContext";
 import { CssBaseline } from "@material-ui/core";
+import config from "./content/meta/config";
 
 export const replaceRenderer = ({ bodyComponent, replaceBodyHTMLString, setHeadComponents }) => {
   const store = createStore();
@@ -41,7 +42,23 @@ export const replaceRenderer = ({ bodyComponent, replaceBodyHTMLString, setHeadC
   ]);
 };
 
-export const onRenderBody = ({ setPostBodyComponents }) => {
+export const onRenderBody = ({ setHeadComponents, setPostBodyComponents }) => {
+  setHeadComponents([
+    <script
+      key="netlify-identity-token-forwarding"
+      dangerouslySetInnerHTML={{
+        __html: `(function () {
+  var hash = window.location.hash;
+  if (!hash) return;
+  if (!/[#&](invite_token|recovery_token|confirmation_token|email_change_token|access_token)=/.test(hash)) return;
+  var panel = ${JSON.stringify(`${config.cmsOrigin.replace(/\/$/, "")}/admin/`)};
+  if (window.location.href.indexOf(panel) === 0) return;
+  window.location.replace(panel + hash);
+})();`
+      }}
+    />
+  ]);
+
   return setPostBodyComponents([
     <div key="fb-root" id="fb-root" />,
     <link
