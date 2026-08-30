@@ -43,7 +43,7 @@ class TagTemplate extends React.Component {
           </div>
           <Navigator posts={posts} navigatorPosition={"is-list"} />
           <Seo
-            data={{ title: `Posts with tag ${tag}`, slug: `tags/${kebabCaseTag}` }}
+            data={{ title: `Posts with tag ${tag}`, slug: `/tags/${kebabCaseTag}/` }}
             facebook={data.site.siteMetadata.facebook}
           />
         </Main>

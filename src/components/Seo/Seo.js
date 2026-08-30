@@ -14,7 +14,7 @@ const Seo = props => {
   const title = providedTitle ? `${providedTitle} - ${config.shortSiteTitle}` : config.siteTitle;
   const description = providedDescription ? providedDescription : `${providedTitle} - ${config.siteDescription}`;
   const imageSrc = siteUrl + (providedCover ? providedCover : config.siteImage);
-  const url = siteUrl + (providedSlug ? providedSlug : "");
+  const url = siteUrl + (providedSlug ? providedSlug : "/");
   const twitterAccount = config.authorTwitterAccount ? `@${config.authorTwitterAccount}` : "";
 
   return (
@@ -27,6 +27,7 @@ const Seo = props => {
       {/* General tags */}
       <title>{title}</title>
       <meta name="description" content={description} />
+      <link rel="canonical" href={url} />
       {/* OpenGraph tags */}
       <meta property="og:url" content={url} />
       <meta property="og:title" content={title} />
