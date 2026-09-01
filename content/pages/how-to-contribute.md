@@ -41,7 +41,7 @@ boldare-tech/
 
 1. Clone this repository or add/edit a file
    [directly on GitHub](https://github.com/boldare/boldare-tech/new/master/content/posts)
-2. Use `yarn add-article` command to create a new structure for the post 📂
+2. Use `npm run add-article` command to create a new structure for the post 📂
 3. Write an article in [Markdown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
    syntax and save it in created file by script, English language is preferred ✍️
 4. Put an image (post avatar) in `static/img`, technology icon is preferred 🖼
