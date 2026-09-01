@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: /
 Disallow: /admin/
-sitemap: https://tech.boldare.com/sitemap.xml
+sitemap: https://www.boldare.com/tech-blog/sitemap-index.xml

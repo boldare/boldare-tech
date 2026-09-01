@@ -7,7 +7,6 @@ import {
   TwitterShareButton,
   EmailShareButton,
   FacebookShareCount,
-  LinkedinShareCount,
   FacebookIcon,
   TwitterIcon,
   LinkedinIcon,
@@ -67,21 +66,14 @@ class PostShare extends React.Component {
           >
             <TwitterIcon round size={iconSize} />
           </TwitterShareButton>
-          <FacebookShareButton
-            url={url}
-            quote={mergedTitle}
-            aria-label="Facebook share"
-          >
+          <FacebookShareButton url={url} quote={mergedTitle} aria-label="Facebook share">
             <FacebookIcon round size={iconSize} />
             <FacebookShareCount url={url}>
               {count => <div className="share-count">{filter(count)}</div>}
             </FacebookShareCount>
           </FacebookShareButton>
-          <LinkedinShareButton url={url} title={title} description={subTitle}>
+          <LinkedinShareButton url={url} title={title} summary={subTitle}>
             <LinkedinIcon round size={iconSize} />
-            <LinkedinShareCount url={url}>
-              {count => <div className="share-count">{filter(count)}</div>}
-            </LinkedinShareCount>
           </LinkedinShareButton>
           <EmailShareButton subject={mergedTitle} url={url} body={url}>
             <EmailIcon round size={iconSize} />

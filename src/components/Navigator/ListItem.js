@@ -79,12 +79,14 @@ const styles = theme => ({
       margin: 0,
       fontSize: `${theme.navigator.sizes.postsListItemH2Font}em`,
       [`@media (min-width: ${theme.mediaQueryTresholds.M}px)`]: {
-        fontSize: `${theme.navigator.sizes.postsListItemH2Font *
-          theme.navigator.sizes.fontIncraseForM}em`
+        fontSize: `${
+          theme.navigator.sizes.postsListItemH2Font * theme.navigator.sizes.fontIncraseForM
+        }em`
       },
       [`@media (min-width: ${theme.mediaQueryTresholds.L}px)`]: {
-        fontSize: `${theme.navigator.sizes.postsListItemH2Font *
-          theme.navigator.sizes.fontIncraseForL}em`,
+        fontSize: `${
+          theme.navigator.sizes.postsListItemH2Font * theme.navigator.sizes.fontIncraseForL
+        }em`,
         ".moving-featured &, .is-aside &": {
           fontSize: "1em",
           fontWeight: 400
@@ -97,12 +99,14 @@ const styles = theme => ({
       fontSize: `${theme.navigator.sizes.postsListItemH3Font}em`,
       margin: ".3em 0 0 0",
       [`@media (min-width: ${theme.mediaQueryTresholds.M}px)`]: {
-        fontSize: `${theme.navigator.sizes.postsListItemH3Font *
-          theme.navigator.sizes.fontIncraseForM}em`
+        fontSize: `${
+          theme.navigator.sizes.postsListItemH3Font * theme.navigator.sizes.fontIncraseForM
+        }em`
       },
       [`@media (min-width: ${theme.mediaQueryTresholds.L}px)`]: {
-        fontSize: `${theme.navigator.sizes.postsListItemH3Font *
-          theme.navigator.sizes.fontIncraseForL}em`,
+        fontSize: `${
+          theme.navigator.sizes.postsListItemH3Font * theme.navigator.sizes.fontIncraseForL
+        }em`,
         ".moving-featured &, .is-aside &": {
           display: "none"
         }
@@ -111,12 +115,14 @@ const styles = theme => ({
     "& h4": {
       fontWeight: "normal",
       [`@media (min-width: ${theme.mediaQueryTresholds.M}px)`]: {
-        fontSize: `${theme.navigator.sizes.postsListItemH4Font *
-          theme.navigator.sizes.fontIncraseForM}em`
+        fontSize: `${
+          theme.navigator.sizes.postsListItemH4Font * theme.navigator.sizes.fontIncraseForM
+        }em`
       },
       [`@media (min-width: ${theme.mediaQueryTresholds.L}px)`]: {
-        fontSize: `${theme.navigator.sizes.postsListItemH4Font *
-          theme.navigator.sizes.fontIncraseForL}em`
+        fontSize: `${
+          theme.navigator.sizes.postsListItemH4Font * theme.navigator.sizes.fontIncraseForL
+        }em`
       },
       ".moving-featured &, .is-aside &": {
         fontSize: `${theme.navigator.sizes.postsListItemH4Font}em`,
@@ -152,7 +158,7 @@ class ListItem extends React.Component {
   }
 
   resolveImagePath(path) {
-    return `${pathPrefix}${path}`
+    return `${pathPrefix}${path}`;
   }
 
   render() {

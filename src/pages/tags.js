@@ -3,7 +3,6 @@ import { graphql } from "gatsby";
 import PropTypes from "prop-types";
 
 const _ = require("lodash");
-const path = require("path");
 
 import { mergeTagsWithEqualKebabCaseName } from "../utils/helpers";
 
@@ -25,14 +24,12 @@ const TagsPage = props => {
           <PageHeader title="Most popular tags" />
           <Content>
             <TagList
-              tags={mergeTagsWithEqualKebabCaseName(_.orderBy(data.tags.group, "totalCount", "desc"))}
+              tags={mergeTagsWithEqualKebabCaseName(
+                _.orderBy(data.tags.group, "totalCount", "desc")
+              )}
             />
           </Content>
         </Article>
-        <Seo
-          data={{ title: "Most popular tags", slug: `/${path.basename(__filename, ".js")}` }}
-          facebook={data.site.siteMetadata.facebook}
-        />
       </Main>
     </Layout>
   );
@@ -63,6 +60,13 @@ export default TagsPage;
 // TODO - whenever possible, sort by totalCount here: https://github.com/gatsbyjs/gatsby/issues/5046
 // TODO - also, whenever possible, make the grouping case insensitive https://github.com/gatsbyjs/gatsby/issues/1789
 // For now JS workarounds are used.
+export const Head = ({ data }) => (
+  <Seo
+    data={{ title: "Most popular tags", slug: "/tags/" }}
+    facebook={data.site.siteMetadata.facebook}
+  />
+);
+
 export const pagesQuery = graphql`
   query Tags {
     site {
@@ -73,7 +77,7 @@ export const pagesQuery = graphql`
       }
     }
     tags: allMarkdownRemark(limit: 100) {
-      group(field: frontmatter___tags) {
+      group(field: { frontmatter: { tags: SELECT } }) {
         name: fieldValue
         totalCount
       }

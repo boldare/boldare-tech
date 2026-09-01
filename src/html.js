@@ -1,8 +1,15 @@
 /* eslint react/display-name: 0*/
 import React from "react";
 
+import config from "../content/meta/config";
+
+// lang and the og prefix used to come from react-helmet's htmlAttributes. Gatsby's
+// Head API only renders into <head>, so they belong here now.
 export default props => (
-  <html {...props.htmlAttributes}>
+  // `prefix` is the RDFa attribute the Open Graph tags rely on; react-helmet
+  // used to emit it via htmlAttributes.
+  // eslint-disable-next-line react/no-unknown-property
+  <html lang={config.siteLanguage} prefix="og: http://ogp.me/ns#" {...props.htmlAttributes}>
     <head>
       <meta charSet="utf-8" />
       <meta httpEquiv="x-ua-compatible" content="ie=edge" />

@@ -1,17 +1,15 @@
-const { createMuiTheme } = require("@material-ui/core/styles");
+const { createTheme } = require("@mui/material/styles");
 const Color = require("color");
 
 const colors = require("./colors");
 
-const theme = createMuiTheme({
+const theme = createTheme({
   base: {
     colors: {
       background: colors.white,
       text: colors.dark,
       link: colors.blue,
-      linkHover: Color(colors.blue)
-        .lighten(0.1)
-        .string(),
+      linkHover: Color(colors.blue).lighten(0.1).string(),
       accent: colors.accent,
       lines: colors.superLightGray
     },
@@ -159,13 +157,9 @@ const theme = createMuiTheme({
   },
   footer: {
     colors: {
-      text: Color(colors.gray)
-        .lighten(0.5)
-        .string(),
+      text: Color(colors.gray).lighten(0.5).string(),
       link: colors.accent,
-      linkHover: Color(colors.accent)
-        .lighten(0.2)
-        .string()
+      linkHover: Color(colors.accent).lighten(0.2).string()
     },
     fonts: {
       footnote: {

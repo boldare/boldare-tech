@@ -2,11 +2,16 @@ import React from "react";
 import PropTypes from "prop-types";
 import injectSheet from "react-jss";
 import { navigate } from "gatsby";
-import classNames from "classnames";
-import { Manager, Target, Popper } from "react-popper";
-
-import { Grow, ClickAwayListener, IconButton, Paper, MenuItem, MenuList } from "@material-ui/core";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
+import {
+  Grow,
+  Popper,
+  ClickAwayListener,
+  IconButton,
+  Paper,
+  MenuItem,
+  MenuList
+} from "@mui/material";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 const styles = theme => ({
   topMenu: {
@@ -23,9 +28,6 @@ const styles = theme => ({
     textTransform: "none",
     fontSize: "1.4em",
     color: "#777"
-  },
-  popperClose: {
-    pointerEvents: "none"
   }
 });
 
@@ -39,8 +41,9 @@ class TopMenu extends React.Component {
     clearTimeout(this.timeout);
   }
 
-  handleClick = () => {
-    this.setState({ open: !this.state.open });
+  handleClick = event => {
+    const anchorEl = event.currentTarget;
+    this.setState(prevState => ({ open: !prevState.open, anchorEl }));
   };
 
   handleClose = () => {
@@ -59,25 +62,19 @@ class TopMenu extends React.Component {
 
     return (
       <nav className={classes.topMenu}>
-        <Manager>
-          <Target>
-            <IconButton
-              aria-label="More"
-              aria-owns={anchorEl ? "long-menu" : null}
-              aria-haspopup="true"
-              onClick={this.handleClick}
-            >
-              <MoreVertIcon />
-            </IconButton>
-          </Target>
-          <Popper
-            placement="bottom-end"
-            eventsEnabled={open}
-            className={classNames({ [classes.popperClose]: !open })}
-          >
-            <ClickAwayListener onClickAway={this.handleClose}>
-              <Grow in={open} id="menu-list" style={{ transformOrigin: "0 0 0" }}>
-                <Paper>
+        <IconButton
+          aria-label="More"
+          aria-owns={open ? "menu-list" : null}
+          aria-haspopup="true"
+          onClick={this.handleClick}
+        >
+          <MoreVertIcon />
+        </IconButton>
+        <Popper open={open} anchorEl={anchorEl} placement="bottom-end" transition>
+          {({ TransitionProps }) => (
+            <Grow {...TransitionProps} id="menu-list" style={{ transformOrigin: "0 0 0" }}>
+              <Paper>
+                <ClickAwayListener onClickAway={this.handleClose}>
                   <MenuList role="menu">
                     <MenuItem
                       onClick={e => {
@@ -115,11 +112,11 @@ class TopMenu extends React.Component {
                       Most popular tags
                     </MenuItem>
                   </MenuList>
-                </Paper>
-              </Grow>
-            </ClickAwayListener>
-          </Popper>
-        </Manager>
+                </ClickAwayListener>
+              </Paper>
+            </Grow>
+          )}
+        </Popper>
       </nav>
     );
   }

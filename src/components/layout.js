@@ -2,12 +2,10 @@ import React from "react";
 import injectSheet from "react-jss";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { graphql, StaticQuery } from "gatsby";
+import { graphql, useStaticQuery } from "gatsby";
 
 import theme from "../styles/theme";
 import globals from "../styles/globals";
-
-import withRoot from "../withRoot";
 
 import { setFontSizeIncrease, setIsWideScreen } from "../state/store";
 
@@ -21,10 +19,7 @@ import { isWideScreen, timeoutThrottlerHandler } from "../utils/helpers";
 
 const query = graphql`
   query {
-    posts: allFile(
-      filter: { relativeDirectory: { eq: "posts" } }
-      sort: { fields: relativePath, order: DESC }
-    ) {
+    posts: allFile(filter: { relativeDirectory: { eq: "posts" } }, sort: { relativePath: DESC }) {
       edges {
         node {
           childMarkdownRemark {
@@ -44,7 +39,7 @@ const query = graphql`
     }
     pages: allFile(
       filter: { relativeDirectory: { regex: "/pages/" } }
-      sort: { fields: relativePath, order: ASC }
+      sort: { relativePath: ASC }
     ) {
       edges {
         node {
@@ -96,12 +91,11 @@ class Layout extends React.Component {
     if (typeof window !== "undefined") {
       window.addEventListener("resize", this.resizeThrottler, false);
     }
-  }
 
-  componentWillMount() {
+    // Deliberately after mount, not before render: this reads client-only state,
+    // and applying it during the first render would not match the server HTML.
     if (typeof localStorage !== "undefined") {
       const inLocal = +localStorage.getItem("font-size-increase");
-
       const inStore = this.props.fontSizeIncrease;
 
       if (inLocal && inLocal !== inStore && inLocal >= 1 && inLocal <= 1.5) {
@@ -129,55 +123,47 @@ class Layout extends React.Component {
   };
 
   render() {
-    const { children, type } = this.props;
+    const { children, type, data } = this.props;
 
     // TODO: dynamic management of tabindexes for keybord navigation
-    return (
-      <StaticQuery
-        query={query}
-        render={data => {
-          const posts = data.posts.edges.map(
-            ({
-              node: {
-                childMarkdownRemark: { fields, frontmatter }
-              }
-            }) => {
-              return {
-                ...fields,
-                ...frontmatter
-              };
-            }
-          );
+    const posts = data.posts.edges.map(
+      ({
+        node: {
+          childMarkdownRemark: { fields, frontmatter }
+        }
+      }) => {
+        return {
+          ...fields,
+          ...frontmatter
+        };
+      }
+    );
 
-          return (
-            <div
-              style={{
-                padding: "1px",
-                position: "absolute",
-                top: 0,
-                left: 0,
-                bottom: 0,
-                right: 0,
-                overflow: "hidden"
-              }}
-            >
-              {children}
-              <Navigator posts={posts} />
-              <ActionsBar categories={this.getCategories(data.posts.edges)} type={type} />
-              <InfoBar pages={data.pages.edges} parts={data.parts.edges} />
-              {this.props.isWideScreen && (
-                <InfoBox pages={data.pages.edges} parts={data.parts.edges} />
-              )}
-            </div>
-          );
+    return (
+      <div
+        style={{
+          padding: "1px",
+          position: "absolute",
+          top: 0,
+          left: 0,
+          bottom: 0,
+          right: 0,
+          overflow: "hidden"
         }}
-      />
+      >
+        {children}
+        <Navigator posts={posts} />
+        <ActionsBar categories={this.getCategories(data.posts.edges)} type={type} />
+        <InfoBar pages={data.pages.edges} parts={data.parts.edges} />
+        {this.props.isWideScreen && <InfoBox pages={data.pages.edges} parts={data.parts.edges} />}
+      </div>
     );
   }
 }
 
 Layout.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
+  data: PropTypes.object.isRequired,
   setIsWideScreen: PropTypes.func.isRequired,
   isWideScreen: PropTypes.bool.isRequired,
   fontSizeIncrease: PropTypes.number.isRequired,
@@ -197,7 +183,11 @@ const mapDispatchToProps = {
   setFontSizeIncrease
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRoot(injectSheet(globals)(Layout)));
+// useStaticQuery is a hook, and Layout is a class component, so the query lives
+// in this wrapper and is handed down as a prop.
+const LayoutWithData = props => {
+  const data = useStaticQuery(query);
+  return <Layout {...props} data={data} />;
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(injectSheet(globals)(LayoutWithData));

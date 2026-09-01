@@ -1,6 +1,11 @@
 /.net-in-my-browser /net-in-my-browser/
 /.net-in-my-browser/ /net-in-my-browser/
 
+# gatsby-plugin-sitemap 6 renamed its output: one sitemap.xml became
+# sitemap-index.xml plus sitemap-0.xml. Keep the long-published URL alive.
+/sitemap.xml /sitemap-index.xml 301!
+/tech-blog/sitemap.xml /sitemap-index.xml 301!
+
 /tech-blog/admin/* /admin/:splat 301!
 /tech-blog/admin/ /admin/ 301!
 /tech-blog/admin /admin/ 301!

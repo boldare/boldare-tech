@@ -20,14 +20,7 @@ class Index extends React.Component {
   }
 
   render() {
-    const { data } = this.props;
-    const facebook = (((data || {}).site || {}).siteMetadata || {}).facebook;
-
-    return (
-      <Layout>
-        <Seo facebook={facebook} />
-      </Layout>
-    );
+    return <Layout />;
   }
 }
 
@@ -50,10 +43,9 @@ const mapDispatchToProps = {
   setNavigatorShape
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Index);
+export default connect(mapStateToProps, mapDispatchToProps)(Index);
+
+export const Head = ({ data }) => <Seo facebook={data.site.siteMetadata.facebook} />;
 
 export const pageQuery = graphql`
   query IndexQuery {

@@ -83,7 +83,7 @@ export default {
     /**
      * Style for `` inline code blocks
      */
-    "code": {
+    code: {
       backgroundColor: "rgba(235, 235, 235, .9)",
       borderRadius: ".3em",
       padding: ".25em .45em",
@@ -196,17 +196,19 @@ export default {
     /**
      * Remove the inner border and padding in Firefox.
      */
-    "button::-moz-focus-inner, [type=button]::-moz-focus-inner, [type=reset]::-moz-focus-inner, [type=submit]::-moz-focus-inner": {
-      borderStyle: "none",
-      padding: 0
-    },
+    "button::-moz-focus-inner, [type=button]::-moz-focus-inner, [type=reset]::-moz-focus-inner, [type=submit]::-moz-focus-inner":
+      {
+        borderStyle: "none",
+        padding: 0
+      },
 
     /**
      * Restore the focus styles unset by the previous rule.
      */
-    "button:-moz-focusring, [type=button]:-moz-focusring, [type=reset]:-moz-focusring, [type=submit]:-moz-focusring": {
-      outline: "1px dotted ButtonText"
-    },
+    "button:-moz-focusring, [type=button]:-moz-focusring, [type=reset]:-moz-focusring, [type=submit]:-moz-focusring":
+      {
+        outline: "1px dotted ButtonText"
+      },
 
     /**
      * Change the border, margin, and padding in all browsers (opinionated).
@@ -343,6 +345,13 @@ export default {
       textSizeAdjust: "100%"
     },
     "html.wf-active": {
+      fontFamily: theme.base.fonts.styledFamily
+    },
+    // The webfont switch works by letting <body> inherit from <html>, but MUI's
+    // CssBaseline sets `body { font-family }` explicitly from theme.typography,
+    // which breaks that inheritance and leaves the whole site on the fallback
+    // font. Higher specificity so it wins regardless of stylesheet order.
+    "html.wf-active body": {
       fontFamily: theme.base.fonts.styledFamily
     },
     "*, *:before, *:after": {

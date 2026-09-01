@@ -3,8 +3,6 @@ import { graphql } from "gatsby";
 import PropTypes from "prop-types";
 import injectSheet from "react-jss";
 
-const _ = require("lodash");
-
 import Main from "../components/Main";
 import PageHeader from "../components/Page/PageHeader";
 import Seo from "../components/Seo";
@@ -21,7 +19,7 @@ const styles = () => ({
 class TagTemplate extends React.Component {
   render() {
     const { classes, data, pageContext } = this.props;
-    const { tag, kebabCaseTag } = pageContext;
+    const { tag } = pageContext;
 
     const tagHeader = `${data.posts.totalCount} post${
       data.posts.totalCount === 1 ? "" : "s"
@@ -42,10 +40,6 @@ class TagTemplate extends React.Component {
             <Link to="/tags">Most popular tags</Link>
           </div>
           <Navigator posts={posts} navigatorPosition={"is-list"} />
-          <Seo
-            data={{ title: `Posts with tag ${tag}`, slug: `/tags/${kebabCaseTag}/` }}
-            facebook={data.site.siteMetadata.facebook}
-          />
         </Main>
       </Layout>
     );
@@ -84,8 +78,18 @@ TagTemplate.propTypes = {
 
 export default injectSheet(styles)(TagTemplate);
 
+export const Head = ({ data, pageContext }) => (
+  <Seo
+    data={{
+      title: `Posts with tag ${pageContext.tag}`,
+      slug: `/tags/${pageContext.kebabCaseTag}/`
+    }}
+    facebook={data.site.siteMetadata.facebook}
+  />
+);
+
 export const pageQuery = graphql`
-  query($kebabCaseTag: String!) {
+  query ($kebabCaseTag: String!) {
     site {
       siteMetadata {
         facebook {
@@ -96,7 +100,7 @@ export const pageQuery = graphql`
     posts: allMarkdownRemark(
       limit: 100
       filter: { fields: { kebabCaseTags: { in: [$kebabCaseTag] } } }
-      sort: { fields: [fields___date], order: DESC }
+      sort: { fields: { date: DESC } }
     ) {
       totalCount
       edges {

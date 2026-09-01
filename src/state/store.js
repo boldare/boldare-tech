@@ -1,5 +1,5 @@
-import { createStore as reduxCreateStore, applyMiddleware } from "redux";
-import { composeWithDevTools } from "redux-devtools-extension";
+import { legacy_createStore as reduxCreateStore, applyMiddleware } from "redux";
+import { composeWithDevTools } from "@redux-devtools/extension";
 
 /*
  * action types

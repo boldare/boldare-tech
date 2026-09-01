@@ -10,7 +10,7 @@ const PAGES = [
   { name: "page", path: "how-to-contribute/" },
   { name: "tags-index", path: "tags/" },
   { name: "tag", path: "tags/php/" },
-  { name: "search", path: "search/" },
+  { name: "search", path: "search/", requiresAlgolia: true },
 ];
 
 // Third-party embeds render differently on every run and are not ours to regress.
@@ -61,9 +61,20 @@ async function freezeAndSettle(page) {
   await page.waitForTimeout(SETTLE_MS);
 }
 
-for (const { name, path: p } of PAGES) {
+for (const { name, path: p, requiresAlgolia } of PAGES) {
   test(`${name} matches baseline`, async ({ page }) => {
     await page.goto(p, { waitUntil: "networkidle" });
+
+    // gatsby-config.js only registers Algolia when the credentials are present
+    // in the build environment, so a local build without them renders no search
+    // widget and the comparison would be against a page that cannot exist here.
+    if (requiresAlgolia) {
+      const box = page.locator(".ais-SearchBox, input[type='search']").first();
+      if (!(await box.isVisible().catch(() => false))) {
+        test.skip(true, "Search widget absent — this build had no ALGOLIA_* credentials");
+      }
+    }
+
     await freezeAndSettle(page);
 
     await expect(page).toHaveScreenshot(`${name}.png`, {
