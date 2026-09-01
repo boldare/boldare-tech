@@ -1,0 +1,84 @@
+name: CI
+
+# Push is the trigger that matters: this repo is reviewed off a branch rather
+# than through pull requests. The pull_request trigger costs one line and means
+# the checks are already wired if that ever changes.
+on:
+  push:
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Lint, build and verify
+    # Playwright snapshots are platform-suffixed (-linux.png). Must stay Linux.
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+          cache: "npm"
+
+      - name: Install
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      # The build is the test. This site broke on 2026-08-25 with no code
+      # change, when GitHub disabled git:// and the Netlify install started
+      # failing; nothing in the repo would have caught it.
+      - name: Build
+        run: npm run build
+        env:
+          GATSBY_TELEMETRY_DISABLED: "1"
+          NODE_OPTIONS: "--max_old_space_size=6144"
+
+      - name: Install test harness
+        working-directory: tests
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+
+      # Reads public/ off disk, so it needs no server.
+      - name: Smoke (build output)
+        working-directory: tests
+        run: npm run test:smoke
+
+      - name: Serve the build
+        run: |
+          npx gatsby serve --prefix-paths -p 9100 &
+          for i in $(seq 1 60); do
+            if curl -sf -o /dev/null http://localhost:9100/tech-blog/; then
+              echo "serving after ${i}s"; exit 0
+            fi
+            sleep 1
+          done
+          echo "gatsby serve did not come up within 60s"; exit 1
+
+      - name: End-to-end
+        working-directory: tests
+        run: npm run test:e2e
+        env:
+          BASE_URL: http://localhost:9100/tech-blog/
+
+      - name: Visual regression
+        working-directory: tests
+        run: npm run test:visual
+        env:
+          BASE_URL: http://localhost:9100/tech-blog/
+
+      - name: Upload failure artifacts
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: |
+            tests/test-results/
+            tests/playwright-report/
+          retention-days: 7
