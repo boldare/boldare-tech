@@ -78,6 +78,38 @@ test.describe("widget metrics match the pre-upgrade design", () => {
     expect(bg).toBe("rgb(250, 250, 250)");
   });
 
+  test("share buttons keep their spacing", async ({ page }) => {
+    await page.goto(POST);
+    await page.evaluate(async () => {
+      for (let y = 0; y < document.body.scrollHeight; y += 500) {
+        window.scrollTo(0, y);
+        await new Promise(r => setTimeout(r, 60));
+      }
+    });
+    await page.waitForTimeout(1000);
+
+    // The margin is applied by class name, and react-share renamed it between
+    // v2 (div.SocialMediaShareButton) and v5 (button.react-share__ShareButton).
+    // The rule silently stopped matching and the icons sat flush together --
+    // the kind of break a version bump causes with nothing to report.
+    const xs = await page.evaluate(() => {
+      const svgs = [...document.querySelectorAll("svg")].filter(s => {
+        const r = s.getBoundingClientRect();
+        return r.width > 30 && r.width < 80 && r.y > 400;
+      });
+      return [...new Set(svgs.map(s => s.closest("button") || s.parentElement))]
+        .map(e => Math.round(e.getBoundingClientRect().x))
+        .sort((a, b) => a - b);
+    });
+
+    expect(xs.length, "no share buttons found").toBeGreaterThan(1);
+    const gaps = xs.slice(1).map((x, i) => x - xs[i]);
+    // 36px icon + 0.8em margin each side at 16px = ~62px between origins.
+    for (const gap of gaps) {
+      expect(gap, `share buttons are flush: gaps ${gaps.join(",")}`).toBeGreaterThan(50);
+    }
+  });
+
   test("navigator thumbnails are square", async ({ page }) => {
     await page.goto(POST);
     await page.waitForTimeout(1500);

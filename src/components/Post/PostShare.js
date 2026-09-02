@@ -29,7 +29,10 @@ const styles = theme => ({
   links: {
     display: "flex",
     flexDirection: "row",
-    "& .SocialMediaShareButton": {
+    // react-share 2 rendered `div.SocialMediaShareButton`; 5 renders
+    // `button.react-share__ShareButton`. The rename silently dropped this
+    // margin and the share icons ended up flush against each other.
+    "& .react-share__ShareButton": {
       margin: "0 .8em",
       cursor: "pointer"
     }
