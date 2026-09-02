@@ -372,6 +372,11 @@ export default {
     },
     body: {
       margin: 0,
+      // MUI v3's CssBaseline set this from palette.background.default (#fafafa
+      // by default in v3). CssBaseline had to go -- it also forced body
+      // font-size and font-family, which broke the html.wf-active webfont
+      // switch -- so the page background is declared here instead.
+      backgroundColor: theme.base.colors.pageBackground,
       //overflow: "hidden",
       "-webkit-tap-highlight-color": "rgba(0,0,0,.05)"
     },

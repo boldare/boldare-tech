@@ -67,6 +67,17 @@ test.describe("widget metrics match the pre-upgrade design", () => {
     expect(chip.avatar).toBe(32);
   });
 
+  test("the page background is the #fafafa the site has always used", async ({ page }) => {
+    await page.goto(POST);
+
+    // The visual suite cannot see this. toHaveScreenshot has a per-pixel colour
+    // tolerance of its own (threshold, 0.2 by default), and #fafafa vs #ffffff
+    // is 5/255 on each channel -- well inside it, so not one pixel counts as
+    // different and the whole page can change shade with the suite still green.
+    const bg = await page.evaluate(() => getComputedStyle(document.body).backgroundColor);
+    expect(bg).toBe("rgb(250, 250, 250)");
+  });
+
   test("navigator thumbnails are square", async ({ page }) => {
     await page.goto(POST);
     await page.waitForTimeout(1500);

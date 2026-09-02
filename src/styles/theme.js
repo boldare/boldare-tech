@@ -7,6 +7,7 @@ const theme = createTheme({
   base: {
     colors: {
       background: colors.white,
+      pageBackground: colors.pageBg,
       text: colors.dark,
       link: colors.blue,
       linkHover: Color(colors.blue).lighten(0.1).string(),
