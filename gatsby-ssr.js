@@ -11,7 +11,6 @@ import {
 } from "react-jss";
 import { ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
 
-require("dotenv").config();
 
 import createStore from "./src/state/store";
 import createEmotionCache from "./src/styles/createEmotionCache";

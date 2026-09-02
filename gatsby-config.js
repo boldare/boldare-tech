@@ -42,6 +42,7 @@ module.exports = {
                     }
                     internal {
                       content
+                      contentDigest
                     }
                     frontmatter {   
                       title
@@ -57,7 +58,13 @@ module.exports = {
                     _.flatten(
                       data.allMarkdownRemark.edges.map(({ node }) =>
                         chunk(node.internal.content, 1000).map((contentChunk) =>
-                          Object.assign({}, node, { internal: { content: contentChunk } })
+                          Object.assign({}, node, {
+                            // Spread node.internal rather than replacing it.
+                            // gatsby-plugin-algolia 1.x drives partial updates
+                            // off internal.contentDigest and calls
+                            // panicOnBuild without it; 0.2 never looked.
+                            internal: { ...node.internal, content: contentChunk }
+                          })
                         )
                       )
                     ),
