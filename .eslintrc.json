@@ -1,18 +1,39 @@
 {
   "parser": "@babel/eslint-parser",
-  "extends": ["eslint:recommended", "plugin:react/recommended", "prettier"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "prettier"
+  ],
   "parserOptions": {
     "ecmaVersion": 2022,
     "sourceType": "module",
     "requireConfigFile": false,
-    "babelOptions": {
-      "presets": ["babel-preset-gatsby"]
+    "ecmaFeatures": {
+      "jsx": true
     },
-    "ecmaFeatures": { "jsx": true }
+    "babelOptions": {
+      "plugins": [
+        "@babel/plugin-syntax-jsx"
+      ]
+    }
   },
-  "plugins": ["prettier", "react", "jsx-a11y", "import"],
-  "env": { "browser": true, "es2022": true, "node": true },
-  "settings": { "react": { "version": "detect" } },
+  "plugins": [
+    "prettier",
+    "react",
+    "jsx-a11y",
+    "import"
+  ],
+  "env": {
+    "browser": true,
+    "es2022": true,
+    "node": true
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
   "rules": {
     "no-console": "off",
     "no-unused-vars": "warn",
@@ -20,5 +41,10 @@
     "react/prop-types": "off",
     "react/jsx-uses-vars": "error"
   },
-  "ignorePatterns": ["public/", "static/", ".cache/", "tests/"]
+  "ignorePatterns": [
+    "public/",
+    "static/",
+    ".cache/",
+    "tests/"
+  ]
 }
