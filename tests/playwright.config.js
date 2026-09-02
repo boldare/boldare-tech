@@ -21,10 +21,11 @@ module.exports = defineConfig({
   },
   expect: {
     toHaveScreenshot: {
-      // Anti-aliasing and subpixel text rendering differ between machines. Loose
-      // enough to survive that, tight enough that a real layout or colour
-      // regression still fails.
-      maxDiffPixelRatio: 0.02,
+      // Anti-aliasing and subpixel text rendering differ between machines, so
+      // some tolerance is needed. 0.02 was too loose: it silently passed a real
+      // regression where every post thumbnail rendered 90x51 instead of 90x90,
+      // because the images are a small share of a full-page screenshot.
+      maxDiffPixelRatio: 0.004,
       animations: "disabled",
     },
   },

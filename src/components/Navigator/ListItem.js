@@ -44,6 +44,14 @@ const styles = theme => ({
     height: "60px",
     margin: "0",
     transition: "all .5s",
+    // react-lazyload 3 wraps its children in a <div class="lazyload-wrapper">,
+    // which 2.x did not. Without a definite height on that wrapper the img's
+    // `height: 100%` has nothing to resolve against and the thumbnail collapses
+    // to its natural aspect ratio (90x51 instead of the cropped 90x90).
+    "& .lazyload-wrapper": {
+      width: "100%",
+      height: "100%"
+    },
     "& img": {
       width: "100%",
       height: "100%"

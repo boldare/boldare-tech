@@ -29,6 +29,15 @@ const VOLATILE = [
 const SETTLE_MS = 2500;
 
 async function freezeAndSettle(page) {
+  // Netlify injects a deploy-preview collaboration drawer (an iframe from
+  // app.netlify.com) that exists on previews and nowhere else. Masking it would
+  // paint a block the production baseline does not have, so remove it outright.
+  await page.evaluate(() => {
+    document
+      .querySelectorAll('iframe[src*="app.netlify.com"], iframe[src*="netlify.com/cdp"]')
+      .forEach(el => el.remove());
+  });
+
   await page.addStyleTag({
     content: `*, *::before, *::after {
       animation-duration: 0s !important;

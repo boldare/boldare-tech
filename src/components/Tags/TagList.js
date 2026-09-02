@@ -19,6 +19,11 @@ const styles = theme => ({
     // MUI 9 shrinks the Chip's avatar to 24px and gives it its own margins;
     // v3 filled the full 32px chip height. Restored so the count bubbles keep
     // their size and the chips keep their width.
+    // MUI 9 sets the Chip label's line-height to 1.5; v3 used 1.6. The chip box
+    // is the same size either way, but the label text sits ~1.5px higher.
+    "& .MuiChip-label": {
+      lineHeight: 1.6
+    },
     "& .MuiChip-avatar": {
       width: 32,
       height: 32,
