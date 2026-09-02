@@ -194,6 +194,31 @@ const theme = createTheme({
     action: {
       hover: "rgba(0, 0, 0, 0.01)"
     }
+  },
+  // MUI 9 changed defaults that this design was built against. Restored here
+  // rather than per component, since the affected widgets appear all over.
+  components: {
+    MuiIconButton: {
+      styleOverrides: {
+        // v3 used 12px, v5+ uses 8px, shrinking every action-bar button.
+        root: { padding: 12 }
+      }
+    },
+    MuiSvgIcon: {
+      styleOverrides: {
+        // v3 pinned 24px. v5+ derives it from typography.pxToRem, and this
+        // theme sets typography.fontSize to 16, so MUI's coefficient (16/14)
+        // inflates every icon to 27.43px.
+        root: { fontSize: 24 }
+      }
+    },
+    MuiChip: {
+      styleOverrides: {
+        // v3 filled a solid #e0e0e0; v9 uses a translucent overlay that reads
+        // noticeably lighter over the white background.
+        root: { backgroundColor: "#e0e0e0" }
+      }
+    }
   }
 });
 
