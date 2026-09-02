@@ -59,10 +59,12 @@ test("the CMS admin panel boots", async ({ page, baseURL }) => {
   const adminURL = new URL("admin/", baseURL);
   await page.goto(adminURL.toString(), { waitUntil: "domcontentloaded" });
 
-  // The CMS mounts into #nc-root (Netlify CMS 2.x) or the body (Decap 3).
-  // Either way, something must render and no script may throw.
+  // Assert on something only the CMS renders. An earlier version of this test
+  // just checked the body was non-empty, which a 404 page satisfies -- it
+  // passed against a deploy preview where /admin/ did not resolve at all.
   await expect
-    .poll(async () => (await page.locator("body").innerText()).length, { timeout: 20000 })
-    .toBeGreaterThan(0);
+    .poll(async () => await page.locator("body").innerText(), { timeout: 25000 })
+    .toMatch(/Login with Netlify Identity|Content Manager/i);
+
   expect(errors, `Uncaught errors while booting /admin/:\n${errors.join("\n")}`).toEqual([]);
 });
