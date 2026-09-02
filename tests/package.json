@@ -8,7 +8,8 @@
     "test:smoke": "playwright test --project=smoke",
     "test:e2e": "playwright test --project=e2e",
     "test:visual": "playwright test --project=desktop --project=tablet --project=mobile",
-    "test:visual:update": "playwright test --project=desktop --project=tablet --project=mobile --update-snapshots"
+    "test:visual:update": "docker run --rm --network host -v \"$PWD\":/tests -w /tests --user \"$(id -u):$(id -g)\" -e HOME=/tmp -e BASE_URL=${BASE_URL:-https://www.boldare.com/tech-blog/} mcr.microsoft.com/playwright:v1.62.1-noble npx playwright test --project=desktop --project=tablet --project=mobile --update-snapshots",
+    "test:visual:docker": "docker run --rm --network host -v \"$PWD\":/tests -w /tests --user \"$(id -u):$(id -g)\" -e HOME=/tmp -e BASE_URL=${BASE_URL:-https://www.boldare.com/tech-blog/} mcr.microsoft.com/playwright:v1.62.1-noble npx playwright test --project=desktop --project=tablet --project=mobile"
   },
   "devDependencies": {
     "@playwright/test": "1.62.1"

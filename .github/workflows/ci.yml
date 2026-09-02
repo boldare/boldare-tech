@@ -67,11 +67,22 @@ jobs:
         env:
           BASE_URL: http://localhost:9100/tech-blog/
 
+      # Runs in the Playwright container, not on the runner. Screenshot
+      # comparison is only meaningful if the baselines were rasterised in the
+      # same environment: `monospace` is whatever font the OS supplies, and it
+      # resolves three different ways across a dev machine (DejaVu Sans Mono),
+      # this runner, and this image (WenQuanYi Zen Hei Mono). Body text hid the
+      # problem because Open Sans is a webfont; the code blocks did not.
+      # tests/README.md documents regenerating baselines the same way.
       - name: Visual regression
-        working-directory: tests
-        run: npm run test:visual
-        env:
-          BASE_URL: http://localhost:9100/tech-blog/
+        run: |
+          docker run --rm --network host \
+            -v "$PWD/tests":/tests -w /tests \
+            --user "$(id -u):$(id -g)" -e HOME=/tmp \
+            -e BASE_URL=http://localhost:9100/tech-blog/ \
+            -e CI=true \
+            mcr.microsoft.com/playwright:v1.62.1-noble \
+            npx playwright test --project=desktop --project=tablet --project=mobile
 
       - name: Upload failure artifacts
         if: failure()

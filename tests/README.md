@@ -19,21 +19,40 @@ npx playwright install chromium
 | `npm run test:visual` | Screenshot diff at 375 / 768 / 1440px | `BASE_URL` |
 | `npm run test:e2e` | Reader journeys, Algolia search, `/admin/` boots | `BASE_URL` |
 
-Snapshots are platform-suffixed (`-linux.png`), so CI must run on Linux — `ubuntu-24.04`,
-matching nyc-spa — or it will look for baselines that do not exist.
-
 See `BASELINE.md` for what the pre-upgrade state actually was.
 
-`BASE_URL` defaults to production. Point it at a local build to compare:
+## Visual baselines must be made in the container
+
+`monospace` is whatever font the operating system supplies, and it resolves three
+different ways across a dev machine (DejaVu Sans Mono), a GitHub runner, and the
+Playwright image (WenQuanYi Zen Hei Mono). Body text hides this, because Open Sans is a
+webfont and is downloaded identically everywhere — code blocks and inline `<code>` do
+not, and different glyph widths reflow the line around them. Baselines rasterised on a
+host therefore fail in CI for reasons that have nothing to do with the site.
+
+So capture and comparison both run in `mcr.microsoft.com/playwright`, which is what the
+CI job uses too. **Never run `--update-snapshots` outside it** — `npm run
+test:visual:update` on a host will produce baselines that only work on that host.
 
 ```bash
-# capture baselines from the live site (do this FIRST, before touching the tree)
-npm run test:visual:update
+# regenerate baselines FROM PRODUCTION. The point of the suite is comparing against the
+# pre-upgrade site, so this target stays production even after the upgrade ships.
+docker run --rm --network host -v "$PWD":/tests -w /tests \
+  --user "$(id -u):$(id -g)" -e HOME=/tmp \
+  -e BASE_URL=https://www.boldare.com/tech-blog/ \
+  mcr.microsoft.com/playwright:v1.62.1-noble \
+  npx playwright test --project=desktop --project=tablet --project=mobile --update-snapshots
 
-# later, after the upgrade, diff a local build against those baselines
-cd .. && npm run build && npx gatsby serve &
-cd tests && BASE_URL=http://localhost:9000/tech-blog/ npm run test:visual
+# compare a local build against them
+cd .. && npm run build && npx gatsby serve --prefix-paths -p 9100 &
+cd tests && docker run --rm --network host -v "$PWD":/tests -w /tests \
+  --user "$(id -u):$(id -g)" -e HOME=/tmp \
+  -e BASE_URL=http://localhost:9100/tech-blog/ \
+  mcr.microsoft.com/playwright:v1.62.1-noble \
+  npx playwright test --project=desktop --project=tablet --project=mobile
 ```
+
+`smoke` and `e2e` have no such constraint and run fine on the host.
 
 `smoke` needs no server — it reads `public/` straight off disk, so it works the moment
 `gatsby build` finishes.
