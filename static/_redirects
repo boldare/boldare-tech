@@ -3,6 +3,7 @@
 
 # gatsby-plugin-sitemap 6 renamed its output: one sitemap.xml became
 # sitemap-index.xml plus sitemap-0.xml. Keep the long-published URL alive.
+# The target resolves through the root rewrite at the bottom of this file.
 /sitemap.xml /sitemap-index.xml 301!
 /tech-blog/sitemap.xml /sitemap-index.xml 301!
 
@@ -14,9 +15,18 @@
 https://tech.boldare.com/tech-blog/* https://boldare.com/tech-blog/:splat 301
 https://tech.boldare.com/ https://boldare.com/tech-blog/ 301
 
-# Gatsby's pathPrefix ("/tech-blog") is baked into every page/asset URL, but the
-# build output itself is written unprefixed. Rewrite so this site is directly
-# browsable (e.g. Netlify deploy previews) without a fronting proxy.
-# Scoped to path only (no host), so it only ever applies on hosts not already
-# matched above (tech.boldare.com is redirected away by the rules before this).
-/tech-blog/* /:splat 200
+# Under Gatsby 2 the build output was written unprefixed and this file mapped
+# /tech-blog/* onto it. Gatsby 5 inverts that: the adapter prefixes every route
+# with pathPrefix (gatsby/dist/utils/adapter/manager.js), so the deployed site
+# genuinely lives at /tech-blog/ on this origin.
+#
+# The public site still needs the origin to answer at its root, because
+# www.boldare.com proxies with the prefix STRIPPED:
+#     /tech-blog/*  ->  https://tech.boldare.com/:splat  200
+# (see nyc-spa static/_redirects). So a reader on www.boldare.com/tech-blog/foo/
+# reaches this origin as /foo/, which no longer has a file behind it.
+#
+# This rewrite puts it back. Netlify only applies a non-forced rule when no file
+# matches the request, so /tech-blog/* is still served directly from disk and
+# only unprefixed paths fall through to here.
+/* /tech-blog/:splat 200
