@@ -5,11 +5,16 @@ const { test, expect } = require("@playwright/test");
 // still came in under the pixel-ratio threshold, because four small buttons are
 // a rounding error on a full-page image. These assert the numbers directly.
 //
-// Every expected value here is what production (MUI v3) renders, measured
-// against https://www.boldare.com/tech-blog/. MUI 9 changed each of them:
-// IconButton padding 12 -> 8, SvgIcon's fixed 24px -> a pxToRem value inflated
-// by this theme's typography.fontSize, and Chip's solid fill -> a translucent
-// overlay. They are pinned back in src/styles/theme.js.
+// Every expected value is the design as it stood before the Gatsby 5 upgrade,
+// measured against production while it still ran Gatsby 2. (Once this ships,
+// production becomes this code, so "matches production" stops being a
+// meaningful check -- these numbers are the record of what it should be.)
+//
+// MUI 9 changed each of them: IconButton padding 12 -> 8, SvgIcon's fixed 24px
+// -> a pxToRem value inflated by this theme's typography.fontSize, and Chip's
+// solid fill -> a translucent overlay. They are pinned in src/styles/theme.js.
+//
+// This file is also what replaced the screenshot suite; see tests/README.md.
 
 const POST = "weekly-ai-bites-last-manual-gap-qa-testing/";
 

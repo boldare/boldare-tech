@@ -21,7 +21,6 @@
     "test": "npm --prefix tests test",
     "test:smoke": "npm --prefix tests run test:smoke",
     "test:e2e": "npm --prefix tests run test:e2e",
-    "test:visual": "npm --prefix tests run test:visual",
     "favIcon16": "sharp -i ./src/images/app-icons/icon.png -o ./static/icons/favicon-16x16.png resize 16",
     "favIcon32": "sharp -i ./src/images/app-icons/icon.png -o ./static/icons/favicon-32x32.png resize 32",
     "favIcon96": "sharp -i ./src/images/app-icons/icon.png -o ./static/icons/favicon-96x96.png resize 96",
