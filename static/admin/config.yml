@@ -1,7 +1,17 @@
 backend:
   name: git-gateway
-  repo: xsolve-pl/boldare-tech
+  # Was xsolve-pl/boldare-tech, the pre-rename org. git-gateway ignores this
+  # field (the Netlify Identity token decides the repo), but a stale value is
+  # misleading to anyone reading the config.
+  repo: boldare/boldare-tech
   branch: master
+  # Keep reading and writing the pre-Decap editorial-workflow labels. Decap 3
+  # defaults to 'decap-cms/', and its built-in migration skips existing PRs --
+  # it looks them up in the legacy refs/meta/_netlify_cms store, which no
+  # longer holds their keys. There are no open workflow entries today (see
+  # tests/BASELINE.md), so nothing is at risk right now, but anything an editor
+  # starts before this ships would otherwise vanish from the Workflow tab.
+  cms_label_prefix: 'netlify-cms/'
 
 media_folder: static/img
 public_folder: /img
@@ -36,3 +46,18 @@ collections:
       - {label: "Post Authors", name: "postAuthor", widget: "string"}
 
 
+
+  # content/pages/*.md become real pages via gatsby-node.js and are linked from
+  # the top menu, but had no collection -- they could only be changed by editing
+  # git directly. `create` is off: adding a page also means adding it to the
+  # menu, which is a code change.
+  - name: "pages"
+    label: "Pages"
+    label_singular: "Page"
+    delete: false
+    create: false
+    folder: "content/pages"
+    fields:
+      - {label: "Title", name: "title", widget: "string", pattern: ['.{5,}', "Must have at least 5 characters"]}
+      - {label: "Menu title", name: "menuTitle", widget: "string", required: false}
+      - {label: "Content", name: "body", widget: "markdown", required: false}

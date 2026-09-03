@@ -43,6 +43,9 @@ Any helpful contributions are welcome. 3 lines, 3 paragraphs? Doesn’t matter.`
     appId: process.env.FB_APP_ID || ""
   },
   google: {
-    analyticsId: process.env.GOOGLE_ANALYTICS_ID || ""
+    // Universal Analytics was shut down by Google, so the old GOOGLE_ANALYTICS_ID
+    // collected nothing. Tag Manager, matching the main Boldare site. The plugin
+    // is only registered when this is set, so builds work without it.
+    tagManagerId: process.env.GTM_ID || ""
   }
 };

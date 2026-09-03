@@ -18,20 +18,20 @@ let's find a better one.
 *Notice: pay attention to the name of your remote and change it if needed.*
 
 1. Fetch all changes from the repository, cleaning up stale remote references
-at the same time.
+   at the same time.
     ```
     git fetch -p
     ```
 
 1. Checkout the branch you consider "if it's merged to this branch, it can be removed".
-For us, it was `develop`. Update your local repository with most recent changes.
+   For us, it was `develop`. Update your local repository with most recent changes.
     ```
     git checkout develop
     git merge --ff-only origin/develop
     ```
 
 1. Create a list of branches to be removed, filtering out all `release` branches, `master`
-and `develop`. Dump it to a file.
+   and `develop`. Dump it to a file.
 
     ```
     git branch -r --merged \

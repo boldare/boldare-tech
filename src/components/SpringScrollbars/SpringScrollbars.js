@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Scrollbars } from "react-custom-scrollbars";
+import { Scrollbars } from "react-custom-scrollbars-2";
 import PropTypes from "prop-types";
 import { SpringSystem, MathUtil } from "rebound";
 import { forceCheck } from "react-lazyload";
@@ -108,7 +108,4 @@ const mapDispatchToProps = {
   setScrollToTop
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SpringScrollbars);
+export default connect(mapStateToProps, mapDispatchToProps)(SpringScrollbars);

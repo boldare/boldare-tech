@@ -71,7 +71,7 @@ PostHeader.propTypes = {
   tags: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string.isRequired,
-      totalCount: PropTypes.number.isRequired,
+      totalCount: PropTypes.number.isRequired
     }).isRequired
   ).isRequired,
   date: PropTypes.string.isRequired

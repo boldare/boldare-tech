@@ -22,21 +22,12 @@ class PageTemplate extends React.Component {
 
   render() {
     const { data } = this.props;
-    const {
-      site: {
-        siteMetadata: { facebook }
-      }
-    } = data;
 
     return (
       <Layout type="page">
         <Main>
           <Page page={data.page} />
           <Footer footnote={data.footnote} />
-          <Seo
-            data={{ title: data.page.frontmatter.title, slug: data.page.fields.slug }}
-            facebook={facebook}
-          />
         </Main>
       </Layout>
     );
@@ -62,10 +53,14 @@ const mapDispatchToProps = {
   setNavigatorShape
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(PageTemplate);
+export default connect(mapStateToProps, mapDispatchToProps)(PageTemplate);
+
+export const Head = ({ data }) => (
+  <Seo
+    data={{ title: data.page.frontmatter.title, slug: data.page.fields.slug }}
+    facebook={data.site.siteMetadata.facebook}
+  />
+);
 
 export const pageQuery = graphql`
   query PageByPath($slug: String!) {

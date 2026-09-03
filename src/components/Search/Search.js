@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import injectSheet from "react-jss";
-import { InstantSearch, SearchBox, Hits, Stats, Pagination } from "react-instantsearch/dom";
+import algoliasearch from "algoliasearch/lite";
+import { InstantSearch, SearchBox, Hits, Stats, Pagination } from "react-instantsearch";
 
 import Hit from "./Hit";
 
@@ -62,14 +63,15 @@ const styles = theme => ({
           color: theme.base.colors.accent
         }
       },
-      "&.ais-Pagination-item--firstPage, &.ais-Pagination-item--previousPage, &.ais-Pagination-item--nextPage": {
-        "& a, & span": {
-          padding: ".4em .5em .6em",
-          [`@media (min-width: ${theme.mediaQueryTresholds.L}px)`]: {
-            padding: ".4em .7em .6em"
+      "&.ais-Pagination-item--firstPage, &.ais-Pagination-item--previousPage, &.ais-Pagination-item--nextPage":
+        {
+          "& a, & span": {
+            padding: ".4em .5em .6em",
+            [`@media (min-width: ${theme.mediaQueryTresholds.L}px)`]: {
+              padding: ".4em .7em .6em"
+            }
           }
         }
-      }
     },
     "& a": {
       fontWeight: 400
@@ -79,22 +81,25 @@ const styles = theme => ({
 
 const Search = props => {
   const { classes, algolia } = props;
+  const { appId, searchOnlyApiKey, indexName } = algolia || {};
+
+  // v7 takes a search client rather than raw credentials. Memoised so the client
+  // is not rebuilt on every render, which would reset the search state.
+  const searchClient = React.useMemo(
+    () => (appId && searchOnlyApiKey ? algoliasearch(appId, searchOnlyApiKey) : null),
+    [appId, searchOnlyApiKey]
+  );
 
   return (
     <div className={classes.search}>
-      {algolia &&
-        algolia.appId && (
-          <InstantSearch
-            appId={algolia.appId}
-            apiKey={algolia.searchOnlyApiKey}
-            indexName={algolia.indexName}
-          >
-            <SearchBox translations={{ placeholder: "Search" }} />
-            <Stats />
-            <Hits hitComponent={Hit} />
-            <Pagination />
-          </InstantSearch>
-        )}
+      {searchClient && (
+        <InstantSearch searchClient={searchClient} indexName={indexName}>
+          <SearchBox placeholder="Search" />
+          <Stats />
+          <Hits hitComponent={Hit} />
+          <Pagination />
+        </InstantSearch>
+      )}
     </div>
   );
 };

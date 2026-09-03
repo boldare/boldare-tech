@@ -83,19 +83,19 @@ available. Two plugins seemed interesting for me:
 All right, let's plug them in! ;)
 
 1. Add an appropriate _extension_ to your `pom.xml` file to grab the dependency
-(kind of):
+   (kind of):
     ```
     <extension>net.codesup.util:jaxb2-rich-contract-plugin:1.18.0</extension>
     ```
-This goes into `build.plugins.configuration.extensions`.
+   This goes into `build.plugins.configuration.extensions`.
 
 1. Add two _extensionArg_ elements in order to enable chosen plugins (consult
-  the docs in order to find the required flags for other plugins):
+   the docs in order to find the required flags for other plugins):
     ```
     <extensionArg>-Xfluent-builder</extensionArg>
     <extensionArg>-Ximmutable</extensionArg>
     ```
-This, on the other hand, goes into `build.plugins.executions.configuration.xsdOptions.extensionArgs`.
+   This, on the other hand, goes into `build.plugins.executions.configuration.xsdOptions.extensionArgs`.
 
 So far so good! After a quick `mvn clean install` we can exploit a great, fluent
 builder API for object construction. A quick demo:
@@ -158,7 +158,7 @@ your classes. How?
     ```
 
 1. Setup the bindings file in pom.xml and make sure that JAXB extensions are enabled.
-In our scenarion, two lines have to be added to the `xsdOption` section:
+   In our scenarion, two lines have to be added to the `xsdOption` section:
 
     ```xml
     <bindingFile>${basedir}/src/main/resources/binding.xml</bindingFile>

@@ -2,9 +2,6 @@ import React from "react";
 import { graphql } from "gatsby";
 import PropTypes from "prop-types";
 
-require("core-js/fn/array/find");
-const path = require("path");
-
 import Main from "../components/Main";
 import Article from "../components/Main/Article";
 import PageHeader from "../components/Page/PageHeader";
@@ -22,10 +19,6 @@ const SearchPage = props => {
           <PageHeader title="Search by" algolia={true} />
           <Search algolia={data.site.siteMetadata.algolia} />
         </Article>
-        <Seo
-          data={{ title: "Search", slug: `/${path.basename(__filename, ".js")}` }}
-          facebook={data.site.siteMetadata.facebook}
-        />
       </Main>
     </Layout>
   );
@@ -36,6 +29,10 @@ SearchPage.propTypes = {
 };
 
 export default SearchPage;
+
+export const Head = ({ data }) => (
+  <Seo data={{ title: "Search", slug: "/search/" }} facebook={data.site.siteMetadata.facebook} />
+);
 
 export const query = graphql`
   query AlgoliaQuery {

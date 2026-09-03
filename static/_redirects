@@ -1,6 +1,12 @@
 /.net-in-my-browser /net-in-my-browser/
 /.net-in-my-browser/ /net-in-my-browser/
 
+# gatsby-plugin-sitemap 6 renamed its output: one sitemap.xml became
+# sitemap-index.xml plus sitemap-0.xml. Keep the long-published URL alive.
+# The target resolves through the root rewrite at the bottom of this file.
+/sitemap.xml /sitemap-index.xml 301!
+/tech-blog/sitemap.xml /sitemap-index.xml 301!
+
 /tech-blog/admin/* /admin/:splat 301!
 /tech-blog/admin/ /admin/ 301!
 /tech-blog/admin /admin/ 301!
@@ -9,9 +15,29 @@
 https://tech.boldare.com/tech-blog/* https://boldare.com/tech-blog/:splat 301
 https://tech.boldare.com/ https://boldare.com/tech-blog/ 301
 
-# Gatsby's pathPrefix ("/tech-blog") is baked into every page/asset URL, but the
-# build output itself is written unprefixed. Rewrite so this site is directly
-# browsable (e.g. Netlify deploy previews) without a fronting proxy.
-# Scoped to path only (no host), so it only ever applies on hosts not already
-# matched above (tech.boldare.com is redirected away by the rules before this).
+# The deployed layout is MIXED, so both directions are needed.
+#
+# Gatsby 5's adapter prefixes every *route* with pathPrefix
+# (gatsby/dist/utils/adapter/manager.js), so pages and webpack bundles live
+# under /tech-blog/. Files copied from static/ do not move: /img/*, /icons/*,
+# /avatar.jpg and Gatsby's hashed /static/* stay at the root.
+#
+# Netlify only applies a non-forced rule when no file matches the request, and
+# that shadowing is what keeps these two from fighting:
+#
+#   /tech-blog/foo/      page, nested       -> file wins, rule 1 never runs
+#   /tech-blog/img/x.png static, at root    -> no file, rule 1 -> /img/x.png
+#   /foo/                page, via proxy    -> no file, rule 2 -> /tech-blog/foo/
+#   /img/x.png           static, at root    -> file wins, rule 2 never runs
+#
+# Rule 1 resolves the prefixed URLs the HTML emits onto root-level static files.
+# It is the rule Gatsby 2 needed for everything; under Gatsby 5 only static
+# assets still need it.
 /tech-blog/* /:splat 200
+
+# Rule 2 answers at the root, because www.boldare.com proxies with the prefix
+# STRIPPED -- "/tech-blog/* https://tech.boldare.com/:splat 200" in nyc-spa's
+# static/_redirects. A reader on www.boldare.com/tech-blog/foo/ arrives here as
+# /foo/, which is not where Gatsby 5 puts the page. Must stay last: it matches
+# everything.
+/* /tech-blog/:splat 200

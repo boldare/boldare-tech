@@ -1,0 +1,20 @@
+{
+  "name": "boldare-tech-tests",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Self-contained verification harness for the Gatsby 5 upgrade. Deliberately kept out of the root package.json: it must be installable and runnable while the root tree is still Gatsby 2, which does not install on Node 24.",
+  "scripts": {
+    "test": "playwright test",
+    "test:smoke": "playwright test --project=smoke",
+    "test:e2e": "playwright test --project=e2e",
+    "test:visual": "playwright test --project=desktop --project=tablet --project=mobile",
+    "test:visual:update": "docker run --rm --network host -v \"$PWD\":/tests -w /tests --user \"$(id -u):$(id -g)\" -e HOME=/tmp -e BASE_URL=${BASE_URL:-https://www.boldare.com/tech-blog/} mcr.microsoft.com/playwright:v1.62.1-noble npx playwright test --project=desktop --project=tablet --project=mobile --update-snapshots",
+    "test:visual:docker": "docker run --rm --network host -v \"$PWD\":/tests -w /tests --user \"$(id -u):$(id -g)\" -e HOME=/tmp -e BASE_URL=${BASE_URL:-https://www.boldare.com/tech-blog/} mcr.microsoft.com/playwright:v1.62.1-noble npx playwright test --project=desktop --project=tablet --project=mobile"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.62.1"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

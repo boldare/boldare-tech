@@ -134,7 +134,7 @@ we query the db during this short between-commit phase:
 1. we retrieve a single row, `ID = 2`,
 2. we process this batch of one row,
 3. we store the `ID = 2` state for the next batch, telling it "you should
-add `where ID > 2` to your query".
+   add `where ID > 2` to your query".
 
 We've just ommited the `alfa` row!
 
@@ -143,7 +143,7 @@ We've just ommited the `alfa` row!
 Here's a list of proposals that might work (or might not):
 
 1. Exploit the `created_at` column to improve the situation? I don't think it'll help,
-but that's one of the modes that Kafka JDBC connector can operate in.
+   but that's one of the modes that Kafka JDBC connector can operate in.
 
 2. Wait X seconds until all transactions with `ID < N` are commited (e.g. [ innodb_lock_wait_timeout](https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html#sysvar_innodb_lock_wait_timeout) + 5 seconds).
 

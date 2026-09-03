@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import injectSheet from "react-jss";
 import { connect } from "react-redux";
-require("core-js/fn/array/find");
 
 import SocialIcons from "./SocialIcons";
 import InfoMenu from "./InfoMenu";
@@ -74,12 +73,7 @@ class InfoBox extends React.Component {
         className={`${classes.infoBox} ${navigatorPosition ? navigatorPosition : ""}
         ${navigatorShape ? navigatorShape : ""}`}
       >
-        {info && (
-          <InfoHeader
-            info={info}
-            expandOnClick={this.expandOnClick}
-          />
-        )}
+        {info && <InfoHeader info={info} expandOnClick={this.expandOnClick} />}
         <div className={classes.wrapper}>
           {info && <InfoText info={info} />}
           <SocialIcons />
@@ -114,7 +108,4 @@ const mapDispatchToProps = {
   setNavigatorShape
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(injectSheet(styles)(InfoBox));
+export default connect(mapStateToProps, mapDispatchToProps)(injectSheet(styles)(InfoBox));

@@ -5,15 +5,15 @@ import { connect } from "react-redux";
 import screenfull from "screenfull";
 
 import { Link } from "gatsby";
-import { IconButton } from "@material-ui/core";
-import HomeIcon from "@material-ui/icons/Home";
-import SearchIcon from "@material-ui/icons/Search";
-import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
-import FullscreenIcon from "@material-ui/icons/Fullscreen";
-import FullscreenExitIcon from "@material-ui/icons/FullscreenExit";
-import RssIcon from "@material-ui/icons/RssFeed";
-import Add from "@material-ui/icons/Add";
-import Create from "@material-ui/icons/Create";
+import { IconButton } from "@mui/material";
+import HomeIcon from "@mui/icons-material/Home";
+import SearchIcon from "@mui/icons-material/Search";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import FullscreenIcon from "@mui/icons-material/Fullscreen";
+import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
+import RssIcon from "@mui/icons-material/RssFeed";
+import Add from "@mui/icons-material/Add";
+import Create from "@mui/icons-material/Create";
 
 import FontSetter from "./FontSetter";
 import CategoryFilter from "./CategoryFilter";
@@ -88,11 +88,18 @@ const styles = theme => ({
 
 class ActionsBar extends React.Component {
   state = {
-    fullscreen: false
+    fullscreen: false,
+    // Set after mount so the first client render matches the server HTML
+    // exactly. Anything browser-only rendered during hydration (screenfull
+    // support, window.location) is a mismatch, and React 18 answers a mismatch
+    // by discarding the server tree and re-rendering the whole app.
+    mounted: false
   };
 
   componentDidMount() {
-    if (screenfull.enabled) {
+    this.setState({ mounted: true });
+
+    if (screenfull.isEnabled) {
       screenfull.on("change", () => {
         this.setState({
           fullscreen: screenfull.isFullscreen
@@ -105,7 +112,7 @@ class ActionsBar extends React.Component {
   searchOnClick = moveNavigatorAside.bind(this);
 
   fullscreenOnClick = () => {
-    if (screenfull.enabled) {
+    if (screenfull.isEnabled) {
       screenfull.toggle();
     }
   };
@@ -119,12 +126,6 @@ class ActionsBar extends React.Component {
 
     if (typeof localStorage !== "undefined") {
       localStorage.setItem("font-size-increase", val);
-    }
-  };
-
-  getPostEditLink = () => {
-    if (typeof window !== "undefined") {
-      return window.location.pathname + "edit";
     }
   };
 
@@ -174,7 +175,7 @@ class ActionsBar extends React.Component {
           <IconButton aria-label="Back to top" onClick={this.arrowUpOnClick} title="Scroll to top">
             <ArrowUpwardIcon />
           </IconButton>
-          {screenfull.enabled && (
+          {this.state.mounted && screenfull.isEnabled && (
             <IconButton
               aria-label="Fullscreen"
               onClick={this.fullscreenOnClick}
@@ -217,7 +218,4 @@ const mapDispatchToProps = {
   setCategoryFilter
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(injectSheet(styles)(ActionsBar));
+export default connect(mapStateToProps, mapDispatchToProps)(injectSheet(styles)(ActionsBar));

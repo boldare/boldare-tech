@@ -15,4 +15,8 @@
 /icons/*
   # Cache-Control: public, max-age=31536000, stale-while-revalidate=2592000
 
- 
+# The CMS panel must never be indexed. robots.txt already disallows it, but a
+# header also covers the case where a page is reached via a link rather than a
+# crawl of the disallowed path.
+/admin/*
+  X-Robots-Tag: noindex, nofollow

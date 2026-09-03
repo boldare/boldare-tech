@@ -169,7 +169,4 @@ const mapDispatchToProps = {
   setCategoryFilter
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(injectSheet(styles)(Navigator));
+export default connect(mapStateToProps, mapDispatchToProps)(injectSheet(styles)(Navigator));

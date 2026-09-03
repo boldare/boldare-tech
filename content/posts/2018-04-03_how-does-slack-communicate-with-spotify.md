@@ -44,7 +44,7 @@ More precisely:
 - the app exposes HTTP port 4381,
 - request path is `/play.json`,
 - request parameters contain data about the song/album to be launched and some
-additional security-related parameters (CSRF, oauth).
+  additional security-related parameters (CSRF, oauth).
 
 We found it!
 

@@ -15,7 +15,6 @@ import Footer from "../components/Footer/";
 import Seo from "../components/Seo";
 import Layout from "../components/layout";
 
-require("core-js/fn/array/find");
 require("prismjs/themes/prism-okaidia.css");
 
 class PostTemplate extends React.Component {
@@ -41,15 +40,7 @@ class PostTemplate extends React.Component {
 
   render() {
     const {
-      data: {
-        site: {
-          siteMetadata: { facebook }
-        },
-        post,
-        footnote,
-        author,
-        tags
-      },
+      data: { post, footnote, author, tags },
       pageContext
     } = this.props;
 
@@ -63,7 +54,6 @@ class PostTemplate extends React.Component {
         <Main>
           <Post post={post} tags={postTags} slug={pageContext.slug} author={author} />
           <Footer footnote={footnote} />
-          <Seo data={post} facebook={facebook} />
         </Main>
       </Layout>
     );
@@ -90,14 +80,15 @@ const mapDispatchToProps = {
   setNavigatorShape
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(PostTemplate);
+export default connect(mapStateToProps, mapDispatchToProps)(PostTemplate);
 
 // TODO - whenever possible, filter tag groups by slug here: https://github.com/gatsbyjs/gatsby/issues/5046
+export const Head = ({ data }) => (
+  <Seo data={data.post} facebook={data.site.siteMetadata.facebook} />
+);
+
 export const postQuery = graphql`
-  query($slug: String!) {
+  query ($slug: String!) {
     post: markdownRemark(fields: { slug: { eq: $slug } }) {
       fields {
         slug
@@ -112,7 +103,7 @@ export const postQuery = graphql`
       }
     }
     tags: allMarkdownRemark {
-      group(field: frontmatter___tags) {
+      group(field: { frontmatter: { tags: SELECT } }) {
         name: fieldValue
         totalCount
         edges {

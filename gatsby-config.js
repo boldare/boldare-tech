@@ -15,22 +15,24 @@ module.exports = {
     algolia: {
       appId: config.algolia.appId,
       searchOnlyApiKey: config.algolia.searchOnlyApiKey,
-      indexName: config.algolia.indexName
+      indexName: config.algolia.indexName,
     },
     facebook: {
-      appId: config.facebook.appId
-    }
+      appId: config.facebook.appId,
+    },
   },
   plugins: [
-    {
-      resolve: `gatsby-plugin-algolia`,
-      options: {
-        appId: config.algolia.appId,
-        apiKey: config.algolia.adminApiKey,
-        indexName: config.algolia.indexName,
-        queries: [
+    ...(config.algolia.appId && config.algolia.adminApiKey
+      ? [
           {
-            query: `{
+            resolve: `gatsby-plugin-algolia`,
+            options: {
+              appId: config.algolia.appId,
+              apiKey: config.algolia.adminApiKey,
+              indexName: config.algolia.indexName,
+              queries: [
+                {
+                  query: `{
               allMarkdownRemark(filter: { fileAbsolutePath: { regex: "//posts|pages//" } }) {
                 edges {
                   node {
@@ -40,6 +42,7 @@ module.exports = {
                     }
                     internal {
                       content
+                      contentDigest
                     }
                     frontmatter {   
                       title
@@ -51,24 +54,32 @@ module.exports = {
                 }
               }
             }`,
-            transformer: ({ data }) =>
-              _.flatten(
-                data.allMarkdownRemark.edges.map(({ node }) =>
-                  chunk(node.internal.content, 1000).map(contentChunk =>
-                    Object.assign({}, node, { internal: { content: contentChunk } })
-                  )
-                )
-              )
-          }
+                  transformer: ({ data }) =>
+                    _.flatten(
+                      data.allMarkdownRemark.edges.map(({ node }) =>
+                        chunk(node.internal.content, 1000).map((contentChunk) =>
+                          Object.assign({}, node, {
+                            // Spread node.internal rather than replacing it.
+                            // gatsby-plugin-algolia 1.x drives partial updates
+                            // off internal.contentDigest and calls
+                            // panicOnBuild without it; 0.2 never looked.
+                            internal: { ...node.internal, content: contentChunk }
+                          })
+                        )
+                      )
+                    ),
+                },
+              ],
+            },
+          },
         ]
-      }
-    },
+      : []),
     {
       resolve: `gatsby-source-filesystem`,
       options: {
         path: `${__dirname}/content`,
-        name: "content"
-      }
+        name: "content",
+      },
     },
     {
       resolve: `gatsby-transformer-remark`,
@@ -79,24 +90,23 @@ module.exports = {
             resolve: `gatsby-remark-images`,
             options: {
               maxWidth: 800,
-              backgroundColor: "transparent"
-            }
+              backgroundColor: "transparent",
+            },
           },
           {
             resolve: `gatsby-remark-responsive-iframe`,
             options: {
-              wrapperStyle: `margin-bottom: 2em`
-            }
+              wrapperStyle: `margin-bottom: 2em`,
+            },
           },
           `gatsby-remark-prismjs`,
           `gatsby-remark-copy-linked-files`,
-          `gatsby-remark-smartypants`
-        ]
-      }
+          `gatsby-remark-smartypants`,
+        ],
+      },
     },
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
-    `gatsby-plugin-react-helmet`,
     `gatsby-plugin-catch-links`,
     {
       resolve: `gatsby-plugin-manifest`,
@@ -111,53 +121,45 @@ module.exports = {
           {
             src: "/icons/icon-48x48.png",
             sizes: "48x48",
-            type: "image/png"
+            type: "image/png",
           },
           {
             src: "/icons/icon-96x96.png",
             sizes: "96x96",
-            type: "image/png"
+            type: "image/png",
           },
           {
             src: "/icons/icon-144x144.png",
             sizes: "144x144",
-            type: "image/png"
+            type: "image/png",
           },
           {
             src: "/icons/icon-192x192.png",
             sizes: "192x192",
-            type: "image/png"
+            type: "image/png",
           },
           {
             src: "/icons/icon-256x256.png",
             sizes: "256x256",
-            type: "image/png"
+            type: "image/png",
           },
           {
             src: "/icons/icon-384x384.png",
             sizes: "384x384",
-            type: "image/png"
+            type: "image/png",
           },
           {
             src: "/icons/icon-512x512.png",
             sizes: "512x512",
-            type: "image/png"
-          }
-        ]
-      }
+            type: "image/png",
+          },
+        ],
+      },
     },
-    {
-      resolve: `gatsby-plugin-offline`,
-      options: {
-        navigateFallbackBlacklist: [/\?(.+&)?no-cache=1/],
-      }
-    },
-    {
-      resolve: `gatsby-plugin-google-analytics`,
-      options: {
-        trackingId: config.google.analyticsId
-      }
-    },
+    // gatsby-plugin-offline 6 dropped the navigateFallback options entirely, so
+    // the old `navigateFallbackBlacklist: [/\?(.+&)?no-cache=1/]` has no
+    // equivalent and is gone. Default runtime caching only.
+    `gatsby-plugin-offline`,
     {
       resolve: `gatsby-plugin-feed`,
       options: {
@@ -179,12 +181,12 @@ module.exports = {
           query: {
             site: { siteMetadata },
             ...rest
-          }
+          },
         }) => {
           return {
             ...siteMetadata,
             ...rest,
-            custom_namespaces: { media: "http://video.search.yahoo.com/mrss" }
+            custom_namespaces: { media: "http://video.search.yahoo.com/mrss" },
           };
         },
         feeds: [
@@ -192,7 +194,7 @@ module.exports = {
             serialize: ({ query: { site, allMarkdownRemark } }) => {
               const siteUrl = site.siteMetadata.site_url + site.siteMetadata.pathPrefix;
 
-              return allMarkdownRemark.edges.map(edge => {
+              return allMarkdownRemark.edges.map((edge) => {
                 return {
                   title: edge.node.frontmatter.title,
                   description: edge.node.frontmatter.subTitle,
@@ -203,18 +205,18 @@ module.exports = {
                   guid: siteUrl + edge.node.fields.slug,
                   custom_elements: [
                     {
-                      "content:encoded": edge.node.html
+                      "content:encoded": edge.node.html,
                     },
                     {
                       "media:thumbnail": [
                         {
                           _attr: {
-                            url: siteUrl + edge.node.frontmatter.cover
-                          }
-                        }
-                      ]
-                    }
-                  ]
+                            url: siteUrl + edge.node.frontmatter.cover,
+                          },
+                        },
+                      ],
+                    },
+                  ],
                 };
               });
             },
@@ -223,7 +225,7 @@ module.exports = {
                 allMarkdownRemark(
                   limit: 30,
                   filter: { fileAbsolutePath: { regex: "//posts//" } }
-                  sort: { fields: [fields___date], order: DESC }
+                  sort: { fields: { date: DESC } }
                 ) {
                   edges {
                     node {
@@ -244,24 +246,41 @@ module.exports = {
                 }
               }
             `,
-            output: "/rss.xml"
-          }
-        ]
-      }
+            output: "/rss.xml",
+            title: config.siteTitle,
+          },
+        ],
+      },
     },
     {
       resolve: `gatsby-plugin-sitemap`,
       options: {
-        exclude: ["/contact"]
-      }
+        excludes: ["/contact"],
+      },
     },
     {
       resolve: "gatsby-plugin-react-svg",
       options: {
-        include: /svg-icons/
-      }
+        // v3 reads options.rule.{include,exclude}; a top-level `include` is
+        // silently ignored and svg-react-loader ends up applied to every .svg.
+        rule: {
+          include: /svg-icons/,
+        },
+      },
     },
-    `gatsby-plugin-netlify-cms`,
-    `gatsby-plugin-netlify`
-  ]
+    // Registered only when GTM_ID is set, so a build without it still succeeds.
+    ...(config.google.tagManagerId
+      ? [
+          {
+            resolve: `gatsby-plugin-google-tagmanager`,
+            options: {
+              id: config.google.tagManagerId,
+              includeInDevelopment: false,
+            },
+          },
+        ]
+      : []),
+    `gatsby-plugin-decap-cms`,
+    `gatsby-plugin-netlify`,
+  ],
 };

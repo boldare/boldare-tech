@@ -7,7 +7,6 @@ import {
   TwitterShareButton,
   EmailShareButton,
   FacebookShareCount,
-  LinkedinShareCount,
   FacebookIcon,
   TwitterIcon,
   LinkedinIcon,
@@ -30,7 +29,10 @@ const styles = theme => ({
   links: {
     display: "flex",
     flexDirection: "row",
-    "& .SocialMediaShareButton": {
+    // react-share 2 rendered `div.SocialMediaShareButton`; 5 renders
+    // `button.react-share__ShareButton`. The rename silently dropped this
+    // margin and the share icons ended up flush against each other.
+    "& .react-share__ShareButton": {
       margin: "0 .8em",
       cursor: "pointer"
     }
@@ -67,21 +69,14 @@ class PostShare extends React.Component {
           >
             <TwitterIcon round size={iconSize} />
           </TwitterShareButton>
-          <FacebookShareButton
-            url={url}
-            quote={mergedTitle}
-            aria-label="Facebook share"
-          >
+          <FacebookShareButton url={url} quote={mergedTitle} aria-label="Facebook share">
             <FacebookIcon round size={iconSize} />
             <FacebookShareCount url={url}>
               {count => <div className="share-count">{filter(count)}</div>}
             </FacebookShareCount>
           </FacebookShareButton>
-          <LinkedinShareButton url={url} title={title} description={subTitle}>
+          <LinkedinShareButton url={url} title={title} summary={subTitle}>
             <LinkedinIcon round size={iconSize} />
-            <LinkedinShareCount url={url}>
-              {count => <div className="share-count">{filter(count)}</div>}
-            </LinkedinShareCount>
           </LinkedinShareButton>
           <EmailShareButton subject={mergedTitle} url={url} body={url}>
             <EmailIcon round size={iconSize} />
