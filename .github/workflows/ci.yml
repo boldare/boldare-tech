@@ -1,10 +1,17 @@
 name: CI
 
-# Push is the trigger that matters: this repo is reviewed off a branch rather
-# than through pull requests. The pull_request trigger costs one line and means
-# the checks are already wired if that ever changes.
+# Pull requests only. An unfiltered `push:` alongside this ran the whole job
+# twice for every commit on a PR branch -- once for the push, once for the
+# synchronize -- which was the bulk of the CI spend.
+#
+# The trade-off: nothing runs on the merge commit itself, so the tests never
+# see exactly what lands on master. Netlify covers the worst of that, since it
+# builds master on merge and a broken build shows up as a failed deploy -- but
+# smoke and e2e do not run there. If that gap ever bites, the fix is two lines:
+#
+#   push:
+#     branches: [master]
 on:
-  push:
   pull_request:
 
 concurrency:
@@ -66,23 +73,6 @@ jobs:
         run: npm run test:e2e
         env:
           BASE_URL: http://localhost:9100/tech-blog/
-
-      # Runs in the Playwright container, not on the runner. Screenshot
-      # comparison is only meaningful if the baselines were rasterised in the
-      # same environment: `monospace` is whatever font the OS supplies, and it
-      # resolves three different ways across a dev machine (DejaVu Sans Mono),
-      # this runner, and this image (WenQuanYi Zen Hei Mono). Body text hid the
-      # problem because Open Sans is a webfont; the code blocks did not.
-      # tests/README.md documents regenerating baselines the same way.
-      - name: Visual regression
-        run: |
-          docker run --rm --network host \
-            -v "$PWD/tests":/tests -w /tests \
-            --user "$(id -u):$(id -g)" -e HOME=/tmp \
-            -e BASE_URL=http://localhost:9100/tech-blog/ \
-            -e CI=true \
-            mcr.microsoft.com/playwright:v1.62.1-noble \
-            npx playwright test --project=desktop --project=tablet --project=mobile
 
       - name: Upload failure artifacts
         if: failure()

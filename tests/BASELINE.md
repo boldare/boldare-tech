@@ -9,7 +9,7 @@ This is the reference the Gatsby 5 migration is checked against.
 |---|---|
 | Live URL | https://www.boldare.com/tech-blog/ |
 | `sitemap.xml` URLs | **148** — 27 posts, 1 page, 118 tag pages, plus `/`, `/search/`, `/tags/` |
-| Visual baselines | 18 PNGs — 6 pages × 3 viewports (375 / 768 / 1440) |
+| Visual baselines | 18 PNGs — 6 pages × 3 viewports (375 / 768 / 1440). Retired after the upgrade verified 18/18; see tests/README.md |
 | e2e journeys | 4, all passing against production |
 
 ## CMS editorial workflow
@@ -49,3 +49,15 @@ steadier, not flakier.
   was under the old phase-1 plan, since the target is now an explicit `NODE_VERSION = "24"`
   rather than "record whatever works today".
 - **GTM container ID** for the analytics swap — needed before C2 can finish.
+
+## Outcome
+
+Verified against the final deploy preview on 2026-09-03:
+
+- 18/18 screenshots matched pre-upgrade production, across 6 pages and 3 viewports.
+- 9/9 journeys and widget metrics passed against the deployed site.
+- 27 of 28 content pages render structurally identical to production. The
+  exception is the table of contents on `Dev-and-prod-ready-Docker-setup-for-SPA-app`,
+  which renders tight where production renders loose: the source has no blank
+  lines between items, so CommonMark says tight and remark 9 had been lenient.
+  Left as-is deliberately.

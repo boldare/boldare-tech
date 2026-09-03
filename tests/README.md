@@ -11,48 +11,31 @@ npm ci
 npx playwright install chromium
 ```
 
-## The three suites
+## The two suites
 
 | Suite | What it checks | Target |
 |---|---|---|
-| `npm run test:smoke` | Crawls built HTML: every page has title/description/canonical/h1, no broken internal links, no missing images, sitemap + rss present | `../public` on disk |
-| `npm run test:visual` | Screenshot diff at 375 / 768 / 1440px | `BASE_URL` |
-| `npm run test:e2e` | Reader journeys, Algolia search, `/admin/` boots | `BASE_URL` |
+| `npm run test:smoke` | Crawls built HTML: every page has title/description/canonical/h1, no broken internal links, no missing images, sitemap + rss present. Also checks the Algolia query and transformer, which no build without credentials ever exercises | `../public` on disk |
+| `npm run test:e2e` | Reader journeys, Algolia search, `/admin/` boots, and the widget metrics MUI 9 changed | `BASE_URL` |
+
+## There used to be a screenshot suite
+
+Six pages x three viewports, diffed against baselines captured from production
+before the Gatsby 5 upgrade. It answered one question — "does the upgraded site
+still look like the site as it was?" — confirmed 18/18 against the final deploy
+preview, and was removed once that question was settled. Keeping it would have
+meant comparing forever against a site that no longer exists.
+
+Its durable half lives on in `e2e/widget-metrics.spec.js`. Screenshot diffing
+turned out to be poor at exactly the things that broke here: small chrome is a
+rounding error on a full-page image, and `toHaveScreenshot`'s own per-pixel
+`threshold` (0.2 by default) makes a whole-page shade change invisible. Asserting
+computed values instead is deterministic, needs no container, and caught what the
+pixels missed.
 
 See `BASELINE.md` for what the pre-upgrade state actually was.
 
-## Visual baselines must be made in the container
 
-`monospace` is whatever font the operating system supplies, and it resolves three
-different ways across a dev machine (DejaVu Sans Mono), a GitHub runner, and the
-Playwright image (WenQuanYi Zen Hei Mono). Body text hides this, because Open Sans is a
-webfont and is downloaded identically everywhere — code blocks and inline `<code>` do
-not, and different glyph widths reflow the line around them. Baselines rasterised on a
-host therefore fail in CI for reasons that have nothing to do with the site.
-
-So capture and comparison both run in `mcr.microsoft.com/playwright`, which is what the
-CI job uses too. **Never run `--update-snapshots` outside it** — `npm run
-test:visual:update` on a host will produce baselines that only work on that host.
-
-```bash
-# regenerate baselines FROM PRODUCTION. The point of the suite is comparing against the
-# pre-upgrade site, so this target stays production even after the upgrade ships.
-docker run --rm --network host -v "$PWD":/tests -w /tests \
-  --user "$(id -u):$(id -g)" -e HOME=/tmp \
-  -e BASE_URL=https://www.boldare.com/tech-blog/ \
-  mcr.microsoft.com/playwright:v1.62.1-noble \
-  npx playwright test --project=desktop --project=tablet --project=mobile --update-snapshots
-
-# compare a local build against them
-cd .. && npm run build && npx gatsby serve --prefix-paths -p 9100 &
-cd tests && docker run --rm --network host -v "$PWD":/tests -w /tests \
-  --user "$(id -u):$(id -g)" -e HOME=/tmp \
-  -e BASE_URL=http://localhost:9100/tech-blog/ \
-  mcr.microsoft.com/playwright:v1.62.1-noble \
-  npx playwright test --project=desktop --project=tablet --project=mobile
-```
-
-`smoke` and `e2e` have no such constraint and run fine on the host.
 
 `smoke` needs no server — it reads `public/` straight off disk, so it works the moment
 `gatsby build` finishes.
