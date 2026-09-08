@@ -2,6 +2,7 @@ require("dotenv").config();
 const _ = require("lodash");
 const chunk = require("chunk-text");
 const config = require("./content/meta/config");
+const { resolveAssetUrl } = require("./src/utils/urls");
 
 module.exports = {
   pathPrefix: config.pathPrefix,
@@ -211,7 +212,7 @@ module.exports = {
                       "media:thumbnail": [
                         {
                           _attr: {
-                            url: siteUrl + edge.node.frontmatter.cover,
+                            url: resolveAssetUrl(siteUrl, edge.node.frontmatter.cover),
                           },
                         },
                       ],

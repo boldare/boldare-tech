@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import injectSheet from "react-jss";
 import LazyLoad from "react-lazyload";
 import { pathPrefix } from "../../../content/meta/config";
+import { resolveAssetUrl } from "../../utils/urls";
 
 const styles = theme => ({
   listItem: {
@@ -166,7 +167,7 @@ class ListItem extends React.Component {
   }
 
   resolveImagePath(path) {
-    return `${pathPrefix}${path}`;
+    return resolveAssetUrl(pathPrefix, path);
   }
 
   render() {

@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import config from "../../../content/meta/config";
+import { resolveAssetUrl } from "../../utils/urls";
 
 // Rendered from each page's `export const Head`, so this returns bare tags:
 // Gatsby's Head API hoists whatever it renders into <head>. Under react-helmet
@@ -18,7 +19,7 @@ const Seo = props => {
   const description = providedDescription
     ? providedDescription
     : `${providedTitle} - ${config.siteDescription}`;
-  const imageSrc = siteUrl + (providedCover ? providedCover : config.siteImage);
+  const imageSrc = resolveAssetUrl(siteUrl, providedCover ? providedCover : config.siteImage);
   const url = siteUrl + (providedSlug ? providedSlug : "/");
   const twitterAccount = config.authorTwitterAccount ? `@${config.authorTwitterAccount}` : "";
 

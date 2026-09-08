@@ -60,6 +60,20 @@ function toDiskPath(url) {
     : candidate;
 }
 
+// An absolute URL pasted into a post's `cover` (Decap's image widget allows
+// "insert from URL") used to be concatenated onto the site URL, producing
+// ".../tech-bloghttps://res.cloudinary.com/...". new URL() parses that happily,
+// so the give-away is the second URL left sitting inside the path.
+function embeddedUrlProblem(value) {
+  let pathname;
+  try {
+    pathname = new URL(value).pathname;
+  } catch {
+    return "is not an absolute URL";
+  }
+  return pathname.includes("//") ? "has another URL embedded in its path" : null;
+}
+
 const pages = htmlFiles(PUBLIC);
 
 // Locally the harness is often run before any build exists (that is the whole
@@ -99,6 +113,21 @@ test.describe("build output", () => {
     const index = fs.readFileSync(path.join(PUBLIC, "sitemap-index.xml"), "utf8");
     expect(index, "sitemap index does not reference a child sitemap").toContain("sitemap-0.xml");
 
+    // media:thumbnail is assembled in gatsby-config.js, a separate code path from
+    // the pages' og:image, and it goes out to every feed reader.
+    const feed = fs.readFileSync(path.join(PUBLIC, "rss.xml"), "utf8");
+    const badThumbnails = [...feed.matchAll(/url="([^"]+)"/g)]
+      .map(match => match[1])
+      .map(url => {
+        const problem = embeddedUrlProblem(url);
+        return problem ? `${url} ${problem}` : null;
+      })
+      .filter(Boolean);
+    expect(
+      badThumbnails.join("\n"),
+      `${badThumbnails.length} feed thumbnail URL(s) are not fetchable`
+    ).toBe("");
+
     const urls = (fs.readFileSync(path.join(PUBLIC, "sitemap-0.xml"), "utf8").match(/<loc>/g) || [])
       .length;
     // Production listed 148 before the upgrade (tests/BASELINE.md).
@@ -123,6 +152,9 @@ test.describe("every page", () => {
         ogUrl: document
           .querySelector('meta[property="og:url"]')
           ?.getAttribute("content"),
+        ogImage: document
+          .querySelector('meta[property="og:image"]')
+          ?.getAttribute("content"),
         h1: document.querySelector("h1")?.textContent?.trim(),
         bodyLength: document.body?.innerText?.trim().length ?? 0,
       }));
@@ -134,6 +166,12 @@ test.describe("every page", () => {
       if (!found.canonical) problems.push(`${rel}: no canonical`);
       if (found.ogUrl && new URL(found.ogUrl).pathname === "/") {
         problems.push(`${rel}: og:url is the bare domain (${found.ogUrl})`);
+      }
+      if (!found.ogImage) {
+        problems.push(`${rel}: no og:image`);
+      } else {
+        const problem = embeddedUrlProblem(found.ogImage);
+        if (problem) problems.push(`${rel}: og:image ${problem} (${found.ogImage})`);
       }
       if (!found.h1 && !NO_SSR_H1.some(re => re.test(rel))) {
         problems.push(`${rel}: no <h1>`);
